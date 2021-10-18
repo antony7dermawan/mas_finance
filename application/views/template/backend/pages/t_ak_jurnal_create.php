@@ -252,19 +252,119 @@
 
 
         <div class="row">
+
+          <div class="col-md-6">
+              <label>No Polisi</label>
+                <select name="no_polisi_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                <?php
+                foreach ($c_t_m_d_no_polisi as $key => $value) 
+                {
+                  echo "<option value='".$value->ID."'>".$value->NO_POLISI."</option>";
+
+                }
+                ?>
+              </select>
+          </div>
+
+
+          <div class="col-md-6">
+              <label>Nama Supir</label>
+                <select name="supir_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                <?php
+                foreach ($c_t_m_d_supir as $key => $value) 
+                {
+                  echo "<option value='".$value->ID."'>".$value->SUPIR."</option>";
+
+                }
+                ?>
+              </select>
+          </div>
+
+        </div>
+
+
+        <div class="row">
+
+          <div class="col-md-6">
+              <label>Kota Dari</label>
+                <select name="from_nama_kota_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                <?php
+                foreach ($c_t_m_d_from_nama_kota as $key => $value) 
+                {
+                  echo "<option value='".$value->ID."'>".$value->FROM_NAMA_KOTA."</option>";
+
+                }
+                ?>
+              </select>
+          </div>
+
+
+          <div class="col-md-6">
+              <label>Kota Tujuan</label>
+                <select name="to_nama_kota_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                <?php
+                foreach ($c_t_m_d_to_nama_kota as $key => $value) 
+                {
+                  echo "<option value='".$value->ID."'>".$value->TO_NAMA_KOTA."</option>";
+
+                }
+                ?>
+              </select>
+          </div>
+
+        </div>
+
+
+        <div class="row">
+
+          
+
+
           <div class="col-md-6">
 
             <fieldset class="form-group">
-              <label>Departemen</label>
+              <label>No SPB Pendapatan</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='no_spb_pendapatan'>
+            </fieldset>
+
+          </div>
+
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>No Invoice Pendapatan</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='no_invoice_pendapatan'>
+            </fieldset>
+
+          </div>
+        </div>
+
+
+
+        <div class="row">
+
+          <div class="col-md-6">
+              <label>Pelanggan</label>
+                <select name="pelanggan_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                <?php
+                foreach ($c_t_m_d_pelanggan as $key => $value) 
+                {
+                  echo "<option value='".$value->ID."'>".$value->PELANGGAN."</option>";
+
+                }
+                ?>
+              </select>
+          </div>
+
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>Departemen / Jenis</label>
               <input type='text' class='form-control' placeholder='Input Text' name='departemen'>
             </fieldset>
 
-          </div><!-- Membungkus Row Kedua !-->
-
-
-          
+          </div>
         </div>
-
 
 
         </div>
@@ -281,6 +381,11 @@
   </div>
 </form>
 <!-- MODAL TAMBAH PEMASUKAN SELESAI !-->
+
+
+
+
+
 
 
 <!-- MODAL EDIT AKUN !-->
@@ -348,16 +453,118 @@
 
 
         <div class="row">
+
+          <div class="col-md-6">
+              <label>No Polisi</label>
+                <select name="no_polisi_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                <?php
+                foreach ($c_t_m_d_no_polisi as $key => $value) 
+                {
+                  echo "<option value='".$value->ID."'>".$value->NO_POLISI."</option>";
+
+                }
+                ?>
+              </select>
+          </div>
+
+
+          <div class="col-md-6">
+              <label>Nama Supir</label>
+                <select name="supir_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                <?php
+                foreach ($c_t_m_d_supir as $key => $value) 
+                {
+                  echo "<option value='".$value->ID."'>".$value->SUPIR."</option>";
+
+                }
+                ?>
+              </select>
+          </div>
+
+        </div>
+
+
+        <div class="row">
+
+          <div class="col-md-6">
+              <label>Kota Dari</label>
+                <select name="from_nama_kota_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                <?php
+                foreach ($c_t_m_d_from_nama_kota as $key => $value) 
+                {
+                  echo "<option value='".$value->ID."'>".$value->FROM_NAMA_KOTA."</option>";
+
+                }
+                ?>
+              </select>
+          </div>
+
+
+          <div class="col-md-6">
+              <label>Kota Tujuan</label>
+                <select name="to_nama_kota_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                <?php
+                foreach ($c_t_m_d_to_nama_kota as $key => $value) 
+                {
+                  echo "<option value='".$value->ID."'>".$value->TO_NAMA_KOTA."</option>";
+
+                }
+                ?>
+              </select>
+          </div>
+
+        </div>
+
+
+        <div class="row">
+
+          
+
+
           <div class="col-md-6">
 
             <fieldset class="form-group">
-              <label>Departemen</label>
+              <label>No SPB Pendapatan</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='no_spb_pendapatan'>
+            </fieldset>
+
+          </div>
+
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>No Invoice Pendapatan</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='no_invoice_pendapatan'>
+            </fieldset>
+
+          </div>
+        </div>
+
+
+
+        <div class="row">
+
+          <div class="col-md-6">
+              <label>Pelanggan</label>
+                <select name="pelanggan_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                <?php
+                foreach ($c_t_m_d_pelanggan as $key => $value) 
+                {
+                  echo "<option value='".$value->ID."'>".$value->PELANGGAN."</option>";
+
+                }
+                ?>
+              </select>
+          </div>
+
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>Departemen / Jenis</label>
               <input type='text' class='form-control' placeholder='Input Text' name='departemen'>
             </fieldset>
 
-          </div><!-- Membungkus Row Kedua !-->
-
-
+          </div>
         </div>
 
 
@@ -388,7 +595,8 @@
         KREDIT : kredit,
         CATATAN : catatan,
         DEPARTEMEN : departemen,
-        DATE : date
+        DATE : date,
+
       } = User[0];
 
       elModalEdit.querySelector("[name=id]").value = ID;
@@ -410,6 +618,26 @@
     </form>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <script type="text/javascript">

@@ -1,31 +1,31 @@
 <div class="card">
   <div class="card-header">
-    <h5>Master Payment Method</h5>
+    <h5>Master Nama Kota</h5>
   </div>
   <div class="card-block">
     <!-- Menampilkan notif !-->
     <?= $this->session->flashdata('notif') ?>
     <!-- Tombol untuk menambah data akun !-->
-    
+    <button data-toggle="modal" data-target="#addModal" class="btn btn-success waves-effect waves-light">New Data</button>
 
     <div class="table-responsive dt-responsive">
       <table id="dom-jqry" class="table table-striped table-bordered nowrap">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Payment Method</th>
+            <th>No</th>
+            <th>Nama Kota</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
           <?php
-          foreach ($c_t_m_d_payment_method as $key => $value) 
+          foreach ($c_t_m_d_to_nama_kota as $key => $value) 
           {
             if($value->MARK_FOR_DELETE == 'f')
             {
               echo "<tr>";
-              echo "<td>".$value->ID."</td>";
-              echo "<td>".$value->PAYMENT_METHOD."</td>";
+              echo "<td>".($key + 1)."</td>";
+              echo "<td>".$value->TO_NAMA_KOTA."</td>";
             
               echo "<td>";
                
@@ -33,7 +33,7 @@
                 echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
               echo "</a>";
 
-              echo "<a href='".site_url('c_t_m_d_payment_method/delete/' . $value->ID)."' ";
+              echo "<a href='".site_url('c_t_m_d_to_nama_kota/delete/' . $value->ID)."' ";
               ?>
               onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')"
               <?php
@@ -48,14 +48,14 @@
             if($value->MARK_FOR_DELETE == 't')
             {
               echo "<tr>";
-              echo "<td><s>".$value->ID."</s></td>";
-              echo "<td><s>".$value->PAYMENT_METHOD."</s></td>";
+              echo "<td><s>".($key + 1)."</s></td>";
+              echo "<td><s>".$value->TO_NAMA_KOTA."</s></td>";
             
               echo "<td>";
                
               
 
-              echo "<a href='".site_url('c_t_m_d_payment_method/undo_delete/' . $value->ID)."' ";
+              echo "<a href='".site_url('c_t_m_d_to_nama_kota/undo_delete/' . $value->ID)."' ";
               ?>
               onclick="return confirm('Apakah kamu yakin ingin mengembalikan data ini?')"
               <?php
@@ -81,7 +81,7 @@
 
 
 <!-- MODAL TAMBAH Beban! !-->
-<form action="<?php echo base_url('c_t_m_d_payment_method/tambah') ?>" method="post">
+<form action="<?php echo base_url('c_t_m_d_to_nama_kota/tambah') ?>" method="post">
   <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -97,8 +97,8 @@
 
 
             <div class="form-group">
-              <label>Payment Method</label>
-              <input type='text' class='form-control' placeholder='Input Text' name='payment_method'>
+              <label>Nama Kota</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='to_nama_kota'>
             </div>
 
             
@@ -119,7 +119,7 @@
 <!-- MODAL EDIT AKUN !-->
 <div class="modal fade" id="Modal_Edit" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <form action="<?php echo base_url('c_t_m_d_payment_method/edit_action') ?>" method="post">
+    <form action="<?php echo base_url('c_t_m_d_to_nama_kota/edit_action') ?>" method="post">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Edit Data</h4>
@@ -135,8 +135,8 @@
 
 
             <div class="form-group">
-              <label>Payment Method</label>
-              <input type='text' class='form-control' placeholder='Input Text' name='payment_method'>
+              <label>Nama Kota</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='to_nama_kota'>
             </div>
 
 
@@ -163,7 +163,7 @@
 
 
 <script>
-  const users = <?= json_encode($c_t_m_d_payment_method) ?>;
+  const users = <?= json_encode($c_t_m_d_to_nama_kota) ?>;
   console.log(users);
   let elModalEdit = document.querySelector("#Modal_Edit");
   console.log(elModalEdit);
@@ -177,13 +177,13 @@
       });
       const {
         ID,
-        PAYMENT_METHOD : payment_method,
+        TO_NAMA_KOTA : to_nama_kota,
         CREATED_BY : created_by,
         UPDATED_BY : updated_by
       } = User[0];
 
       elModalEdit.querySelector("[name=id]").value = ID;
-      elModalEdit.querySelector("[name=payment_method]").value = payment_method;
+      elModalEdit.querySelector("[name=to_nama_kota]").value = to_nama_kota;
       elModalEdit.querySelector("[name=created_by]").text = created_by;
       elModalEdit.querySelector("[name=updated_by]").text = updated_by;
 

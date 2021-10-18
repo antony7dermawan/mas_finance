@@ -13,7 +13,6 @@ public function update($data, $id)
 
 
 
-
 public function update_all($data)
 {
   $this->db->where('CREATED_BY', $this->session->userdata('username'));

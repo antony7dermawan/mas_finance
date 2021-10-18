@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header">
-    <h5>Master Pemakai</h5>
+    <h5>Master Jenis Kendaraan</h5>
   </div>
   <div class="card-block">
     <!-- Menampilkan notif !-->
@@ -13,19 +13,19 @@
         <thead>
           <tr>
             <th>No</th>
-            <th>Pemakai</th>
+            <th>Jenis Kendaraan</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
           <?php
-          foreach ($c_t_m_d_pemakai as $key => $value) 
+          foreach ($c_t_m_d_jenis_kendaraan as $key => $value) 
           {
             if($value->MARK_FOR_DELETE == 'f')
             {
               echo "<tr>";
               echo "<td>".($key + 1)."</td>";
-              echo "<td>".$value->PEMAKAI."</td>";
+              echo "<td>".$value->JENIS_KENDARAAN."</td>";
             
               echo "<td>";
                
@@ -33,7 +33,7 @@
                 echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
               echo "</a>";
 
-              echo "<a href='".site_url('c_t_m_d_pemakai/delete/' . $value->ID)."' ";
+              echo "<a href='".site_url('c_t_m_d_jenis_kendaraan/delete/' . $value->ID)."' ";
               ?>
               onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')"
               <?php
@@ -49,13 +49,13 @@
             {
               echo "<tr>";
               echo "<td><s>".($key + 1)."</s></td>";
-              echo "<td><s>".$value->PEMAKAI."</s></td>";
+              echo "<td><s>".$value->JENIS_KENDARAAN."</s></td>";
             
               echo "<td>";
                
               
 
-              echo "<a href='".site_url('c_t_m_d_pemakai/undo_delete/' . $value->ID)."' ";
+              echo "<a href='".site_url('c_t_m_d_jenis_kendaraan/undo_delete/' . $value->ID)."' ";
               ?>
               onclick="return confirm('Apakah kamu yakin ingin mengembalikan data ini?')"
               <?php
@@ -81,7 +81,7 @@
 
 
 <!-- MODAL TAMBAH Beban! !-->
-<form action="<?php echo base_url('c_t_m_d_pemakai/tambah') ?>" method="post">
+<form action="<?php echo base_url('c_t_m_d_jenis_kendaraan/tambah') ?>" method="post">
   <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -97,8 +97,8 @@
 
 
             <div class="form-group">
-              <label>Pemakai</label>
-              <input type='text' class='form-control' placeholder='Input Text' name='pemakai'>
+              <label>Jenis Kendaraan</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='jenis_kendaraan'>
             </div>
 
             
@@ -119,7 +119,7 @@
 <!-- MODAL EDIT AKUN !-->
 <div class="modal fade" id="Modal_Edit" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <form action="<?php echo base_url('c_t_m_d_pemakai/edit_action') ?>" method="post">
+    <form action="<?php echo base_url('c_t_m_d_jenis_kendaraan/edit_action') ?>" method="post">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Edit Data</h4>
@@ -135,8 +135,8 @@
 
 
             <div class="form-group">
-              <label>Pemakai</label>
-              <input type='text' class='form-control' placeholder='Input Text' name='pemakai'>
+              <label>Jenis Kendaraan</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='jenis_kendaraan'>
             </div>
 
 
@@ -163,7 +163,7 @@
 
 
 <script>
-  const users = <?= json_encode($c_t_m_d_pemakai) ?>;
+  const users = <?= json_encode($c_t_m_d_jenis_kendaraan) ?>;
   console.log(users);
   let elModalEdit = document.querySelector("#Modal_Edit");
   console.log(elModalEdit);
@@ -177,13 +177,13 @@
       });
       const {
         ID,
-        PEMAKAI : pemakai,
+        JENIS_KENDARAAN : jenis_kendaraan,
         CREATED_BY : created_by,
         UPDATED_BY : updated_by
       } = User[0];
 
       elModalEdit.querySelector("[name=id]").value = ID;
-      elModalEdit.querySelector("[name=pemakai]").value = pemakai;
+      elModalEdit.querySelector("[name=jenis_kendaraan]").value = jenis_kendaraan;
       elModalEdit.querySelector("[name=created_by]").text = created_by;
       elModalEdit.querySelector("[name=updated_by]").text = updated_by;
 

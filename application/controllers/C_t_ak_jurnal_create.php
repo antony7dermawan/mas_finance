@@ -4,7 +4,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class C_t_ak_jurnal_create extends MY_Controller
 {
 
-
   public function __construct()
   {
     parent::__construct();
@@ -14,10 +13,21 @@ class C_t_ak_jurnal_create extends MY_Controller
     $this->load->model('m_ak_m_coa');
     $this->load->model('m_ak_m_family');
     $this->load->model('m_ak_m_type');
+    $this->load->model('m_t_m_d_no_polisi');
+    $this->load->model('m_t_m_d_supir');
+    $this->load->model('m_t_m_d_from_nama_kota');
+    $this->load->model('m_t_m_d_to_nama_kota');
+    $this->load->model('m_t_m_d_pelanggan');
   }
 
   public function index()
   {
+
+    $this->session->set_userdata('t_m_d_pelanggan_delete_logic', '0');
+    $this->session->set_userdata('t_m_d_no_polisi_delete_logic', '0');
+    $this->session->set_userdata('t_m_d_supir_delete_logic', '0');
+    $this->session->set_userdata('t_m_d_from_nama_kota_delete_logic', '0');
+
     $ada_data = '';
     $read_select = $this->m_t_ak_jurnal_create->select();
     foreach ($read_select as $key => $value) {
@@ -29,6 +39,13 @@ class C_t_ak_jurnal_create extends MY_Controller
 
 
     $data = [
+
+      "c_t_m_d_pelanggan" => $this->m_t_m_d_pelanggan->select(),
+
+      "c_t_m_d_from_nama_kota" => $this->m_t_m_d_from_nama_kota->select(),
+      "c_t_m_d_to_nama_kota" => $this->m_t_m_d_to_nama_kota->select(),
+      "c_t_m_d_no_polisi" => $this->m_t_m_d_no_polisi->select(),
+      "c_t_m_d_supir" => $this->m_t_m_d_supir->select(),
       "c_t_ak_jurnal_create" => $this->m_t_ak_jurnal_create->select(),
       "no_akun_option" => $this->m_ak_m_coa->select_no_akun(),
       "c_ak_m_family" => $this->m_ak_m_family->select(),
@@ -94,6 +111,14 @@ class C_t_ak_jurnal_create extends MY_Controller
     $no_voucer = $this->session->userdata('now_no_voucer');
     $date = $this->input->post("date");
 
+    $no_spb_pendapatan = substr(($this->input->post("no_spb_pendapatan")), 0, 50);
+    $no_invoice_pendapatan = substr(($this->input->post("no_invoice_pendapatan")), 0, 50);
+    $no_polisi_id = intval($this->input->post("no_polisi_id"));
+    $supir_id = intval($this->input->post("supir_id"));
+    $pelanggan_id = intval($this->input->post("pelanggan_id"));
+    $from_nama_kota_id = intval($this->input->post("from_nama_kota_id"));
+    $to_nama_kota_id = intval($this->input->post("to_nama_kota_id"));
+
 
 
     $read_select = $this->m_t_ak_jurnal_create->select();
@@ -110,13 +135,21 @@ class C_t_ak_jurnal_create extends MY_Controller
         'DATE' => $date,
         'TIME' => date('H:i:s'),
         'CREATED_BY' => $this->session->userdata('username'),
-        'UPDATED_BY' => $this->session->userdata('username'),
+        'UPDATED_BY' => '',
         'COA_ID' => $coa_id,
         'DEBIT' => $debit,
         'KREDIT' => $kredit,
         'CATATAN' => $catatan,
         'DEPARTEMEN' => $departemen,
-        'NO_VOUCER' => $no_voucer
+        'NO_VOUCER' => $no_voucer,
+
+        'NO_SPB_PENDAPATAN' => $no_spb_pendapatan,
+        'NO_INVOICE_PENDAPATAN' => $no_invoice_pendapatan,
+        'NO_POLISI_ID' => $no_polisi_id,
+        'SUPIR_ID' => $supir_id,
+        'FROM_NAMA_KOTA_ID' => $from_nama_kota_id,
+        'TO_NAMA_KOTA_ID' => $to_nama_kota_id,
+        'PELANGGAN_ID' => $pelanggan_id
 
       );
 

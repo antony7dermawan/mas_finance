@@ -11,8 +11,7 @@ class C_dashboard extends MY_Controller
     $this->load->model('m_setting_db_supplier_coa');
     $this->load->model('m_setting_db_bank_coa');
     $this->load->model('m_t_ak_faktur_penjualan');
-    $this->load->model('m_t_t_a_penjualan_pks');
-    $this->load->model('m_t_po');
+
   }
 
 
@@ -24,11 +23,10 @@ class C_dashboard extends MY_Controller
       $title = 'Selamat Ulang Tahun Ibu Nata! Sukses untuk PT JPAT';
     }
     $data = [
-      "c_t_po" => $this->m_t_po->select_for_dashboard(),
       "c_setting_db_bank_coa" => $this->m_setting_db_bank_coa->select('2021-01-01','2100-01-01'),
       "c_setting_db_supplier_coa" => $this->m_setting_db_supplier_coa->select('2021-01-01','2100-01-01'),
-      "select_no_faktur" => $this->m_t_ak_faktur_penjualan->select_no_faktur(),
-      "pengiriman_select" => $this->m_t_t_a_penjualan_pks->select_sum_in_date($this->session->userdata('date_from_dashboard'),$this->session->userdata('date_to_dashboard')),
+      
+      
       "title" => $title,
       "description" => "Web Version:21-06-01 19:30"
     ];

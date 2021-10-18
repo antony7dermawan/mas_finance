@@ -1,25 +1,25 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class C_t_m_d_sales extends MY_Controller
+class C_t_m_d_to_nama_kota extends MY_Controller
 {
 
   public function __construct()
   {
     parent::__construct();
 
-    $this->load->model('m_t_m_d_sales');
+    $this->load->model('m_t_m_d_to_nama_kota');
   }
 
   public function index()
   {
-    $this->session->set_userdata('t_m_d_sales_delete_logic', '1');
+    $this->session->set_userdata('t_m_d_to_nama_kota_delete_logic', '1');
     $data = [
-      "c_t_m_d_sales" => $this->m_t_m_d_sales->select(),
-      "title" => "Master Sales",
-      "description" => "Hati Hati dalam mengisi master data"
+      "c_t_m_d_to_nama_kota" => $this->m_t_m_d_to_nama_kota->select(),
+      "title" => "Master Nama Kota",
+      "description" => "Nama Kota untuk Unit Barang"
     ];
-    $this->render_backend('template/backend/pages/t_m_d_sales', $data);
+    $this->render_backend('template/backend/pages/t_m_d_to_nama_kota', $data);
   }
 
 
@@ -30,9 +30,9 @@ class C_t_m_d_sales extends MY_Controller
         'UPDATED_BY' => $this->session->userdata('username'),
         'MARK_FOR_DELETE' => TRUE
     );
-    $this->m_t_m_d_sales->update($data, $id);
+    $this->m_t_m_d_to_nama_kota->update($data, $id);
     $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
-    redirect('/c_t_m_d_sales');
+    redirect('/c_t_m_d_to_nama_kota');
   }
 
   public function undo_delete($id)
@@ -41,34 +41,30 @@ class C_t_m_d_sales extends MY_Controller
         'UPDATED_BY' => $this->session->userdata('username'),
         'MARK_FOR_DELETE' => FALSE
     );
-    $this->m_t_m_d_sales->update($data, $id);
+    $this->m_t_m_d_to_nama_kota->update($data, $id);
     
     $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Dikembalikan!</strong></p></div>');
-    redirect('/c_t_m_d_sales');
+    redirect('/c_t_m_d_to_nama_kota');
   }
 
 
   function tambah()
   {
     
-    $sales = substr($this->input->post("sales"), 0, 100);
-    $no_telp = substr($this->input->post("no_telp"), 0, 50);
-    $alamat = substr($this->input->post("alamat"), 0, 200);
+    $to_nama_kota = substr($this->input->post("to_nama_kota"), 0, 50);
 
     //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
-      'SALES' => $sales,
-      'NO_TELP' => $no_telp,
-      'ALAMAT' => $alamat,
+      'TO_NAMA_KOTA' => $to_nama_kota,
       'CREATED_BY' => $this->session->userdata('username'),
       'UPDATED_BY' => '',
       'MARK_FOR_DELETE' => FALSE
     );
 
-    $this->m_t_m_d_sales->tambah($data);
+    $this->m_t_m_d_to_nama_kota->tambah($data);
 
     $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
-    redirect('c_t_m_d_sales');
+    redirect('c_t_m_d_to_nama_kota');
   }
 
 
@@ -79,22 +75,16 @@ class C_t_m_d_sales extends MY_Controller
   public function edit_action()
   {
     $id = $this->input->post("id");
-    $sales = substr($this->input->post("sales"), 0, 100);
-    $no_telp = substr($this->input->post("no_telp"), 0, 50);
-    $alamat = substr($this->input->post("alamat"), 0, 200);
+    $to_nama_kota = substr($this->input->post("to_nama_kota"), 0, 50);
 
     //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
-      'SALES' => $sales,
-      'NO_TELP' => $no_telp,
-      'ALAMAT' => $alamat,
-      'CREATED_BY' => $this->session->userdata('username'),
-      'UPDATED_BY' => '',
-      'MARK_FOR_DELETE' => FALSE
+      'TO_NAMA_KOTA' => $to_nama_kota,
+      'UPDATED_BY' => $this->session->userdata('username')
     );
 
-    $this->m_t_m_d_sales->update($data, $id);
+    $this->m_t_m_d_to_nama_kota->update($data, $id);
     $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
-    redirect('/c_t_m_d_sales');
+    redirect('/c_t_m_d_to_nama_kota');
   }
 }
