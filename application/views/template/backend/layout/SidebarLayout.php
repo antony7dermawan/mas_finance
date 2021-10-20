@@ -96,6 +96,11 @@ if($level_user_id==1 or $level_user_id==6 )
                     <span class="pcoded-mtext">No Polisi</span>
                 </a>
             </li>
+            <li class="">
+                <a href="<?= base_url("c_t_m_d_gandengan"); ?>" class="submenu waves-effect waves-dark">
+                    <span class="pcoded-mtext">Gandengan</span>
+                </a>
+            </li>
 
             <li class="">
                 <a href="<?= base_url("c_t_m_d_pelanggan"); ?>" class="submenu waves-effect waves-dark">

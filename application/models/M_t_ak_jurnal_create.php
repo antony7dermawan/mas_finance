@@ -42,8 +42,34 @@ public function update_all($data)
     $this->db->select("T_AK_JURNAL_CREATE.CREATED_BY");
     $this->db->select("T_AK_JURNAL_CREATE.UPDATED_BY");
 
+
+    $this->db->select("T_AK_JURNAL_CREATE.NO_POLISI_ID");
+    $this->db->select("T_AK_JURNAL_CREATE.SUPIR_ID");
+    $this->db->select("T_AK_JURNAL_CREATE.PELANGGAN_ID");
+    $this->db->select("T_AK_JURNAL_CREATE.FROM_NAMA_KOTA_ID");
+    $this->db->select("T_AK_JURNAL_CREATE.TO_NAMA_KOTA_ID");
+    $this->db->select("T_AK_JURNAL_CREATE.GANDENGAN_ID");
+
+
+    $this->db->select('T_M_D_NO_POLISI.NO_POLISI');
+    $this->db->select('T_M_D_NO_POLISI.NO_UNIT');
+    $this->db->select('T_M_D_SUPIR.SUPIR');
+    $this->db->select("T_AK_JURNAL_CREATE.NO_SPB_PENDAPATAN");
+    $this->db->select("T_AK_JURNAL_CREATE.NO_INVOICE_PENDAPATAN");
+    $this->db->select("T_M_D_PELANGGAN.PELANGGAN");
+    $this->db->select("T_M_D_FROM_NAMA_KOTA.FROM_NAMA_KOTA");
+    $this->db->select("T_M_D_TO_NAMA_KOTA.TO_NAMA_KOTA");
+    $this->db->select("T_M_D_GANDENGAN.GANDENGAN");
+
     $this->db->from('T_AK_JURNAL_CREATE');
     $this->db->join('AK_M_COA', 'AK_M_COA.ID = T_AK_JURNAL_CREATE.COA_ID', 'left');
+    $this->db->join('T_M_D_NO_POLISI', 'T_M_D_NO_POLISI.ID = T_AK_JURNAL_CREATE.NO_POLISI_ID', 'left');
+    $this->db->join('T_M_D_SUPIR', 'T_M_D_SUPIR.ID = T_AK_JURNAL_CREATE.SUPIR_ID', 'left');
+    $this->db->join('T_M_D_PELANGGAN', 'T_M_D_PELANGGAN.ID = T_AK_JURNAL_CREATE.PELANGGAN_ID', 'left');
+    $this->db->join('T_M_D_FROM_NAMA_KOTA', 'T_M_D_FROM_NAMA_KOTA.ID = T_AK_JURNAL_CREATE.FROM_NAMA_KOTA_ID', 'left');
+    $this->db->join('T_M_D_TO_NAMA_KOTA', 'T_M_D_TO_NAMA_KOTA.ID = T_AK_JURNAL_CREATE.TO_NAMA_KOTA_ID', 'left');
+    $this->db->join('T_M_D_GANDENGAN', 'T_M_D_GANDENGAN.ID = T_AK_JURNAL_CREATE.GANDENGAN_ID', 'left');
+
 
     $this->db->where("T_AK_JURNAL_CREATE.CREATED_BY='{$this->session->userdata('username')}'");
     $this->db->order_by("T_AK_JURNAL_CREATE.ID", "asc");

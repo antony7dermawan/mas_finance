@@ -167,7 +167,15 @@ class C_t_ak_jurnal extends MY_Controller
         'CREATED_ID' => $created_id,
         'CHECKED_ID' => $value->CHECKED_ID,
         'SPECIAL_ID' => $value->SPECIAL_ID,
-        'COMPANY_ID' => $value->COMPANY_ID
+        'COMPANY_ID' => $value->COMPANY_ID,
+        'NO_SPB_PENDAPATAN' => $value->NO_SPB_PENDAPATAN,
+        'NO_INVOICE_PENDAPATAN' => $value->NO_INVOICE_PENDAPATAN,
+        'NO_POLISI_ID' => $value->NO_POLISI_ID,
+        'SUPIR_ID' => $value->SUPIR_ID,
+        'FROM_NAMA_KOTA_ID' => $value->FROM_NAMA_KOTA_ID,
+        'TO_NAMA_KOTA_ID' => $value->TO_NAMA_KOTA_ID,
+        'PELANGGAN_ID' => $value->PELANGGAN_ID,
+        'GANDENGAN_ID' => $value->GANDENGAN_ID
 
       );
       $this->m_t_ak_jurnal_edit->tambah($data);

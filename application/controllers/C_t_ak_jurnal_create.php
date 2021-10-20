@@ -18,15 +18,18 @@ class C_t_ak_jurnal_create extends MY_Controller
     $this->load->model('m_t_m_d_from_nama_kota');
     $this->load->model('m_t_m_d_to_nama_kota');
     $this->load->model('m_t_m_d_pelanggan');
+    $this->load->model('m_t_m_d_gandengan');
   }
 
   public function index()
   {
 
+    $this->session->set_userdata('t_m_d_gandengan_delete_logic', '0');
     $this->session->set_userdata('t_m_d_pelanggan_delete_logic', '0');
     $this->session->set_userdata('t_m_d_no_polisi_delete_logic', '0');
     $this->session->set_userdata('t_m_d_supir_delete_logic', '0');
     $this->session->set_userdata('t_m_d_from_nama_kota_delete_logic', '0');
+    $this->session->set_userdata('t_m_d_to_nama_kota_delete_logic', '0');
 
     $ada_data = '';
     $read_select = $this->m_t_ak_jurnal_create->select();
@@ -40,6 +43,7 @@ class C_t_ak_jurnal_create extends MY_Controller
 
     $data = [
 
+      "c_t_m_d_gandengan" => $this->m_t_m_d_gandengan->select(),
       "c_t_m_d_pelanggan" => $this->m_t_m_d_pelanggan->select(),
 
       "c_t_m_d_from_nama_kota" => $this->m_t_m_d_from_nama_kota->select(),
@@ -116,6 +120,7 @@ class C_t_ak_jurnal_create extends MY_Controller
     $no_polisi_id = intval($this->input->post("no_polisi_id"));
     $supir_id = intval($this->input->post("supir_id"));
     $pelanggan_id = intval($this->input->post("pelanggan_id"));
+    $gandengan_id = intval($this->input->post("gandengan_id"));
     $from_nama_kota_id = intval($this->input->post("from_nama_kota_id"));
     $to_nama_kota_id = intval($this->input->post("to_nama_kota_id"));
 
@@ -125,6 +130,7 @@ class C_t_ak_jurnal_create extends MY_Controller
     foreach ($read_select as $key => $value) {
       if ($key == 0) {
         $no_voucer = $value->NO_VOUCER;
+        $this->session->set_userdata('now_no_voucer_keep', $no_voucer);
       }
     }
 
@@ -149,7 +155,8 @@ class C_t_ak_jurnal_create extends MY_Controller
         'SUPIR_ID' => $supir_id,
         'FROM_NAMA_KOTA_ID' => $from_nama_kota_id,
         'TO_NAMA_KOTA_ID' => $to_nama_kota_id,
-        'PELANGGAN_ID' => $pelanggan_id
+        'PELANGGAN_ID' => $pelanggan_id,
+        'GANDENGAN_ID' => $gandengan_id
 
       );
 
@@ -187,7 +194,7 @@ class C_t_ak_jurnal_create extends MY_Controller
         'DATE' => $value->DATE,
         'TIME' => $value->TIME,
         'CREATED_BY' => $this->session->userdata('username'),
-        'UPDATED_BY' => $this->session->userdata('username'),
+        'UPDATED_BY' => '',
         'COA_ID' => $value->COA_ID,
         'DEBIT' => $value->DEBIT,
         'KREDIT' => $value->KREDIT,
@@ -197,7 +204,15 @@ class C_t_ak_jurnal_create extends MY_Controller
         'CREATED_ID' => $created_id,
         'CHECKED_ID' => 1,
         'SPECIAL_ID' => 0,
-        'COMPANY_ID' => $this->session->userdata('company_id')
+        'COMPANY_ID' => $this->session->userdata('company_id'),
+        'NO_SPB_PENDAPATAN' => $value->NO_SPB_PENDAPATAN,
+        'NO_INVOICE_PENDAPATAN' => $value->NO_INVOICE_PENDAPATAN,
+        'NO_POLISI_ID' => $value->NO_POLISI_ID,
+        'SUPIR_ID' => $value->SUPIR_ID,
+        'FROM_NAMA_KOTA_ID' => $value->FROM_NAMA_KOTA_ID,
+        'TO_NAMA_KOTA_ID' => $value->TO_NAMA_KOTA_ID,
+        'PELANGGAN_ID' => $value->PELANGGAN_ID,
+        'GANDENGAN_ID' => $value->GANDENGAN_ID
 
       );
 
@@ -296,8 +311,45 @@ class C_t_ak_jurnal_create extends MY_Controller
     $kredit = intval($this->input->post("kredit"));
     $catatan = ($this->input->post("catatan"));
     $departemen = ($this->input->post("departemen"));
+    $no_spb_pendapatan = substr(($this->input->post("no_spb_pendapatan")), 0, 50);
+    $no_invoice_pendapatan = substr(($this->input->post("no_invoice_pendapatan")), 0, 50);
 
+    $no_voucer = ($this->input->post("no_voucer"));
 
+    $no_polisi = ($this->input->post("no_polisi"));
+    $supir = ($this->input->post("supir"));
+    $pelanggan = ($this->input->post("pelanggan"));
+    $gandengan = ($this->input->post("gandengan"));
+    $from_nama_kota = ($this->input->post("from_nama_kota"));
+    $to_nama_kota = ($this->input->post("to_nama_kota"));
+
+    $read_select = $this->m_t_m_d_no_polisi->select_id($no_polisi);
+    foreach ($read_select as $key => $value) {
+      $no_polisi_id = $value->ID;
+    }
+
+    $read_select = $this->m_t_m_d_supir->select_id($supir);
+    foreach ($read_select as $key => $value) {
+      $supir_id = $value->ID;
+    }
+
+    $read_select = $this->m_t_m_d_pelanggan->select_id($pelanggan);
+    foreach ($read_select as $key => $value) {
+      $pelanggan_id = $value->ID;
+    }
+
+    $read_select = $this->m_t_m_d_gandengan->select_id($gandengan);
+    foreach ($read_select as $key => $value) {
+      $gandengan_id = $value->ID;
+    }
+    $read_select = $this->m_t_m_d_from_nama_kota->select_id($from_nama_kota);
+    foreach ($read_select as $key => $value) {
+      $from_nama_kota_id = $value->ID;
+    }
+    $read_select = $this->m_t_m_d_to_nama_kota->select_id($to_nama_kota);
+    foreach ($read_select as $key => $value) {
+      $to_nama_kota_id = $value->ID;
+    }
 
 
     //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
@@ -308,8 +360,16 @@ class C_t_ak_jurnal_create extends MY_Controller
       'KREDIT' => $kredit,
       'CATATAN' => $catatan,
       'DEPARTEMEN' => $departemen,
+      'DATE' => $date,
 
-      'DATE' => $date
+      'NO_SPB_PENDAPATAN' => $no_spb_pendapatan,
+      'NO_INVOICE_PENDAPATAN' => $no_invoice_pendapatan,
+      'NO_POLISI_ID' => $no_polisi_id,
+      'SUPIR_ID' => $supir_id,
+      'FROM_NAMA_KOTA_ID' => $from_nama_kota_id,
+      'TO_NAMA_KOTA_ID' => $to_nama_kota_id,
+      'PELANGGAN_ID' => $pelanggan_id,
+      'GANDENGAN_ID' => $gandengan_id
 
     );
 
@@ -317,8 +377,11 @@ class C_t_ak_jurnal_create extends MY_Controller
 
 
     $data = array(
-      'DATE' => $date
+      'DATE' => $date,
+      'NO_VOUCER' => $no_voucer
     );
+
+    $this->session->set_userdata('now_no_voucer_keep', $no_voucer);
 
     $this->m_t_ak_jurnal_create->update_all($data);
 

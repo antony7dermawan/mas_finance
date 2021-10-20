@@ -55,12 +55,23 @@
         <thead>
           <tr>
             <th>No</th>
-            <th>No Voucer</th>
+            
             <th>Date</th>
             <th>NO AKUN</th>
             <th>Nama Akun</th>
             <th>Debit</th>
             <th>Kredit</th>
+
+            <th>No Voucer</th>
+            <th>No SPB Pend</th>
+            <th>No Inv Pend</th>
+            <th>Pelanggan</th>
+            <th>Departemen</th>
+            <th>No Polisi</th>
+            <th>Gandengan</th>
+            <th>Supir</th>
+            <th>Kota Asal</th>
+            <th>Kota Tujuan</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -87,12 +98,22 @@
               echo "<tr>";
 
               echo "<td class='" . $color . "'>" . ($key + 1) . "</td>";
-              echo "<td class='" . $color . "'>" . $value->NO_VOUCER . "</td>";
               echo "<td class='" . $color . "'>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
               echo "<td class='" . $color . "'>" . $no_akun . "</td>";
               echo "<td class='" . $color . "'>" . $value->NAMA_AKUN . "</td>";
               echo "<td class='" . $color . "'>Rp" . number_format($value->DEBIT) . "</td>";
               echo "<td class='" . $color . "'>Rp" . number_format($value->KREDIT) . "</td>";
+
+              echo "<td class='" . $color . "'>" . $value->NO_VOUCER . "</td>";
+              echo "<td class='" . $color . "'>" . $value->NO_SPB_PENDAPATAN . "</td>";
+              echo "<td class='" . $color . "'>" . $value->NO_INVOICE_PENDAPATAN . "</td>";
+              echo "<td class='" . $color . "'>" . $value->PELANGGAN . "</td>";
+              echo "<td class='" . $color . "'>" . $value->DEPARTEMEN . "</td>";
+              echo "<td class='" . $color . "'>" . $value->NO_POLISI . "</td>";
+              echo "<td class='" . $color . "'>" . $value->GANDENGAN . "</td>";
+              echo "<td class='" . $color . "'>" . $value->SUPIR . "</td>";
+              echo "<td class='" . $color . "'>" . $value->FROM_NAMA_KOTA . "</td>";
+              echo "<td class='" . $color . "'>" . $value->TO_NAMA_KOTA . "</td>";
 
               echo "<td class='" . $color . "'>";
 
@@ -140,27 +161,27 @@
               echo "<tr>";
 
               echo "<td class='" . $color . "'>" . ($key + 1) . "</td>";
-              echo "<td class='" . $color . "'>" . $value->NO_VOUCER . "</td>";
               echo "<td class='" . $color . "'>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
               echo "<td class='" . $color . "'>" . $no_akun . "</td>";
               echo "<td class='" . $color . "'>" . $value->NAMA_AKUN . "</td>";
               echo "<td class='" . $color . "'>Rp" . number_format($value->DEBIT);
 
-              echo "<a "; #/1 ini print yang baru
-
-              echo "onclick= 'p_2_" . $key . "()'";
-
-              echo "> <i class='fa fa-print text-c-white'></i></a> ";
-
-              echo "<script>";
-              echo "function p_2_" . $key . "()";
-              echo "{";
-              echo "window.open('laporan_pdf/c_t_ak_jurnal_debit_print/index/" . $value->CREATED_ID . "');";
-              echo "}";
-              echo "</script>";
+          
 
               echo "</td>";
               echo "<td class='" . $color . "'>Rp" . number_format($value->KREDIT);
+
+
+              echo "<td class='" . $color . "'>" . $value->NO_VOUCER . "</td>";
+              echo "<td class='" . $color . "'>" . $value->NO_SPB_PENDAPATAN . "</td>";
+              echo "<td class='" . $color . "'>" . $value->NO_INVOICE_PENDAPATAN . "</td>";
+              echo "<td class='" . $color . "'>" . $value->PELANGGAN . "</td>";
+              echo "<td class='" . $color . "'>" . $value->DEPARTEMEN . "</td>";
+              echo "<td class='" . $color . "'>" . $value->NO_POLISI . "</td>";
+              echo "<td class='" . $color . "'>" . $value->GANDENGAN . "</td>";
+              echo "<td class='" . $color . "'>" . $value->SUPIR . "</td>";
+              echo "<td class='" . $color . "'>" . $value->FROM_NAMA_KOTA . "</td>";
+              echo "<td class='" . $color . "'>" . $value->TO_NAMA_KOTA . "</td>";
 
               
 
@@ -245,11 +266,21 @@
             echo "<th></th>";
             echo "<th></th>";
             echo "<th></th>";
-            echo "<th></th>";
             echo "<th class='text_red'>TOTAL</th>";
             echo "<th class='text_red'>Rp" . number_format($total_debit) . "</th>";
             echo "<th class='text_red'>Rp" . number_format($total_kredit) . "</th>";
             echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+
 
             echo "</tfoot>";
           }
@@ -259,11 +290,20 @@
             echo "<th></th>";
             echo "<th></th>";
             echo "<th></th>";
-            echo "<th></th>";
             echo "<th class='text_black'>TOTAL</th>";
             echo "<th class='text_black'>Rp" . number_format($total_debit) . "</th>";
             echo "<th class='text_black'>Rp" . number_format($total_kredit) . "</th>";
 
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
             echo "<th></th>";
 
             echo "</tr>";

@@ -30,6 +30,7 @@
         }
 
         ?>
+
         
       </table>
       
@@ -61,7 +62,15 @@
             <th>Kredit</th>
             <th>Catatan</th>
             <th>No Voucer</th>
+            <th>No SPB Pend</th>
+            <th>No Inv Pend</th>
+            <th>Pelanggan</th>
             <th>Departemen</th>
+            <th>No Polisi</th>
+            <th>Gandengan</th>
+            <th>Supir</th>
+            <th>Kota Asal</th>
+            <th>Kota Tujuan</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -99,7 +108,15 @@
               echo "<td>".$value->CATATAN."</td>";
 
               echo "<td>".$value->NO_VOUCER."</td>";
+              echo "<td>".$value->NO_SPB_PENDAPATAN."</td>";
+              echo "<td>".$value->NO_INVOICE_PENDAPATAN."</td>";
+              echo "<td>".$value->PELANGGAN."</td>";
               echo "<td>".$value->DEPARTEMEN."</td>";
+              echo "<td>".$value->NO_POLISI."</td>";
+              echo "<td>".$value->GANDENGAN."</td>";
+              echo "<td>".$value->SUPIR."</td>";
+              echo "<td>".$value->FROM_NAMA_KOTA."</td>";
+              echo "<td>".$value->TO_NAMA_KOTA."</td>";
            
               echo "<td>";
               echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='".$value->ID."'>";
@@ -130,6 +147,14 @@
             echo "<th></th>";
             echo "<th></th>";
             echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
 
             echo "</tr>";
             echo "</tfoot>";
@@ -153,6 +178,16 @@
             echo "</form>";
 
             echo "</th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+
+            echo "<th></th>";
             echo "<th></th>";
             echo "<th></th>";
             echo "<th></th>";
@@ -250,16 +285,29 @@
               <textarea rows='4' cols='20' name='catatan' id='' form='add_data' class='form-control'></textarea>
         </div>
 
-
-        <div class="row">
-
-          <div class="col-md-6">
+        <div class="form-group">
               <label>No Polisi</label>
                 <select name="no_polisi_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
                 <?php
                 foreach ($c_t_m_d_no_polisi as $key => $value) 
                 {
                   echo "<option value='".$value->ID."'>".$value->NO_POLISI."</option>";
+
+                }
+                ?>
+              </select>
+        </div>
+
+
+        <div class="row">
+
+          <div class="col-md-6">
+              <label>Gandengan</label>
+                <select name="gandengan_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                <?php
+                foreach ($c_t_m_d_gandengan as $key => $value) 
+                {
+                  echo "<option value='".$value->ID."'>".$value->GANDENGAN."</option>";
 
                 }
                 ?>
@@ -339,6 +387,7 @@
           </div>
         </div>
 
+        
 
 
         <div class="row">
@@ -424,6 +473,11 @@
           </div> <!-- Membungkus Row !-->
         </div>
 
+
+        <div class="form-group">
+              <label>No Voucer</label>
+              <input type='text' class='form-control' placeholder='Input Number' name='no_voucer'>
+        </div>
         
         <div class="row">
           <div class="col-md-6">
@@ -452,33 +506,55 @@
         </div>
 
 
+        <div class="form-group">
+            <label>No Polisi</label>
+              <div class="searchable">
+                  <input type="text" name='no_polisi' placeholder="search" onkeyup="filterFunction(this,event)">
+                  <ul>
+                    <?php
+                    foreach ($c_t_m_d_no_polisi as $key => $value) 
+                    {
+                      echo "<li>".$value->NO_POLISI."</li>";
+                    }
+                    ?>
+                  </ul>
+              </div>
+        </div>
+
+
+
         <div class="row">
 
           <div class="col-md-6">
-              <label>No Polisi</label>
-                <select name="no_polisi_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
-                <?php
-                foreach ($c_t_m_d_no_polisi as $key => $value) 
-                {
-                  echo "<option value='".$value->ID."'>".$value->NO_POLISI."</option>";
-
-                }
-                ?>
-              </select>
+              <label>Gandengan</label>
+              <div class="searchable">
+                  <input type="text" name='gandengan' placeholder="search" onkeyup="filterFunction(this,event)">
+                  <ul>
+                    <?php
+                    foreach ($c_t_m_d_gandengan as $key => $value) 
+                    {
+                      echo "<li>".$value->GANDENGAN."</li>";
+                    }
+                    ?>
+                  </ul>
+              </div>
           </div>
 
 
           <div class="col-md-6">
               <label>Nama Supir</label>
-                <select name="supir_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
-                <?php
-                foreach ($c_t_m_d_supir as $key => $value) 
-                {
-                  echo "<option value='".$value->ID."'>".$value->SUPIR."</option>";
+              <div class="searchable">
+                  <input type="text" name='supir' placeholder="search" onkeyup="filterFunction(this,event)">
+                  <ul>
+                    <?php
+                    foreach ($c_t_m_d_supir as $key => $value) 
+                    {
+                      echo "<li>".$value->SUPIR."</li>";
+                    }
+                    ?>
+                  </ul>
+              </div>
 
-                }
-                ?>
-              </select>
           </div>
 
         </div>
@@ -488,29 +564,37 @@
 
           <div class="col-md-6">
               <label>Kota Dari</label>
-                <select name="from_nama_kota_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
-                <?php
-                foreach ($c_t_m_d_from_nama_kota as $key => $value) 
-                {
-                  echo "<option value='".$value->ID."'>".$value->FROM_NAMA_KOTA."</option>";
 
-                }
-                ?>
-              </select>
+              <div class="searchable">
+                  <input type="text" name='from_nama_kota' placeholder="search" onkeyup="filterFunction(this,event)">
+                  <ul>
+                    <?php
+                    foreach ($c_t_m_d_from_nama_kota as $key => $value) 
+                    {
+                      echo "<li>".$value->FROM_NAMA_KOTA."</li>";
+                    }
+                    ?>
+                  </ul>
+              </div>
+
+
           </div>
 
 
           <div class="col-md-6">
               <label>Kota Tujuan</label>
-                <select name="to_nama_kota_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
-                <?php
-                foreach ($c_t_m_d_to_nama_kota as $key => $value) 
-                {
-                  echo "<option value='".$value->ID."'>".$value->TO_NAMA_KOTA."</option>";
-
-                }
-                ?>
-              </select>
+                
+              <div class="searchable">
+                  <input type="text" name='to_nama_kota' placeholder="search" onkeyup="filterFunction(this,event)">
+                  <ul>
+                    <?php
+                    foreach ($c_t_m_d_to_nama_kota as $key => $value) 
+                    {
+                      echo "<li>".$value->TO_NAMA_KOTA."</li>";
+                    }
+                    ?>
+                  </ul>
+              </div>
           </div>
 
         </div>
@@ -546,15 +630,20 @@
 
           <div class="col-md-6">
               <label>Pelanggan</label>
-                <select name="pelanggan_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
-                <?php
-                foreach ($c_t_m_d_pelanggan as $key => $value) 
-                {
-                  echo "<option value='".$value->ID."'>".$value->PELANGGAN."</option>";
+           
+              <div class="searchable">
+                  <input type="text" name='pelanggan' placeholder="search" onkeyup="filterFunction(this,event)">
+                  <ul>
+                    <?php
+                    foreach ($c_t_m_d_pelanggan as $key => $value) 
+                    {
+                      echo "<li>".$value->PELANGGAN."</li>";
+                    }
+                    ?>
+                  </ul>
+              </div>
 
-                }
-                ?>
-              </select>
+
           </div>
 
           <div class="col-md-6">
@@ -597,6 +686,17 @@
         DEPARTEMEN : departemen,
         DATE : date,
 
+        NO_POLISI : no_polisi,
+    
+        SUPIR : supir,
+        NO_SPB_PENDAPATAN : no_spb_pendapatan,
+        NO_INVOICE_PENDAPATAN : no_invoice_pendapatan,
+        PELANGGAN : pelanggan,
+        FROM_NAMA_KOTA : from_nama_kota,
+        TO_NAMA_KOTA : to_nama_kota,
+        GANDENGAN : gandengan,
+        NO_VOUCER : no_voucer
+
       } = User[0];
 
       elModalEdit.querySelector("[name=id]").value = ID;
@@ -607,6 +707,17 @@
       elModalEdit.querySelector("[name=catatan]").value = catatan;
       elModalEdit.querySelector("[name=departemen]").value = departemen;
       elModalEdit.querySelector("[name=date]").value = date;
+
+
+      elModalEdit.querySelector("[name=no_polisi]").value = no_polisi;
+      elModalEdit.querySelector("[name=supir]").value = supir;
+      elModalEdit.querySelector("[name=no_spb_pendapatan]").value = no_spb_pendapatan;
+      elModalEdit.querySelector("[name=no_invoice_pendapatan]").value = no_invoice_pendapatan;
+      elModalEdit.querySelector("[name=pelanggan]").value = pelanggan;
+      elModalEdit.querySelector("[name=from_nama_kota]").value = from_nama_kota;
+      elModalEdit.querySelector("[name=to_nama_kota]").value = to_nama_kota;
+      elModalEdit.querySelector("[name=gandengan]").value = gandengan;
+      elModalEdit.querySelector("[name=no_voucer]").value = no_voucer;
   
 
 
@@ -618,6 +729,7 @@
     </form>
   </div>
 </div>
+
 
 
 
@@ -652,23 +764,16 @@
 
 
 
-
 <style type="text/css">
     div.searchable {
-    width: 90%;
-    margin: 0 15px;
-}
-
-.no_voucer_area
-{
-  float: left;
-
+    width: 100%;
+    
 }
 
 .searchable input {
     width: 100%;
-    height: 25px;
-    font-size: 12px;
+    height: 30px;
+    font-size: 14px;
     padding: 10px;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box; /* Firefox, other Gecko */
@@ -790,18 +895,3 @@ $(".searchable ul li").hover(function () {
     $(this).addClass("selected");
 });
 </script>
-
-
-
-
-<style type="text/css">
-.text_red
-{
-  color: red;
-}
-
-.text_black
-{
-  color: black;
-}
-</style>
