@@ -57,7 +57,7 @@ class C_uang_jalan_print extends MY_Controller
 
 
         $pdf->SetFont('','B',10);
-        $pdf->Cell( 80,4,'PT. JO PERDANA AGRI TECHNOLOGY','0',1,'C');
+        $pdf->Cell( 80,4,'PT. MITRA ANGKUTAN SEJATI','0',1,'C');
 
         $pdf->Cell( 80,4,'UANG JALAN SUPIR','0',1,'C');
 

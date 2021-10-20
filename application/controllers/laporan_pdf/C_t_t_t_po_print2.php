@@ -126,7 +126,7 @@ class C_t_t_t_po_print2 extends MY_Controller
 
         $pdf->SetFont('','',9);
         $pdf->Cell(130, 4, "", 0, 0, 'C');
-        $pdf->Cell(30, 4, 'PT Jo Perdana Agri Technology', 0, 1, 'L');
+        $pdf->Cell(30, 4, 'PT MITRA ANGKUTAN SEJATI', 0, 1, 'L');
         
         $pdf->SetFont('','',8);
         $pdf->Cell(130, 4, "", 0, 0, 'C');

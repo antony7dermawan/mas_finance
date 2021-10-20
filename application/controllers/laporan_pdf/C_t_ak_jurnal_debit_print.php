@@ -79,7 +79,7 @@ class C_t_ak_jurnal_debit_print extends MY_Controller
 
 
     $pdf->Cell(30, 6, "Perusahaan", 0, 0, 'L');
-    $pdf->Cell(95, 6, ":PT. JO PERDANA AGRI TECHNOLOGY", 0, 0, 'L');
+    $pdf->Cell(95, 6, ":PT. MITRA ANGKUTAN SEJATI", 0, 0, 'L');
 
     $pdf->Cell(20, 9, "Tgl", 'LB', 0, 'L');
     $pdf->Cell(40, 9, ':'.$tanggal, 'RB', 1, 'L');
@@ -130,7 +130,7 @@ class C_t_ak_jurnal_debit_print extends MY_Controller
 
 
         $pdf->Cell(30, 6, "Perusahaan", 0, 0, 'L');
-        $pdf->Cell(95, 6, ":PT. JO PERDANA AGRI TECHNOLOGY", 0, 0, 'L');
+        $pdf->Cell(95, 6, ":PT. MITRA ANGKUTAN SEJATI", 0, 0, 'L');
 
         $pdf->Cell(20, 9, "Tgl", 'LB', 0, 'L');
         $pdf->Cell(40, 9, ':'.$tanggal, 'RB', 1, 'L');
@@ -169,7 +169,7 @@ class C_t_ak_jurnal_debit_print extends MY_Controller
 
 
         $pdf->Cell(30, 6, "Perusahaan", 0, 0, 'L');
-        $pdf->Cell(95, 6, ":PT. JO PERDANA AGRI TECHNOLOGY", 0, 0, 'L');
+        $pdf->Cell(95, 6, ":PT. MITRA ANGKUTAN SEJATI", 0, 0, 'L');
 
         $pdf->Cell(20, 9, "Tgl", 'LB', 0, 'L');
         $pdf->Cell(40, 9, ':'.$tanggal, 'RB', 1, 'L');

@@ -237,7 +237,7 @@ class C_t_t_t_po_print3 extends MY_Controller
 
         $pdf->Cell( 80,5,'','0',1,'L');
         $pdf->Cell( 40,5,'Konfirmasi Supplier','B',0,'L');
-        $pdf->Cell( 150,5,'PT.Jo Perdana Agri Technology','0',1,'R');
+        $pdf->Cell( 150,5,'PT.MITRA ANGKUTAN SEJATI','0',1,'R');
         $pdf->Cell( 80,5,$r_supplier,'0',1,'L');
 
 

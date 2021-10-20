@@ -32,7 +32,7 @@ class c_t_ak_jurnal_print extends MY_Controller
 
 
     $pdf->SetFont('','B',12);
-    $pdf->Cell(90, 9, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 0, 'L');
+    $pdf->Cell(90, 9, "PT. MITRA ANGKUTAN SEJATI", 0, 0, 'L');
 
     $pdf->SetFont('','B',18);
     $pdf->Cell(90, 9, "Bukti Jurnal", 0, 1, 'R');
@@ -111,7 +111,7 @@ class c_t_ak_jurnal_print extends MY_Controller
         $total_kertas = $total_kertas +1;
 
         $pdf->SetFont('','B',12);
-        $pdf->Cell(90, 11, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 0, 'L');
+        $pdf->Cell(90, 11, "PT. MITRA ANGKUTAN SEJATI", 0, 0, 'L');
         $pdf->SetFont('','B',18);
         $pdf->Cell(90, 11, "Bukti Jurnal", 0, 1, 'R');
         $pdf->SetFont('','',12);
@@ -146,7 +146,7 @@ class c_t_ak_jurnal_print extends MY_Controller
 
 
         $pdf->SetFont('','B',12);
-        $pdf->Cell(90, 11, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 0, 'L');
+        $pdf->Cell(90, 11, "PT. MITRA ANGKUTAN SEJATI", 0, 0, 'L');
         $pdf->SetFont('','B',18);
         $pdf->Cell(90, 11, "Bukti Jurnal", 0, 1, 'R');
         $pdf->SetFont('','',12);

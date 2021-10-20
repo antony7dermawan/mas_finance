@@ -72,7 +72,7 @@ class c_faktur_penjualan_print extends MY_Controller
 
         $pdf->SetFont('','B',10);
         $pdf->Cell(30, 5, "", 0, 0, 'L');
-        $pdf->Cell(100, 5, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 1, 'L');
+        $pdf->Cell(100, 5, "PT. MITRA ANGKUTAN SEJATI", 0, 1, 'L');
 
         $pdf->SetFont('','',12);
 

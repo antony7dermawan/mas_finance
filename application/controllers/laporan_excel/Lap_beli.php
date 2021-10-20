@@ -64,7 +64,7 @@
                   $spreadsheet->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
                   $spreadsheet->getActiveSheet()->mergeCells('A'.$row.':J'.$row);
                   $sheet = $spreadsheet->getActiveSheet();
-                  $sheet->setCellValue('A'.$row, 'PT. JO PERDANA AGRI TECHNOLOGY');
+                  $sheet->setCellValue('A'.$row, 'PT.  AGRI TECHNOLOGY');
                   $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('center');
 
 

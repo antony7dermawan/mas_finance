@@ -32,7 +32,7 @@ class C_t_ak_jurnal_history_print extends MY_Controller
 
 
     $pdf->SetFont('','B',12);
-    $pdf->Cell(185, 8, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 1, 'C');
+    $pdf->Cell(185, 8, "PT. MITRA ANGKUTAN SEJATI", 0, 1, 'C');
 
     $pdf->SetFont('','',12);
     $pdf->Cell(185, 6, "History Akun Buku Besar", 0, 1, 'C');
@@ -92,7 +92,7 @@ class C_t_ak_jurnal_history_print extends MY_Controller
         $pdf->SetPrintFooter(false);
         $pdf->AddPage('P', 'mm', 'A4');
         $pdf->SetFont('','B',12);
-        $pdf->Cell(90, 11, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 0, 'L');
+        $pdf->Cell(90, 11, "PT. MITRA ANGKUTAN SEJATI", 0, 0, 'L');
         $pdf->SetFont('','B',18);
         $pdf->Cell(90, 11, "Bukti Jurnal", 0, 1, 'R');
         $pdf->SetFont('','',12);
