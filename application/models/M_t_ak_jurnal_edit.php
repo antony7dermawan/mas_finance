@@ -73,6 +73,16 @@ public function select_created_id()
     $this->db->select("T_AK_JURNAL_EDIT.GANDENGAN_ID");
 
 
+    $this->db->select("T_AK_JURNAL_EDIT.NO_DO_PENDAPATAN");
+    $this->db->select("T_AK_JURNAL_EDIT.DATE_DO");
+    $this->db->select("T_AK_JURNAL_EDIT.QTY_JURNAL");
+    $this->db->select("T_AK_JURNAL_EDIT.HARGA_JURNAL");
+    $this->db->select("T_AK_JURNAL_EDIT.DATE_MUAT");
+    $this->db->select("T_AK_JURNAL_EDIT.LOKASI_ID");
+    $this->db->select("T_AK_JURNAL_EDIT.PAYMENT_METHOD_ID");
+    $this->db->select("T_AK_JURNAL_EDIT.DATE_BONGKAR");
+
+
     $this->db->select('T_M_D_NO_POLISI.NO_POLISI');
     $this->db->select('T_M_D_NO_POLISI.NO_UNIT');
     $this->db->select('T_M_D_SUPIR.SUPIR');
@@ -82,6 +92,10 @@ public function select_created_id()
     $this->db->select("T_M_D_FROM_NAMA_KOTA.FROM_NAMA_KOTA");
     $this->db->select("T_M_D_TO_NAMA_KOTA.TO_NAMA_KOTA");
     $this->db->select("T_M_D_GANDENGAN.GANDENGAN");
+
+    
+    $this->db->select("T_M_D_LOKASI.LOKASI");
+    $this->db->select("T_M_D_PAYMENT_METHOD.PAYMENT_METHOD");
 
     
 
@@ -94,6 +108,10 @@ public function select_created_id()
     $this->db->join('T_M_D_FROM_NAMA_KOTA', 'T_M_D_FROM_NAMA_KOTA.ID = T_AK_JURNAL_EDIT.FROM_NAMA_KOTA_ID', 'left');
     $this->db->join('T_M_D_TO_NAMA_KOTA', 'T_M_D_TO_NAMA_KOTA.ID = T_AK_JURNAL_EDIT.TO_NAMA_KOTA_ID', 'left');
     $this->db->join('T_M_D_GANDENGAN', 'T_M_D_GANDENGAN.ID = T_AK_JURNAL_EDIT.GANDENGAN_ID', 'left');
+
+
+    $this->db->join('T_M_D_LOKASI', 'T_M_D_LOKASI.ID = T_AK_JURNAL_EDIT.LOKASI_ID', 'left');
+    $this->db->join('T_M_D_PAYMENT_METHOD', 'T_M_D_PAYMENT_METHOD.ID = T_AK_JURNAL_EDIT.PAYMENT_METHOD_ID', 'left');
 
 
     $this->db->where("T_AK_JURNAL_EDIT.CREATED_BY='{$this->session->userdata('username')}'");

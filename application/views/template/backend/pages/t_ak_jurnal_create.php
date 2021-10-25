@@ -55,22 +55,39 @@
         <thead>
           <tr>
             <th>No</th>
+            <th>No Voucer</th>
             <th>Date</th>
             <th>NO AKUN</th>
             <th>Nama Akun</th>
             <th>Debit</th>
             <th>Kredit</th>
             <th>Catatan</th>
-            <th>No Voucer</th>
-            <th>No SPB Pend</th>
-            <th>No Inv Pend</th>
-            <th>Pelanggan</th>
-            <th>Departemen</th>
+
+
             <th>No Polisi</th>
-            <th>Gandengan</th>
             <th>Supir</th>
+            <th>Tgl Muat</th>
+            <th>Tgl Bongkar</th>
             <th>Kota Asal</th>
             <th>Kota Tujuan</th>
+
+            <th>Dept/Jenis</th>
+            <th>Pelanggan/Project</th>
+
+            <th>Gandengan/Ekor</th>
+
+            <th>No DO Pend</th>
+            <th>Tgl DO</th>
+
+            <th>No Inv Pend</th>
+            <th>No SPB Pend</th>
+     
+            <th>QTY Jurnal</th>
+            <th>Harga Jurnal</th>
+            <th>Jumlah</th>
+
+
+
             <th>Action</th>
           </tr>
         </thead>
@@ -94,29 +111,46 @@
                 {
                   $no_akun=$value->NO_AKUN_1;
                 }
-            $total_debit = intval($value->DEBIT) + $total_debit;
-            $total_kredit = intval($value->KREDIT) + $total_kredit;
+            $total_debit = floatval($value->DEBIT) + $total_debit;
+            $total_kredit = floatval($value->KREDIT) + $total_kredit;
             
             echo "<tr>";
 
               echo "<td>".($key + 1)."</td>";
+              echo "<td>".$value->NO_VOUCER."</td>";
               echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
               echo "<td>".$no_akun."</td>";
               echo "<td>".$value->NAMA_AKUN."</td>";
-              echo "<td>Rp".number_format($value->DEBIT)."</td>";
-              echo "<td>Rp".number_format($value->KREDIT)."</td>";
+              echo "<td>Rp".number_format(($value->DEBIT),2,'.',',')."</td>";
+              echo "<td>Rp".number_format(($value->KREDIT),2,'.',',')."</td>";
               echo "<td>".$value->CATATAN."</td>";
 
-              echo "<td>".$value->NO_VOUCER."</td>";
-              echo "<td>".$value->NO_SPB_PENDAPATAN."</td>";
-              echo "<td>".$value->NO_INVOICE_PENDAPATAN."</td>";
-              echo "<td>".$value->PELANGGAN."</td>";
-              echo "<td>".$value->DEPARTEMEN."</td>";
               echo "<td>".$value->NO_POLISI."</td>";
-              echo "<td>".$value->GANDENGAN."</td>";
               echo "<td>".$value->SUPIR."</td>";
+
+              echo "<td>".date('d-m-Y', strtotime($value->DATE_MUAT))."</td>";
+              echo "<td>".date('d-m-Y', strtotime($value->DATE_BONGKAR))."</td>";
+
               echo "<td>".$value->FROM_NAMA_KOTA."</td>";
               echo "<td>".$value->TO_NAMA_KOTA."</td>";
+
+
+              echo "<td>".$value->DEPARTEMEN."</td>";
+              echo "<td>".$value->PELANGGAN."</td>";
+              echo "<td>".$value->GANDENGAN."</td>";
+
+              echo "<td>".$value->NO_DO_PENDAPATAN."</td>";
+              echo "<td>".date('d-m-Y', strtotime($value->DATE_DO))."</td>";
+
+
+              echo "<td>".$value->NO_INVOICE_PENDAPATAN."</td>";
+              echo "<td>".$value->NO_SPB_PENDAPATAN."</td>";
+
+
+              echo "<td>Rp".number_format(($value->QTY_JURNAL),2,'.',',')."</td>";
+              echo "<td>Rp".number_format(($value->HARGA_JURNAL),2,'.',',')."</td>";
+              echo "<td>Rp".number_format(($value->HARGA_JURNAL*$value->QTY_JURNAL),2,'.',',')."</td>";
+              
            
               echo "<td>";
               echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='".$value->ID."'>";
@@ -140,9 +174,10 @@
             echo "<th></th>";
             echo "<th></th>";
             echo "<th></th>";
+            echo "<th></th>";
             echo "<th class='text_red'>TOTAL</th>";
-            echo "<th class='text_red'>Rp".number_format($total_debit)."</th>";
-            echo "<th class='text_red'>Rp".number_format($total_kredit)."</th>";
+            echo "<th class='text_red'>Rp".number_format(($total_debit),2,'.',',')."</th>";
+            echo "<th class='text_red'>Rp".number_format(($total_kredit),2,'.',',')."</th>";
             echo "<th></th>";
             echo "<th></th>";
             echo "<th></th>";
@@ -151,6 +186,12 @@
             echo "<th></th>";
             echo "<th></th>";
             echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+
             echo "<th></th>";
             echo "<th></th>";
             echo "<th></th>";
@@ -166,9 +207,10 @@
             echo "<th></th>";
             echo "<th></th>";
             echo "<th></th>";
+            echo "<th></th>";
             echo "<th class='text_black'>TOTAL</th>";
-            echo "<th class='text_black'>Rp".number_format($total_debit)."</th>";
-            echo "<th class='text_black'>Rp".number_format($total_kredit)."</th>";
+            echo "<th class='text_black'>Rp".number_format(($total_debit),2,'.',',')."</th>";
+            echo "<th class='text_black'>Rp".number_format(($total_kredit),2,'.',',')."</th>";
             echo "<th>";
 
             echo "<form action=".base_url('c_t_ak_jurnal_create/move')." method='post'>";
@@ -182,6 +224,12 @@
             echo "<th></th>";
             echo "<th></th>";
 
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+            echo "<th></th>";
+
+            echo "<th></th>";
             echo "<th></th>";
             echo "<th></th>";
             echo "<th></th>";
@@ -363,29 +411,63 @@
         </div>
 
 
+        <div class="form-group">
+              <label>No Invoice Pendapatan</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='no_invoice_pendapatan'>
+        </div>
+
+
+
         <div class="row">
-
-          
-
+          <div class="col-md-6">
+            <fieldset class="form-group">
+              <label>No DO Pendapatan</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='no_do_pendapatan'>
+            </fieldset>
+          </div>
 
           <div class="col-md-6">
-
             <fieldset class="form-group">
               <label>No SPB Pendapatan</label>
               <input type='text' class='form-control' placeholder='Input Text' name='no_spb_pendapatan'>
             </fieldset>
+          </div>
+        </div>
 
+
+
+
+
+
+
+        <div class="form-group">
+              <label>Tanggal DO</label>
+              <form action='/action_page.php'>
+              <input type='date' class='form-control' name='date_do' value='<?= $this->session->userdata('date_jurnal_create') ?>'>
+        </div>
+
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <fieldset class="form-group">
+              <label>Tanggal Muat</label>
+              <form action='/action_page.php'>
+              <input type='date' class='form-control' name='date_muat' value='<?= $this->session->userdata('date_jurnal_create') ?>'>
+            </fieldset>
           </div>
 
           <div class="col-md-6">
-
             <fieldset class="form-group">
-              <label>No Invoice Pendapatan</label>
-              <input type='text' class='form-control' placeholder='Input Text' name='no_invoice_pendapatan'>
+              <label>Tanggal Bongkar</label>
+              <form action='/action_page.php'>
+              <input type='date' class='form-control' name='date_bongkar' value='<?= $this->session->userdata('date_jurnal_create') ?>'>
             </fieldset>
-
           </div>
         </div>
+
+
+
 
         
 
@@ -393,7 +475,8 @@
         <div class="row">
 
           <div class="col-md-6">
-              <label>Pelanggan</label>
+            <fieldset class="form-group">
+                <label>Pelanggan</label>
                 <select name="pelanggan_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
                 <?php
                 foreach ($c_t_m_d_pelanggan as $key => $value) 
@@ -403,6 +486,7 @@
                 }
                 ?>
               </select>
+            </fieldset>
           </div>
 
           <div class="col-md-6">
@@ -416,12 +500,80 @@
         </div>
 
 
+
+
+        <div class="row">
+
+          <div class="col-md-6">
+            <fieldset class="form-group">
+              <label>Lokasi</label>
+                <select name="lokasi_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                <?php
+                foreach ($c_t_m_d_lokasi as $key => $value) 
+                {
+                  echo "<option value='".$value->ID."'>".$value->LOKASI."</option>";
+
+                }
+                ?>
+              </select>
+            </fieldset>
+          </div>
+
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>Metode Bayar</label>
+                <select name="payment_method_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                <?php
+                foreach ($c_t_m_d_payment_method as $key => $value) 
+                {
+                  echo "<option value='".$value->ID."'>".$value->PAYMENT_METHOD."</option>";
+
+                }
+                ?>
+              </select>
+            </fieldset>
+
+          </div>
+        </div>
+
+
+
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>QTY Jurnal</label>
+              <input type='text' class='form-control' placeholder='Input Number' name='qty_jurnal'>
+            </fieldset>
+
+          </div><!-- Membungkus Row Kedua !-->
+
+
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>Harga Jurnal</label>
+              <input type='text' class='form-control' placeholder='Input Number' name='harga_jurnal'>  
+            </fieldset>
+          </div> <!-- Membungkus Row !-->
+        </div>
+
+
+
+
+
+
         </div>
 
           <div class="modal-footer">
             <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
             <button type="Submit" class="btn btn-primary waves-effect waves-light ">Save changes</button>
           </div>
+
+
+
 
 
 
@@ -600,29 +752,69 @@
         </div>
 
 
+
+
+
+
+
+        <div class="form-group">
+              <label>No Invoice Pendapatan</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='no_invoice_pendapatan'>
+        </div>
+
+
+
         <div class="row">
-
-          
-
+          <div class="col-md-6">
+            <fieldset class="form-group">
+              <label>No DO Pendapatan</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='no_do_pendapatan'>
+            </fieldset>
+          </div>
 
           <div class="col-md-6">
-
             <fieldset class="form-group">
               <label>No SPB Pendapatan</label>
               <input type='text' class='form-control' placeholder='Input Text' name='no_spb_pendapatan'>
             </fieldset>
+          </div>
+        </div>
 
+
+
+
+
+
+
+        <div class="form-group">
+              <label>Tanggal DO</label>
+              <form action='/action_page.php'>
+              <input type='date' class='form-control' name='date_do' value='<?= $this->session->userdata('date_jurnal_create') ?>'>
+        </div>
+
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <fieldset class="form-group">
+              <label>Tanggal Muat</label>
+              <form action='/action_page.php'>
+              <input type='date' class='form-control' name='date_muat' value='<?= $this->session->userdata('date_jurnal_create') ?>'>
+            </fieldset>
           </div>
 
           <div class="col-md-6">
-
             <fieldset class="form-group">
-              <label>No Invoice Pendapatan</label>
-              <input type='text' class='form-control' placeholder='Input Text' name='no_invoice_pendapatan'>
+              <label>Tanggal Bongkar</label>
+              <form action='/action_page.php'>
+              <input type='date' class='form-control' name='date_bongkar' value='<?= $this->session->userdata('date_jurnal_create') ?>'>
             </fieldset>
-
           </div>
         </div>
+
+
+
+
 
 
 
@@ -655,6 +847,75 @@
 
           </div>
         </div>
+
+
+
+        <div class="row">
+
+          <div class="col-md-6">
+            <fieldset class="form-group">
+              <label>Lokasi</label>
+              <div class="searchable">
+                  <input type="text" name='lokasi' placeholder="search" onkeyup="filterFunction(this,event)">
+                  <ul>
+                    <?php
+                    foreach ($c_t_m_d_lokasi as $key => $value) 
+                    {
+                      echo "<li>".$value->LOKASI."</li>";
+                    }
+                    ?>
+                  </ul>
+              </div>
+
+            </fieldset>
+          </div>
+
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>Metode Bayar</label>
+
+              <div class="searchable">
+                  <input type="text" name='payment_method' placeholder="search" onkeyup="filterFunction(this,event)">
+                  <ul>
+                    <?php
+                    foreach ($c_t_m_d_payment_method as $key => $value) 
+                    {
+                      echo "<li>".$value->PAYMENT_METHOD."</li>";
+                    }
+                    ?>
+                  </ul>
+              </div>
+
+            </fieldset>
+
+          </div>
+        </div>
+
+
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>QTY Jurnal</label>
+              <input type='text' class='form-control' placeholder='Input Number' name='qty_jurnal'>
+            </fieldset>
+
+          </div><!-- Membungkus Row Kedua !-->
+
+
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>Harga Jurnal</label>
+              <input type='text' class='form-control' placeholder='Input Number' name='harga_jurnal'>  
+            </fieldset>
+          </div> <!-- Membungkus Row !-->
+        </div>
+
+
+
 
 
           <div class="modal-footer">
@@ -695,7 +956,18 @@
         FROM_NAMA_KOTA : from_nama_kota,
         TO_NAMA_KOTA : to_nama_kota,
         GANDENGAN : gandengan,
-        NO_VOUCER : no_voucer
+        NO_VOUCER : no_voucer,
+
+
+        NO_DO_PENDAPATAN : no_do_pendapatan,
+        DATE_DO : date_do,
+        QTY_JURNAL : qty_jurnal,
+        HARGA_JURNAL : harga_jurnal,
+        DATE_MUAT : date_muat,
+        LOKASI : lokasi,
+        PAYMENT_METHOD : payment_method,
+        DATE_BONGKAR : date_bongkar
+
 
       } = User[0];
 
@@ -718,6 +990,17 @@
       elModalEdit.querySelector("[name=to_nama_kota]").value = to_nama_kota;
       elModalEdit.querySelector("[name=gandengan]").value = gandengan;
       elModalEdit.querySelector("[name=no_voucer]").value = no_voucer;
+
+
+
+      elModalEdit.querySelector("[name=no_do_pendapatan]").value = no_do_pendapatan;
+      elModalEdit.querySelector("[name=date_do]").value = date_do;
+      elModalEdit.querySelector("[name=qty_jurnal]").value = qty_jurnal;
+      elModalEdit.querySelector("[name=harga_jurnal]").value = harga_jurnal;
+      elModalEdit.querySelector("[name=date_muat]").value = date_muat;
+      elModalEdit.querySelector("[name=lokasi]").value = lokasi;
+      elModalEdit.querySelector("[name=payment_method]").value = payment_method;
+      elModalEdit.querySelector("[name=date_bongkar]").value = date_bongkar;
   
 
 

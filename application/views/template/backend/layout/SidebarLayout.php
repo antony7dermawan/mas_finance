@@ -119,6 +119,18 @@ if($level_user_id==1 or $level_user_id==6 )
                     <span class="pcoded-mtext">Nama Kota Tujuan</span>
                 </a>
             </li>
+
+            <li class="">
+                <a href="<?= base_url("c_t_m_d_payment_method"); ?>" class="submenu waves-effect waves-dark">
+                    <span class="pcoded-mtext">Payment Method</span>
+                </a>
+            </li>
+            
+            <li class="">
+                <a href="<?= base_url("c_t_m_d_lokasi"); ?>" class="submenu waves-effect waves-dark">
+                    <span class="pcoded-mtext">Lokasi</span>
+                </a>
+            </li>
             
 
         </ul>

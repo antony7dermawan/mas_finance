@@ -99,41 +99,6 @@ class C_t_ak_jurnal extends MY_Controller
 
 
 
-
-  function tambah()
-  {
-    $coa_id = ($this->input->post("coa_id"));
-
-
-    $debit = intval($this->input->post("debit"));
-    $kredit = intval($this->input->post("kredit"));
-    $catatan = ($this->input->post("catatan"));
-    $departemen = ($this->input->post("departemen"));
-    $no_voucer = ($this->input->post("no_voucer"));
-
-
-
-    //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
-    $data = array(
-      'DATE' => date('Y-m-d'),
-      'TIME' => date('H:i:s'),
-      'CREATED_BY' => $this->session->userdata('username'),
-      'UPDATED_BY' => $this->session->userdata('username'),
-      'COA_ID' => $coa_id,
-      'DEBIT' => $debit,
-      'KREDIT' => $kredit,
-      'CATATAN' => $catatan,
-      'DEPARTEMEN' => $departemen,
-      'NO_VOUCER' => $no_voucer
-
-    );
-
-    $this->m_t_ak_jurnal->tambah($data);
-
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
-    redirect('c_t_ak_jurnal');
-  }
-
   public function checked_ok($id)
   {
     $data = array(
@@ -175,7 +140,15 @@ class C_t_ak_jurnal extends MY_Controller
         'FROM_NAMA_KOTA_ID' => $value->FROM_NAMA_KOTA_ID,
         'TO_NAMA_KOTA_ID' => $value->TO_NAMA_KOTA_ID,
         'PELANGGAN_ID' => $value->PELANGGAN_ID,
-        'GANDENGAN_ID' => $value->GANDENGAN_ID
+        'GANDENGAN_ID' => $value->GANDENGAN_ID,
+        'NO_DO_PENDAPATAN' => $value->NO_DO_PENDAPATAN,
+        'DATE_DO' => $value->DATE_DO,
+        'QTY_JURNAL' => $value->QTY_JURNAL,
+        'HARGA_JURNAL' => $value->HARGA_JURNAL,
+        'DATE_MUAT' => $value->DATE_MUAT,
+        'LOKASI_ID' => $value->LOKASI_ID,
+        'PAYMENT_METHOD_ID' => $value->PAYMENT_METHOD_ID,
+        'DATE_BONGKAR' => $value->DATE_BONGKAR
 
       );
       $this->m_t_ak_jurnal_edit->tambah($data);
@@ -186,34 +159,4 @@ class C_t_ak_jurnal extends MY_Controller
 
 
 
-  public function edit_action()
-  {
-    $id = $this->input->post("id");
-
-
-    $debit = intval($this->input->post("debit"));
-    $kredit = intval($this->input->post("kredit"));
-    $catatan = ($this->input->post("catatan"));
-    $departemen = ($this->input->post("departemen"));
-    $no_voucer = ($this->input->post("no_voucer"));
-
-
-
-    //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
-    $data = array(
-      'DATE' => date('Y-m-d'),
-      'TIME' => date('H:i:s'),
-      'UPDATED_BY' => $this->session->userdata('username'),
-      'DEBIT' => $debit,
-      'KREDIT' => $kredit,
-      'CATATAN' => $catatan,
-      'DEPARTEMEN' => $departemen,
-      'NO_VOUCER' => $no_voucer
-
-    );
-
-    $this->m_t_ak_jurnal->update($data, $id);
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
-    redirect('/c_t_ak_jurnal');
-  }
 }

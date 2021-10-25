@@ -18,6 +18,8 @@ class C_t_ak_jurnal_edit extends MY_Controller
     $this->load->model('m_t_m_d_to_nama_kota');
     $this->load->model('m_t_m_d_pelanggan');
     $this->load->model('m_t_m_d_gandengan');
+    $this->load->model('m_t_m_d_lokasi');
+    $this->load->model('m_t_m_d_payment_method');
   }
 
 
@@ -30,8 +32,12 @@ class C_t_ak_jurnal_edit extends MY_Controller
     $this->session->set_userdata('t_m_d_supir_delete_logic', '0');
     $this->session->set_userdata('t_m_d_from_nama_kota_delete_logic', '0');
     $this->session->set_userdata('t_m_d_to_nama_kota_delete_logic', '0');
+    $this->session->set_userdata('t_m_d_lokasi_delete_logic', '0');
+    $this->session->set_userdata('t_m_d_payment_method_delete_logic', '0');
 
     $data = [
+      "c_t_m_d_lokasi" => $this->m_t_m_d_lokasi->select(),
+      "c_t_m_d_payment_method" => $this->m_t_m_d_payment_method->select(),
       "c_t_m_d_gandengan" => $this->m_t_m_d_gandengan->select(),
       "c_t_m_d_pelanggan" => $this->m_t_m_d_pelanggan->select(),
 
@@ -81,8 +87,17 @@ class C_t_ak_jurnal_edit extends MY_Controller
     $from_nama_kota_id = intval($this->input->post("from_nama_kota_id"));
     $to_nama_kota_id = intval($this->input->post("to_nama_kota_id"));
 
+    $lokasi_id = intval($this->input->post("lokasi_id"));
+    $payment_method_id = intval($this->input->post("payment_method_id"));
 
 
+    $date_do = $this->input->post("date_do");
+    $date_muat = $this->input->post("date_muat");
+    $date_bongkar = $this->input->post("date_bongkar");
+    $no_do_pendapatan = substr(($this->input->post("no_do_pendapatan")), 0, 50);
+    
+    $qty_jurnal = floatval($this->input->post("qty_jurnal"));
+    $harga_jurnal = floatval($this->input->post("harga_jurnal"));
 
     $no_voucer = '';
     $read_select = $this->m_t_ak_jurnal_edit->select();
@@ -134,7 +149,16 @@ class C_t_ak_jurnal_edit extends MY_Controller
         'FROM_NAMA_KOTA_ID' => $from_nama_kota_id,
         'TO_NAMA_KOTA_ID' => $to_nama_kota_id,
         'PELANGGAN_ID' => $pelanggan_id,
-        'GANDENGAN_ID' => $gandengan_id
+        'GANDENGAN_ID' => $gandengan_id,
+
+        'NO_DO_PENDAPATAN' => $no_do_pendapatan,
+        'DATE_DO' => $date_do,
+        'QTY_JURNAL' => $qty_jurnal,
+        'HARGA_JURNAL' => $harga_jurnal,
+        'DATE_MUAT' => $date_muat,
+        'LOKASI_ID' => $lokasi_id,
+        'PAYMENT_METHOD_ID' => $payment_method_id,
+        'DATE_BONGKAR' => $date_bongkar
       );
 
       $this->m_t_ak_jurnal_edit->tambah($data);
@@ -189,7 +213,15 @@ class C_t_ak_jurnal_edit extends MY_Controller
         'FROM_NAMA_KOTA_ID' => $value->FROM_NAMA_KOTA_ID,
         'TO_NAMA_KOTA_ID' => $value->TO_NAMA_KOTA_ID,
         'PELANGGAN_ID' => $value->PELANGGAN_ID,
-        'GANDENGAN_ID' => $value->GANDENGAN_ID
+        'GANDENGAN_ID' => $value->GANDENGAN_ID,
+        'NO_DO_PENDAPATAN' => $value->NO_DO_PENDAPATAN,
+        'DATE_DO' => $value->DATE_DO,
+        'QTY_JURNAL' => $value->QTY_JURNAL,
+        'HARGA_JURNAL' => $value->HARGA_JURNAL,
+        'DATE_MUAT' => $value->DATE_MUAT,
+        'LOKASI_ID' => $value->LOKASI_ID,
+        'PAYMENT_METHOD_ID' => $value->PAYMENT_METHOD_ID,
+        'DATE_BONGKAR' => $value->DATE_BONGKAR
 
       );
 
@@ -299,6 +331,36 @@ class C_t_ak_jurnal_edit extends MY_Controller
     $from_nama_kota = ($this->input->post("from_nama_kota"));
     $to_nama_kota = ($this->input->post("to_nama_kota"));
 
+
+    $lokasi = ($this->input->post("lokasi"));
+    $payment_method = ($this->input->post("payment_method"));
+
+
+    $date_do = $this->input->post("date_do");
+    $date_muat = $this->input->post("date_muat");
+    $date_bongkar = $this->input->post("date_bongkar");
+    $no_do_pendapatan = substr(($this->input->post("no_do_pendapatan")), 0, 50);
+    
+    $qty_jurnal = floatval($this->input->post("qty_jurnal"));
+    $harga_jurnal = floatval($this->input->post("harga_jurnal"));
+
+
+    //$lokasi_id = 0;
+    $read_select = $this->m_t_m_d_lokasi->select_id($lokasi);
+    foreach ($read_select as $key => $value) {
+      $lokasi_id = $value->ID;
+    }
+
+
+    //$payment_method_id = 0;
+    $read_select = $this->m_t_m_d_payment_method->select_id($payment_method);
+    foreach ($read_select as $key => $value) {
+      $payment_method_id = $value->ID;
+    }
+
+
+
+
  
     $read_select = $this->m_t_m_d_no_polisi->select_id($no_polisi);
     foreach ($read_select as $key => $value) {
@@ -343,7 +405,16 @@ class C_t_ak_jurnal_edit extends MY_Controller
       'FROM_NAMA_KOTA_ID' => $from_nama_kota_id,
       'TO_NAMA_KOTA_ID' => $to_nama_kota_id,
       'PELANGGAN_ID' => $pelanggan_id,
-      'GANDENGAN_ID' => $gandengan_id
+      'GANDENGAN_ID' => $gandengan_id,
+
+      'NO_DO_PENDAPATAN' => $no_do_pendapatan,
+      'DATE_DO' => $date_do,
+      'QTY_JURNAL' => $qty_jurnal,
+      'HARGA_JURNAL' => $harga_jurnal,
+      'DATE_MUAT' => $date_muat,
+      'LOKASI_ID' => $lokasi_id,
+      'PAYMENT_METHOD_ID' => $payment_method_id,
+      'DATE_BONGKAR' => $date_bongkar
     );
 
     $this->m_t_ak_jurnal_edit->update($data, $id);
