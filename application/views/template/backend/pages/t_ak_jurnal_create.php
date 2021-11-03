@@ -473,7 +473,6 @@
 
 
         <div class="row">
-
           <div class="col-md-6">
             <fieldset class="form-group">
                 <label>Pelanggan</label>

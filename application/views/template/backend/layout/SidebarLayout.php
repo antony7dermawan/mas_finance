@@ -210,8 +210,8 @@ if($level_user_id==1 or $level_user_id==6 )
         ?>
         <ul class="pcoded-submenu">
             <li class="">
-                <a href="<?= base_url("https://acien-id.com/"); ?>" class="submenu waves-effect waves-dark">
-                    <span class="pcoded-mtext">none</span>
+                <a href="<?= base_url("c_t_t_t_penjualan_jasa"); ?>" class="submenu waves-effect waves-dark">
+                    <span class="pcoded-mtext">Pendapatan CPO</span>
                 </a>
             </li>
         </ul>
