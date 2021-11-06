@@ -99,18 +99,26 @@ class C_t_t_t_penjualan_jasa extends MY_Controller
     $pelanggan_id = intval($this->input->post("pelanggan_id"));
     $payment_method_id = intval($this->input->post("payment_method_id"));
     $target_party = floatval($this->input->post("target_party"));
+    $jarak_km = floatval($this->input->post("jarak_km"));
     
     $no_faktur_pajak = substr($this->input->post("no_faktur_pajak"), 0, 100);
    
 
     $ket = substr($this->input->post("ket"), 0, 500);
     $date = $this->input->post("date");
+    $date_kontrak = $this->input->post("date_kontrak");
 
     $no_do = substr($this->input->post("no_do"), 0, 50);
+    $no_kontrak = substr($this->input->post("no_kontrak"), 0, 50);
 
     if($date=='')
     {
       $date = date('Y-m-d');
+    }
+
+    if($date_kontrak=='')
+    {
+      $date_kontrak = date('Y-m-d');
     }
     
    
@@ -139,7 +147,10 @@ class C_t_t_t_penjualan_jasa extends MY_Controller
 
         'NO_DO' => $no_do,
         'TYPE_ID' => 1, //tipe cpo
-        'TARGET_PARTY' => $target_party
+        'TARGET_PARTY' => $target_party,
+        'DATE_KONTRAK' => $date_kontrak,
+        'NO_KONTRAK' => $no_kontrak,
+        'JARAK_KM' => $jarak_km
  
       );
 
@@ -175,18 +186,26 @@ class C_t_t_t_penjualan_jasa extends MY_Controller
 
    
     $target_party = floatval($this->input->post("target_party"));
+    $jarak_km = floatval($this->input->post("jarak_km"));
     
     $no_faktur_pajak = substr($this->input->post("no_faktur_pajak"), 0, 100);
-   
+    
 
     $ket = substr($this->input->post("ket"), 0, 500);
     $date = $this->input->post("date");
+    $date_kontrak = $this->input->post("date_kontrak");
 
     $no_do = substr($this->input->post("no_do"), 0, 50);
+    $no_kontrak = substr($this->input->post("no_kontrak"), 0, 50);
 
     if($date=='')
     {
       $date = date('Y-m-d');
+    }
+
+    if($date_kontrak=='')
+    {
+      $date_kontrak = date('Y-m-d');
     }
 
 
@@ -231,7 +250,10 @@ class C_t_t_t_penjualan_jasa extends MY_Controller
         'NO_FAKTUR_PAJAK' => $no_faktur_pajak,
 
         'NO_DO' => $no_do,
-        'TARGET_PARTY' => $target_party
+        'TARGET_PARTY' => $target_party,
+        'DATE_KONTRAK' => $date_kontrak,
+        'NO_KONTRAK' => $no_kontrak,
+        'JARAK_KM' => $jarak_km
 
 
       );

@@ -29,11 +29,14 @@
           <tr>
             <th>No</th>
             <th>No DO</th>
-            <th>Date</th>
+            <th>Tanggal DO</th>
+            <th>No Kontrak</th>
+            <th>Tanggal Kontrak</th>
             <th>Ket</th>
             <th>Pelanggan</th>
             <th>Payment Method</th>
             <th>Party</th>
+            <th>Jarak (Km)</th>
             <th>Total</th>
 
             <th>Action</th>
@@ -48,11 +51,14 @@
               echo "<td>" . ($key + 1) . "</td>";
               echo "<td>" . $value->NO_DO . "</td>";
               echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
+              echo "<td>" . $value->NO_KONTRAK . "</td>";
+              echo "<td>" . date('d-m-Y', strtotime($value->DATE_KONTRAK)) . "</td>";
               echo "<td>" . $value->KET . "</td>";
               echo "<td>" . $value->PELANGGAN . "</td>";
               echo "<td>" . $value->PAYMENT_METHOD . "</td>";
 
               echo "<td>" . $value->TARGET_PARTY . "</td>";
+              echo "<td>" . $value->JARAK_KM . "</td>";
 
 
               //satu button
@@ -139,9 +145,8 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Tanggal Transaksi:
-            <form action='/action_page.php'>
-              <input type='date' class='form-control' name='date' value='<?= $this->session->userdata('date_penjualan_jasa') ?>'>
+          <h4 class="modal-title">New Data
+            
           </h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -151,10 +156,58 @@
         <div class="modal-body">
         
 
-        <div class="form-group">
+
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
               <label>Nomor DO</label>
               <input type='text' class='form-control' placeholder='Input Text' name='no_do'>
+            </fieldset>
+
+          </div><!-- Membungkus Row Kedua !-->
+
+
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>Tanggal DO</label>
+              <form action='/action_page.php'>
+              <input type='date' class='form-control' name='date' value='<?= $this->session->userdata('date_penjualan_jasa') ?>'>
+          </div> <!-- Membungkus Row !-->
         </div>
+
+
+
+
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>Nomor Kontrak</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='no_kontrak'>
+            </fieldset>
+
+          </div><!-- Membungkus Row Kedua !-->
+
+
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>Tanggal Kontrak</label>
+              <form action='/action_page.php'>
+              <input type='date' class='form-control' name='date_kontrak' value='<?= $this->session->userdata('date_penjualan_jasa') ?>'>
+          </div> <!-- Membungkus Row !-->
+        </div>
+
+
+
+
+
+
+
         
 
         <div class="form-group">
@@ -223,9 +276,13 @@
 
 
           <div class="col-md-6">
-
-            
+            <fieldset class="form-group">
+              <label>Jarak (Km)</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='jarak_km'>
+            </fieldset>
           </div> <!-- Membungkus Row !-->
+
+
         </div>
 
 
@@ -259,9 +316,8 @@
     <form action="<?php echo base_url('c_t_t_t_penjualan_jasa/edit_action') ?>" method="post" autocomplete="off" id='edit_data'>
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Tanggal Transaksi:
-            <form action='/action_page.php'>
-              <input type='date' class='form-control' name='date' value=''>
+          <h4 class="modal-title">Edit Action
+            
           </h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -273,9 +329,48 @@
         <input type="hidden" name="id" value="" class="form-control">
 
 
-        <div class="form-group">
+        <div class="row">
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
               <label>Nomor DO</label>
               <input type='text' class='form-control' placeholder='Input Text' name='no_do'>
+            </fieldset>
+
+          </div><!-- Membungkus Row Kedua !-->
+
+
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>Tanggal DO</label>
+              <form action='/action_page.php'>
+              <input type='date' class='form-control' name='date' value='<?= $this->session->userdata('date_penjualan_jasa') ?>'>
+          </div> <!-- Membungkus Row !-->
+        </div>
+
+
+
+
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>Nomor Kontrak</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='no_kontrak'>
+            </fieldset>
+
+          </div><!-- Membungkus Row Kedua !-->
+
+
+          <div class="col-md-6">
+
+            <fieldset class="form-group">
+              <label>Tanggal Kontrak</label>
+              <form action='/action_page.php'>
+              <input type='date' class='form-control' name='date_kontrak' value='<?= $this->session->userdata('date_penjualan_jasa') ?>'>
+          </div> <!-- Membungkus Row !-->
         </div>
 
         <div class="form-group">
@@ -340,6 +435,10 @@
               <textarea rows='4' cols='20' name='ket' id='' form='edit_data' class='form-control'></textarea>
         </div>
 
+        
+
+
+
         <div class="row">
           <div class="col-md-6">
 
@@ -352,10 +451,18 @@
 
 
           <div class="col-md-6">
-
-            
+            <fieldset class="form-group">
+              <label>Jarak (Km)</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='jarak_km'>
+            </fieldset>
           </div> <!-- Membungkus Row !-->
+
+          
         </div>
+
+
+
+
         
 
 
@@ -406,7 +513,10 @@
         NO_FAKTUR_PAJAK : no_faktur_pajak,
         NO_DO : no_do,
         DATE : date,
-        TARGET_PARTY : target_party
+        NO_KONTRAK : no_kontrak,
+        DATE_KONTRAK : date_kontrak,
+        TARGET_PARTY : target_party,
+        JARAK_KM : jarak_km
         
       } = User[0];
 
@@ -422,7 +532,10 @@
       elModalEdit.querySelector("[name=no_faktur_pajak]").value = no_faktur_pajak;
       elModalEdit.querySelector("[name=no_do]").value = no_do;
       elModalEdit.querySelector("[name=date]").value = date;
+      elModalEdit.querySelector("[name=no_kontrak]").value = no_kontrak;
+      elModalEdit.querySelector("[name=date_kontrak]").value = date_kontrak;
       elModalEdit.querySelector("[name=target_party]").value = target_party;
+      elModalEdit.querySelector("[name=jarak_km]").value = jarak_km;
 
   
 

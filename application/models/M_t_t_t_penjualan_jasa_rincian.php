@@ -34,6 +34,7 @@ public function update($data, $id)
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.VALUE_SUSUT");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.PERCENTAGE_SUSUT");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.TOLERANSI");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.TOLERANSI_VALUE");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.CLAIM_SUSUT");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.HARGA_KEBUN");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.HARGA_PABRIK");
@@ -45,6 +46,7 @@ public function update($data, $id)
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.CREATED_BY");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.UPDATED_BY");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.MARK_FOR_DELETE");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.KET");
 
 
 
@@ -120,6 +122,7 @@ public function update($data, $id)
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.VALUE_SUSUT");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.PERCENTAGE_SUSUT");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.TOLERANSI");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.TOLERANSI_VALUE");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.CLAIM_SUSUT");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.HARGA_KEBUN");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.HARGA_PABRIK");
@@ -131,6 +134,7 @@ public function update($data, $id)
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.CREATED_BY");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.UPDATED_BY");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.MARK_FOR_DELETE");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.KET");
 
 
 

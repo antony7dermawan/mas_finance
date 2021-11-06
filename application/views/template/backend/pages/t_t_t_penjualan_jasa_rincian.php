@@ -14,11 +14,15 @@
         $inv = $value->NO_DO;
         $enable_edit = $value->ENABLE_EDIT;
         $pelanggan = $value->PELANGGAN;
+        $keterangan_jasa = $value->KET;
+        $jarak_km = $value->JARAK_KM;
       }
 
 
       echo 'No DO: '.$inv.'<br>';
       echo 'Pelanggan: '.$pelanggan.'<br>';
+      echo 'Jarak: '.$jarak_km.'<br>';
+      echo 'Keterangan: '.$keterangan_jasa.'<br>';
       ?>
 
 
@@ -45,6 +49,7 @@
           <tr>
             <th>No</th>
             <th>No SPB</th>
+            <th>Keterangan</th>
             <th>Pengeluaran</th>
             <th>DARI</th>
             <th>TUJUAN</th>
@@ -59,7 +64,8 @@
             <th>Tara (Pabrik)</th>
             <th>Total (Pabrik)</th>
             <th>Susut (Kg)</th>
-            <th>Toleransi 0,2%</th>
+            <th>Toleransi (%)</th>
+            <th>Nilai Toleransi</th>
             <th>Claim Susut</th>
             <th>Harga/Kg (Kebun)</th>
             <th>Harga/Kg (Pabrik)</th>
@@ -83,6 +89,7 @@
 
               echo "<td>" . ($key + 1) . "</td>";
               echo "<td>" . $value->NO_SPB . "</td>";
+              echo "<td>" . $value->KET . "</td>";
 
               echo "<td>";
               echo "<a href='" . site_url('c_t_t_t_pengeluaran_rincian/index/' . $value->ID.'/'.$penjualan_jasa_id) . "' ";
@@ -108,6 +115,7 @@
               echo "<td>" . number_format(($value->VALUE_PABRIK), 2, '.', ',') . "</td>";
               echo "<td>" . number_format(($value->VALUE_SUSUT), 2, '.', ',') . "</td>";
               echo "<td>" . number_format(($value->TOLERANSI), 2, '.', ',') . "</td>";
+              echo "<td>" . number_format(($value->TOLERANSI_VALUE), 2, '.', ',') . "</td>";
               echo "<td>" . number_format(($value->CLAIM_SUSUT), 2, '.', ',') . "</td>";
               echo "<td>" . number_format(($value->HARGA_KEBUN), 2, '.', ',') . "</td>";
               echo "<td>" . number_format(($value->HARGA_PABRIK), 2, '.', ',') . "</td>";
@@ -218,6 +226,13 @@
                 </select>
             </div>
           </div>
+
+
+          <div class="form-group">
+              <label>Keterangan</label>
+              <textarea rows='4' cols='20' name='ket' id='' form='add_data' class='form-control'></textarea>
+          </div>
+
 
 
 
@@ -332,8 +347,8 @@
             <div class="col-md-6">
 
               <fieldset class="form-group">
-                <label>Toleransi</label>
-                <input type='text' class='form-control' placeholder='Input Number' name='toleransi' value=''>
+                <label>Toleransi (%)</label>
+                <input type='text' class='form-control' placeholder='0.2' name='toleransi' value='0.2'>
               </fieldset>
 
             </div><!-- Membungkus Row Kedua !-->
@@ -342,8 +357,7 @@
             <div class="col-md-6">
 
               <fieldset class="form-group">
-                <label>Claim Susut</label>
-                <input type='text' class='form-control' placeholder='Input Number' name='claim_susut' value=''>  
+                
               </fieldset>
             </div> <!-- Membungkus Row !-->
           </div>
@@ -442,9 +456,8 @@
     <form action="<?php echo base_url('c_t_t_t_penjualan_jasa_rincian/edit_action/'.$penjualan_jasa_id) ?>" method="post" autocomplete="off" id='edit_data'>
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Tanggal Transaksi:
-            <form action='/action_page.php'>
-              <input type='date' class='form-control' name='date' value=''>
+          <h4 class="modal-title">Edit Data
+            
           </h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -494,6 +507,14 @@
                 </div>
             </div>
           </div>
+
+
+
+          <div class="form-group">
+              <label>Keterangan</label>
+              <textarea rows='4' cols='20' name='ket' id='' form='edit_data' class='form-control'></textarea>
+          </div>
+
 
 
 
@@ -622,8 +643,7 @@
             <div class="col-md-6">
 
               <fieldset class="form-group">
-                <label>Claim Susut</label>
-                <input type='text' class='form-control' placeholder='Input Number' name='claim_susut' value=''>  
+                
               </fieldset>
             </div> <!-- Membungkus Row !-->
           </div>
@@ -729,10 +749,10 @@
         BRUTO_PABRIK : bruto_pabrik,
         TARA_PABRIK : tara_pabrik,
         TOLERANSI : toleransi,
-        CLAIM_SUSUT : claim_susut,
         HARGA_KEBUN : harga_kebun,
         HARGA_PABRIK : harga_pabrik,
-        PPN_PERCENTAGE : ppn_percentage
+        PPN_PERCENTAGE : ppn_percentage,
+        KET : ket
    
         
       } = User[0];
@@ -753,10 +773,10 @@
       elModalEdit.querySelector("[name=bruto_pabrik]").value = bruto_pabrik;
       elModalEdit.querySelector("[name=tara_pabrik]").value = tara_pabrik;
       elModalEdit.querySelector("[name=toleransi]").value = toleransi;
-      elModalEdit.querySelector("[name=claim_susut]").value = claim_susut;
       elModalEdit.querySelector("[name=harga_kebun]").value = harga_kebun;
       elModalEdit.querySelector("[name=harga_pabrik]").value = harga_pabrik;
       elModalEdit.querySelector("[name=ppn_percentage]").value = ppn_percentage;
+      elModalEdit.querySelector("[name=ket]").value = ket;
 
 
   

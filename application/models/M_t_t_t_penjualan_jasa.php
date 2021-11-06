@@ -36,6 +36,10 @@ public function select_inv_penjualan_jasa()
     $this->db->select("T_T_T_PENJUALAN_JASA.DATE");
     $this->db->select("T_T_T_PENJUALAN_JASA.TIME");
     $this->db->select("T_T_T_PENJUALAN_JASA.NO_DO");
+    $this->db->select("T_T_T_PENJUALAN_JASA.DATE_KONTRAK");
+    $this->db->select("T_T_T_PENJUALAN_JASA.NO_KONTRAK");
+    $this->db->select("T_T_T_PENJUALAN_JASA.JARAK_KM");
+
   
 
     $this->db->select("T_T_T_PENJUALAN_JASA.PELANGGAN_ID");
@@ -106,6 +110,9 @@ public function select_inv_penjualan_jasa()
     $this->db->select("T_T_T_PENJUALAN_JASA.DATE");
     $this->db->select("T_T_T_PENJUALAN_JASA.TIME");
     $this->db->select("T_T_T_PENJUALAN_JASA.NO_DO");
+    $this->db->select("T_T_T_PENJUALAN_JASA.DATE_KONTRAK");
+    $this->db->select("T_T_T_PENJUALAN_JASA.NO_KONTRAK");
+    $this->db->select("T_T_T_PENJUALAN_JASA.JARAK_KM");
   
 
     $this->db->select("T_T_T_PENJUALAN_JASA.PELANGGAN_ID");

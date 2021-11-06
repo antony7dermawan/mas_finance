@@ -50,8 +50,8 @@ class C_t_t_t_penjualan_jasa_rincian extends MY_Controller
       "c_t_m_d_supir" => $this->m_t_m_d_supir->select(),
 
       "penjualan_jasa_id" => $penjualan_jasa_id,
-      "title" => "Transaksi Penjualan Jasa",
-      "description" => "form Penjualan Jasa"
+      "title" => "Rincian Nomor SPB",
+      "description" => ""
     ];
     $this->render_backend('template/backend/pages/t_t_t_penjualan_jasa_rincian', $data);
   }
@@ -79,6 +79,7 @@ class C_t_t_t_penjualan_jasa_rincian extends MY_Controller
   function tambah($penjualan_jasa_id)
   {
     $no_spb = substr($this->input->post("no_spb"), 0, 50);
+    $ket = substr($this->input->post("ket"), 0, 500);
 
     
 
@@ -123,7 +124,13 @@ class C_t_t_t_penjualan_jasa_rincian extends MY_Controller
 
 
     $toleransi = floatval($this->input->post("toleransi"));
-    $claim_susut = floatval($this->input->post("claim_susut"));
+
+    $toleransi_value = ($toleransi * $value_kebun)/100;
+
+
+    $claim_susut = $toleransi_value - $value_susut;
+
+    
     $harga_kebun = floatval($this->input->post("harga_kebun"));
     $harga_pabrik = floatval($this->input->post("harga_pabrik"));
 
@@ -163,7 +170,9 @@ class C_t_t_t_penjualan_jasa_rincian extends MY_Controller
         'COMPANY_ID' => $this->session->userdata('company_id'),
         'MARK_FOR_DELETE' => FALSE,
         'CREATED_BY' => $this->session->userdata('username'),
-        'UPDATED_BY' => ''
+        'UPDATED_BY' => '',
+        'KET' => $ket,
+        'TOLERANSI_VALUE' => $toleransi_value
     );
 
     $this->m_t_t_t_penjualan_jasa_rincian->tambah($data);
@@ -191,6 +200,7 @@ class C_t_t_t_penjualan_jasa_rincian extends MY_Controller
     $no_spb = substr($this->input->post("no_spb"), 0, 50);
 
     
+    $ket = substr($this->input->post("ket"), 0, 500);
 
     $from_nama_kota = ($this->input->post("from_nama_kota"));
     $to_nama_kota = ($this->input->post("to_nama_kota"));
@@ -253,7 +263,12 @@ class C_t_t_t_penjualan_jasa_rincian extends MY_Controller
 
 
     $toleransi = floatval($this->input->post("toleransi"));
-    $claim_susut = floatval($this->input->post("claim_susut"));
+
+
+    $toleransi_value = ($toleransi * $value_kebun)/100;
+
+
+    $claim_susut = $toleransi_value - $value_susut;
     $harga_kebun = floatval($this->input->post("harga_kebun"));
     $harga_pabrik = floatval($this->input->post("harga_pabrik"));
 
@@ -293,7 +308,9 @@ class C_t_t_t_penjualan_jasa_rincian extends MY_Controller
         'COMPANY_ID' => $this->session->userdata('company_id'),
         'MARK_FOR_DELETE' => FALSE,
         'CREATED_BY' => $this->session->userdata('username'),
-        'UPDATED_BY' => ''
+        'UPDATED_BY' => '',
+        'KET' => $ket,
+        'TOLERANSI_VALUE' => $toleransi_value
     );
 
     $this->m_t_t_t_penjualan_jasa_rincian->update($data, $id);

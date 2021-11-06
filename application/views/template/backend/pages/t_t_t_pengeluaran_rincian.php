@@ -5,13 +5,15 @@
     <?php
       foreach ($c_t_t_t_penjualan_jasa_rincian_by_id as $key => $value) {
         $no_spb = $value->NO_SPB;
+        $ket_rincian_jasa = $value->KET;
       }
     ?>
 
 
 
 
-    <h5>Transaksi Pengeluaran NO SPB: <?=$no_spb;?></h5>
+    <h5>Transaksi Pengeluaran NO SPB: <?=$no_spb;?></h5><br>
+    <h5>Ket: <?=$ket_rincian_jasa;?></h5>
   </div>
   <div class="card-block">
     <!-- Menampilkan notif !-->
