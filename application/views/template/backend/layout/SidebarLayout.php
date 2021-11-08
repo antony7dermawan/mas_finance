@@ -131,6 +131,13 @@ if($level_user_id==1 or $level_user_id==6 )
                     <span class="pcoded-mtext">Lokasi</span>
                 </a>
             </li>
+
+
+            <li class="">
+                <a href="<?= base_url("c_t_m_d_petak"); ?>" class="submenu waves-effect waves-dark">
+                    <span class="pcoded-mtext">Petak</span>
+                </a>
+            </li>
             
 
         </ul>
@@ -210,7 +217,7 @@ if($level_user_id==1 or $level_user_id==6 )
         ?>
         <ul class="pcoded-submenu">
             <li class="">
-                <a href="<?= base_url("c_t_t_t_penjualan_jasa"); ?>" class="submenu waves-effect waves-dark">
+                <a href="<?= base_url("c_t_t_t_penjualan_jasa_1"); ?>" class="submenu waves-effect waves-dark">
                     <span class="pcoded-mtext">Pendapatan CPO</span>
                 </a>
             </li>
@@ -229,6 +236,22 @@ if($level_user_id==1 or $level_user_id==6 )
             <li class="">
                 <a href="<?= base_url("c_t_t_t_penjualan_jasa_2"); ?>" class="submenu waves-effect waves-dark">
                     <span class="pcoded-mtext">Pendapatan Non CPO</span>
+                </a>
+            </li>
+        </ul>
+        <?php
+        }
+        ?>
+
+
+        <?php
+        if($level_user_id==1 or  $level_user_id==2 or $level_user_id==3 or $level_user_id==6 or $level_user_id==8 or $level_user_id==9)
+        {
+        ?>
+        <ul class="pcoded-submenu">
+            <li class="">
+                <a href="<?= base_url("c_t_t_t_penjualan_jasa_3"); ?>" class="submenu waves-effect waves-dark">
+                    <span class="pcoded-mtext">Pendapatan Kayu/BBM</span>
                 </a>
             </li>
         </ul>

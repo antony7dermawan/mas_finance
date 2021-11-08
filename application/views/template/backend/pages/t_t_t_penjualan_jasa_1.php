@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header">
-    <form action='<?php echo base_url("c_t_t_t_penjualan_jasa/date_penjualan_jasa"); ?>' class='no_voucer_area' method="post" id=''>
+    <form action='<?php echo base_url("c_t_t_t_penjualan_jasa_1/date_penjualan_jasa_1"); ?>' class='no_voucer_area' method="post" id=''>
       <table>
         <tr>
           <th>
@@ -8,7 +8,7 @@
           </th>
           <th>
             <form action='/action_page.php'>
-              <input type='date' class='form-control' name='date_penjualan_jasa' value='<?= $this->session->userdata('date_penjualan_jasa') ?>' onchange='this.form.submit();'>
+              <input type='date' class='form-control' name='date_penjualan_jasa_1' value='<?= $this->session->userdata('date_penjualan_jasa_1') ?>' onchange='this.form.submit();'>
           </th>
         </tr>
       </table>
@@ -44,7 +44,7 @@
         </thead>
         <tbody>
           <?php
-          foreach ($c_t_t_t_penjualan_jasa as $key => $value) {
+          foreach ($c_t_t_t_penjualan_jasa_1 as $key => $value) {
             if($value->MARK_FOR_DELETE == 'f')
             {
               echo "<tr>";
@@ -63,7 +63,7 @@
 
               //satu button
               echo "<td>";
-              echo "<a href='" . site_url('c_t_t_t_penjualan_jasa_rincian/index/' . $value->ID) . "' ";
+              echo "<a href='" . site_url('c_t_t_t_penjualan_jasa_rincian_1/index/' . $value->ID) . "' ";
               echo "onclick=\"return confirm('Lanjut?')\"";
               echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
               echo " Rp" . number_format(intval($value->SUM_SUB_TOTAL)) . "</td>";
@@ -103,7 +103,7 @@
                 echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
                 echo "</a>";
 
-                echo "<a href='" . site_url('c_t_t_t_penjualan_jasa/delete/' . $value->ID) . "' ";
+                echo "<a href='" . site_url('c_t_t_t_penjualan_jasa_1/delete/' . $value->ID) . "' ";
 
                 echo "onclick=\"return confirm('Apakah kamu yakin ingin menghapus data ini?')\"";
 
@@ -140,7 +140,7 @@
 
 
 <!-- MODAL TAMBAH PEMASUKAN! !-->
-<form action="<?php echo base_url('c_t_t_t_penjualan_jasa/tambah') ?>" method="post" id='add_data'>
+<form action="<?php echo base_url('c_t_t_t_penjualan_jasa_1/tambah') ?>" method="post" id='add_data'>
   <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -174,7 +174,7 @@
             <fieldset class="form-group">
               <label>Tanggal DO</label>
               <form action='/action_page.php'>
-              <input type='date' class='form-control' name='date' value='<?= $this->session->userdata('date_penjualan_jasa') ?>'>
+              <input type='date' class='form-control' name='date' value='<?= $this->session->userdata('date_penjualan_jasa_1') ?>'>
           </div> <!-- Membungkus Row !-->
         </div>
 
@@ -198,7 +198,7 @@
             <fieldset class="form-group">
               <label>Tanggal Kontrak</label>
               <form action='/action_page.php'>
-              <input type='date' class='form-control' name='date_kontrak' value='<?= $this->session->userdata('date_penjualan_jasa') ?>'>
+              <input type='date' class='form-control' name='date_kontrak' value='<?= $this->session->userdata('date_penjualan_jasa_1') ?>'>
           </div> <!-- Membungkus Row !-->
         </div>
 
@@ -313,7 +313,7 @@
 <!-- MODAL EDIT AKUN !-->
 <div class="modal fade" id="Modal_Edit" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <form action="<?php echo base_url('c_t_t_t_penjualan_jasa/edit_action') ?>" method="post" autocomplete="off" id='edit_data'>
+    <form action="<?php echo base_url('c_t_t_t_penjualan_jasa_1/edit_action') ?>" method="post" autocomplete="off" id='edit_data'>
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Edit Action
@@ -345,7 +345,7 @@
             <fieldset class="form-group">
               <label>Tanggal DO</label>
               <form action='/action_page.php'>
-              <input type='date' class='form-control' name='date' value='<?= $this->session->userdata('date_penjualan_jasa') ?>'>
+              <input type='date' class='form-control' name='date' value='<?= $this->session->userdata('date_penjualan_jasa_1') ?>'>
           </div> <!-- Membungkus Row !-->
         </div>
 
@@ -369,7 +369,7 @@
             <fieldset class="form-group">
               <label>Tanggal Kontrak</label>
               <form action='/action_page.php'>
-              <input type='date' class='form-control' name='date_kontrak' value='<?= $this->session->userdata('date_penjualan_jasa') ?>'>
+              <input type='date' class='form-control' name='date_kontrak' value='<?= $this->session->userdata('date_penjualan_jasa_1') ?>'>
           </div> <!-- Membungkus Row !-->
         </div>
 
@@ -488,7 +488,7 @@
 
 
 <script>
-  const read_data = <?= json_encode($c_t_t_t_penjualan_jasa) ?>;
+  const read_data = <?= json_encode($c_t_t_t_penjualan_jasa_1) ?>;
   console.log(read_data);
   let elModalEdit = document.querySelector("#Modal_Edit");
   console.log(elModalEdit);

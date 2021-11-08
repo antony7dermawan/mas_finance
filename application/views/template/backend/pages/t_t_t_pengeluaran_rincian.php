@@ -7,8 +7,12 @@
         $no_spb = $value->NO_SPB;
         $ket_rincian_jasa = $value->KET;
       }
+    ?> 
+    <?php
+      foreach ($c_t_t_t_penjualan_jasa_by_id as $key => $value) {
+        $type_id = $value->TYPE_ID;
+      }
     ?>
-
 
 
 
@@ -20,7 +24,7 @@
     <?= $this->session->flashdata('notif') ?>
     
 
-    <a href="<?= base_url('c_t_t_t_penjualan_jasa_rincian/index/' . $penjualan_jasa_id); ?>" class="btn waves-effect waves-light btn-inverse"><i class="icofont icofont-double-left"></i>Back</a>
+    <a href="<?= base_url('c_t_t_t_penjualan_jasa_rincian_'.$type_id.'/index/' . $penjualan_jasa_id); ?>" class="btn waves-effect waves-light btn-inverse"><i class="icofont icofont-double-left"></i>Back</a>
 
 
 

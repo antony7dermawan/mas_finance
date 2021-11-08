@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class M_t_t_t_penjualan_jasa extends CI_Model {
+class M_t_t_t_penjualan_jasa_3 extends CI_Model {
     
     
 public function update($data, $id)
@@ -11,7 +11,7 @@ public function update($data, $id)
 
 
 
-public function select_inv_penjualan_jasa()
+public function select_inv_penjualan_jasa_3()
 {
     $this->db->limit(100000);
     $this->db->select("ID");
@@ -30,7 +30,7 @@ public function select_inv_penjualan_jasa()
 
 
 
-  public function select($date_penjualan_jasa,$type_id)
+  public function select($date_penjualan_jasa_3,$type_id)
   {
     $this->db->select("T_T_T_PENJUALAN_JASA.ID");
     $this->db->select("T_T_T_PENJUALAN_JASA.DATE");
@@ -88,9 +88,9 @@ public function select_inv_penjualan_jasa()
 
     
 
-    $date_before = date('Y-m-d',(strtotime ( '-30 day' , strtotime ( $date_penjualan_jasa) ) ));
+    $date_before = date('Y-m-d',(strtotime ( '-30 day' , strtotime ( $date_penjualan_jasa_3) ) ));
 
-    $this->db->where("T_T_T_PENJUALAN_JASA.DATE<='{$date_penjualan_jasa}' and T_T_T_PENJUALAN_JASA.DATE>='{$date_before}'");
+    $this->db->where("T_T_T_PENJUALAN_JASA.DATE<='{$date_penjualan_jasa_3}' and T_T_T_PENJUALAN_JASA.DATE>='{$date_before}'");
 
     $this->db->where("T_T_T_PENJUALAN_JASA.COMPANY_ID={$this->session->userdata('company_id')}");
     $this->db->where("T_T_T_PENJUALAN_JASA.TYPE_ID={$type_id}");

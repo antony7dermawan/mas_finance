@@ -8,12 +8,13 @@ class C_t_ak_faktur_penjualan extends MY_Controller
   {
     parent::__construct();
 
+
     $this->load->model('m_t_ak_faktur_penjualan');
-    $this->load->model('m_t_t_a_penjualan_pks');
-    $this->load->model('m_t_m_a_no_polisi');
-    $this->load->model('m_t_m_a_pks');
-    $this->load->model('m_t_m_a_divisi');
-    $this->load->model('m_t_m_a_kendaraan');
+
+
+
+    $this->load->model('m_t_m_d_company');
+    $this->load->model('m_t_m_d_pelanggan');
     $this->load->model('m_ak_m_coa');
     $this->load->model('m_t_ak_faktur_penjualan_print_setting');
     $this->load->model('m_t_ak_jurnal');
@@ -21,22 +22,16 @@ class C_t_ak_faktur_penjualan extends MY_Controller
 
   public function index()
   {
+    $this->session->set_userdata('t_m_d_pelanggan_delete_logic', '0');
 
-    if($this->session->userdata('date_faktur_penjualan')=='')
-    {
-      $date_faktur_penjualan = date('Y-m-d');
-      $this->session->set_userdata('date_faktur_penjualan', $date_faktur_penjualan);
-    }
 
-    
     $data = [
       "c_t_ak_faktur_penjualan" => $this->m_t_ak_faktur_penjualan->select($this->session->userdata('date_faktur_penjualan')),
-      "c_t_m_a_no_polisi" => $this->m_t_m_a_no_polisi->select(),
-      "c_t_m_a_pks" => $this->m_t_m_a_pks->select(),
-      "c_t_m_a_divisi" => $this->m_t_m_a_divisi->select(),
-      "c_t_m_a_kendaraan" => $this->m_t_m_a_kendaraan->select(),
-      "title" => "Transaksi Faktur Penjualan",
-      "description" => "Membuat Tagihan ke PKS"
+
+      "c_t_m_d_pelanggan" => $this->m_t_m_d_pelanggan->select(),
+
+      "title" => "Faktur Penjualan",
+      "description" => "Membuat Tagihan ke Pelanggan"
     ];
     $this->render_backend('template/backend/pages/t_ak_faktur_penjualan', $data);
   }
@@ -85,6 +80,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       $time_move = $value->TIME;
     }
 
+
     
     if($enable_edit==1)
     {
@@ -118,7 +114,8 @@ class C_t_ak_faktur_penjualan extends MY_Controller
         'NO_VOUCER' => $no_faktur,
         'CREATED_ID' => $created_id,
         'CHECKED_ID' => 1,
-        'SPECIAL_ID' => 0
+        'SPECIAL_ID' => 0,
+        'COMPANY_ID' => $this->session->userdata('company_id')
         );
       }
       if($db_k_id==2)#kode 1 debit / 2 kredit
@@ -136,7 +133,8 @@ class C_t_ak_faktur_penjualan extends MY_Controller
         'NO_VOUCER' => $no_faktur,
         'CREATED_ID' => $created_id,
         'CHECKED_ID' => 1,
-        'SPECIAL_ID' => 0
+        'SPECIAL_ID' => 0,
+        'COMPANY_ID' => $this->session->userdata('company_id')
         );
       }
       $this->m_t_ak_jurnal->tambah($data);
@@ -173,7 +171,8 @@ class C_t_ak_faktur_penjualan extends MY_Controller
         'NO_VOUCER' => $no_faktur,
         'CREATED_ID' => $created_id,
         'CHECKED_ID' => 1,
-        'SPECIAL_ID' => 0
+        'SPECIAL_ID' => 0,
+        'COMPANY_ID' => $this->session->userdata('company_id')
         );
       }
       if($db_k_id==2)#kode 1 debit / 2 kredit
@@ -191,7 +190,8 @@ class C_t_ak_faktur_penjualan extends MY_Controller
         'NO_VOUCER' => $no_faktur,
         'CREATED_ID' => $created_id,
         'CHECKED_ID' => 1,
-        'SPECIAL_ID' => 0
+        'SPECIAL_ID' => 0,
+        'COMPANY_ID' => $this->session->userdata('company_id')
         );
       }
       $this->m_t_ak_jurnal->tambah($data);
@@ -225,7 +225,8 @@ class C_t_ak_faktur_penjualan extends MY_Controller
         'NO_VOUCER' => $no_faktur,
         'CREATED_ID' => $created_id,
         'CHECKED_ID' => 1,
-        'SPECIAL_ID' => 0
+        'SPECIAL_ID' => 0,
+        'COMPANY_ID' => $this->session->userdata('company_id')
         );
       }
       if($db_k_id==2)#kode 1 debit / 2 kredit
@@ -243,7 +244,8 @@ class C_t_ak_faktur_penjualan extends MY_Controller
         'NO_VOUCER' => $no_faktur,
         'CREATED_ID' => $created_id,
         'CHECKED_ID' => 1,
-        'SPECIAL_ID' => 0
+        'SPECIAL_ID' => 0,
+        'COMPANY_ID' => $this->session->userdata('company_id')
         );
       }
       $this->m_t_ak_jurnal->tambah($data);
@@ -266,39 +268,78 @@ class C_t_ak_faktur_penjualan extends MY_Controller
 
   function tambah()
   {
-    $pks_id = intval($this->input->post("pks_id"));
+    $pelanggan_id = intval($this->input->post("pelanggan_id"));
     $keterangan = '';
-    $no_faktur = substr($this->input->post("no_faktur"), 0, 100);
+
+
+    $ppn = $this->input->post("ppn");
+    $pph = $this->input->post("pph");
+
+    if($ppn==null)
+    {
+      $ppn = false;
+    }
+    if($pph==null)
+    {
+      $pph = false;
+    }
+
     $date = ($this->input->post("date"));
 
+    if($date=='')
+    {
+      $date = date('Y-m-d');
+    }
+    
     $date_faktur_penjualan = $date;
     $this->session->set_userdata('date_faktur_penjualan', $date_faktur_penjualan);
 
 
-    if($no_faktur!='')
+    if($pelanggan_id!=0)
     {
 
       $logic_no_faktur = 0;
-      $read_select = $this->m_t_ak_faktur_penjualan->read_no_faktur($no_faktur);
+      
+
+      $inv_int = 0;
+      $read_select = $this->m_t_ak_faktur_penjualan->select_inv_int();
       foreach ($read_select as $key => $value) 
       {
-        $logic_no_faktur = 1;
-        $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> No Faktur Sudah Digunakan!</p></div>');
+        $inv_int = intval($value->INV_INT)+1;
       }
+
+      $read_select = $this->m_t_m_d_company->select_by_company_id();
+      foreach ($read_select as $key => $value) 
+      {
+        $inv_faktur_penjualan = $value->INV_FAKTUR_PENJUALAN;
+        $inv_terima_pelanggan = $value->INV_TERIMA_PELANGGAN;
+      }
+
+      $live_inv = $inv_faktur_penjualan.date('y-m').'.'.sprintf('%05d', $inv_int);
+
+
+
+
+
 
       if($logic_no_faktur == 0)
       {
         $data = array(
           'DATE' => $date,
           'TIME' => date('H:i:s'),
-          'PKS_ID' => $pks_id,
+          'PELANGGAN_ID' => $pelanggan_id,
           'CREATED_BY' => $this->session->userdata('username'),
           'UPDATED_BY' => $this->session->userdata('username'),
           'KETERANGAN' => $keterangan,
-          'NO_FAKTUR' => $no_faktur,
+          'NO_FAKTUR' => $live_inv,
           'ENABLE_EDIT' => 1,
           'TOTAL_PEMBAYARAN' => 0,
-          'PAYMENT_T' =>0
+          'PAYMENT_T' =>0,
+          'INV_INT' =>$inv_int,
+          'COMPANY_ID' => $this->session->userdata('company_id'),
+          'PPN' => $ppn,
+          'PPH' => $pph
+          
         );
 
         $this->m_t_ak_faktur_penjualan->tambah($data);
@@ -307,9 +348,9 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       }
       
     }
-    if($no_faktur=='')
+    if($pelanggan_id==0)
     {
-      $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> No Faktur Tidak Boleh Kosong!</p></div>');
+      $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> Pelanggan Tidak Boleh Kosong!</p></div>');
     }
     
     redirect('c_t_ak_faktur_penjualan');
@@ -323,13 +364,23 @@ class C_t_ak_faktur_penjualan extends MY_Controller
   public function edit_action()
   {
     $id = $this->input->post("id");
+    $ppn = $this->input->post("ppn");
+    $pph = $this->input->post("pph");
 
-    $no_faktur = substr($this->input->post("no_faktur"), 0, 100);
+
+    if($ppn==null)
+    {
+      $ppn = false;
+    }
+    if($pph==null)
+    {
+      $pph = false;
+    }
 
 //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
     $data = array(
-      'NO_FAKTUR' => $no_faktur,
-      
+      'PPN' => $ppn,
+      'PPH' => $pph
     );
     $this->m_t_ak_faktur_penjualan->update($data, $id);
     $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');

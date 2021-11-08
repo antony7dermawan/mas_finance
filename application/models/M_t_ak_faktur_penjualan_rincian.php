@@ -17,35 +17,37 @@ public function update($data, $id)
   {
     $this->db->select("T_AK_FAKTUR_PENJUALAN_RINCIAN.ID");
     $this->db->select("T_AK_FAKTUR_PENJUALAN_RINCIAN.FAKTUR_PENJUALAN_ID");
-    $this->db->select("T_AK_FAKTUR_PENJUALAN_RINCIAN.PENJUALAN_PKS_ID");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN_RINCIAN.PENJUALAN_ID");
     $this->db->select("T_AK_FAKTUR_PENJUALAN_RINCIAN.CREATED_BY");
     $this->db->select("T_AK_FAKTUR_PENJUALAN_RINCIAN.UPDATED_BY");
     $this->db->select("T_AK_FAKTUR_PENJUALAN_RINCIAN.KETERANGAN");
 
 
 
-    $this->db->select("T_T_A_PENJUALAN_PKS.DATE");
-    $this->db->select("T_T_A_PENJUALAN_PKS.TIME");
+    $this->db->select("T_T_T_PENJUALAN_JASA.DATE");
+    $this->db->select("T_T_T_PENJUALAN_JASA.TIME");
 
-    $this->db->select("T_T_A_PENJUALAN_PKS.NO_TIKET");
-    $this->db->select("T_T_A_PENJUALAN_PKS.NETO");
-    $this->db->select("T_T_A_PENJUALAN_PKS.HARGA");
-    $this->db->select("T_T_A_PENJUALAN_PKS.TOTAL_PENJUALAN");
+    $this->db->select("T_T_T_PENJUALAN_JASA.INV");
 
     $this->db->select("T_AK_FAKTUR_PENJUALAN.ENABLE_EDIT");
 
+    $this->db->select("SUM_SUB_TOTAL");
 
+    
     $this->db->from('T_AK_FAKTUR_PENJUALAN_RINCIAN');
 
-    $this->db->join('T_T_A_PENJUALAN_PKS', 'T_T_A_PENJUALAN_PKS.ID = T_AK_FAKTUR_PENJUALAN_RINCIAN.PENJUALAN_PKS_ID', 'left');
+    $this->db->join('T_T_T_PENJUALAN_JASA', 'T_T_T_PENJUALAN_JASA.ID = T_AK_FAKTUR_PENJUALAN_RINCIAN.PENJUALAN_ID', 'left');
 
     $this->db->join('T_AK_FAKTUR_PENJUALAN', 'T_AK_FAKTUR_PENJUALAN.ID = T_AK_FAKTUR_PENJUALAN_RINCIAN.FAKTUR_PENJUALAN_ID', 'left');
+
+
+    $this->db->join("(select \"PENJUALAN_JASA_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PENJUALAN_JASA_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PENJUALAN_JASA_ID\") as t_sum_1", 'T_T_T_PENJUALAN_JASA.ID = t_sum_1.PENJUALAN_JASA_ID', 'left');
 
     
     $this->db->where('T_AK_FAKTUR_PENJUALAN_RINCIAN.FAKTUR_PENJUALAN_ID', $id);
 
 
-    $this->db->order_by("DATE", "asc");
+    $this->db->order_by("ID", "asc");
 
     $akun = $this->db->get ();
     return $akun->result ();

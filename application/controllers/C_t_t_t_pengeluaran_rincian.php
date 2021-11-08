@@ -9,7 +9,8 @@ class C_t_t_t_pengeluaran_rincian extends MY_Controller
     parent::__construct();
 
     $this->load->model('m_t_t_t_pengeluaran_rincian');
-    $this->load->model('m_t_t_t_penjualan_jasa_rincian');
+    $this->load->model('m_t_t_t_penjualan_jasa_rincian_1');
+    $this->load->model('m_t_t_t_penjualan_jasa_1');
     $this->load->model('m_t_ak_jurnal');
     
     $this->load->model('m_ak_m_coa');
@@ -19,17 +20,14 @@ class C_t_t_t_pengeluaran_rincian extends MY_Controller
   public function index($penjualan_jasa_rincian_id,$penjualan_jasa_id)
   {
     $this->session->set_userdata('t_t_t_pengeluaran_rincian_delete_logic', '1');
-   
-
-
-
 
 
     $data = [
       "c_t_t_t_pengeluaran_rincian" => $this->m_t_t_t_pengeluaran_rincian->select($penjualan_jasa_rincian_id),
 
-      "c_t_t_t_penjualan_jasa_rincian_by_id" => $this->m_t_t_t_penjualan_jasa_rincian->select_by_id($penjualan_jasa_rincian_id),
+      "c_t_t_t_penjualan_jasa_rincian_by_id" => $this->m_t_t_t_penjualan_jasa_rincian_1->select_by_id($penjualan_jasa_rincian_id),
 
+      "c_t_t_t_penjualan_jasa_by_id" => $this->m_t_t_t_penjualan_jasa_1->select_by_id($penjualan_jasa_id),
 
       "no_akun_option" => $this->m_ak_m_coa->select_no_akun(),
 

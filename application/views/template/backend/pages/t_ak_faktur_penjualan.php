@@ -27,7 +27,7 @@
           <tr>
             <th>No</th>
             <th>Date</th>
-            <th>PKS</th>
+            <th>Pelanggan</th>
             <th>No Faktur</th>
             <th>Total Tagihan</th>
             <th>Action</th>
@@ -39,7 +39,7 @@
             echo "<tr>";
             echo "<td>" . ($key + 1) . "</td>";
             echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
-            echo "<td>" . $value->PKS . "</td>";
+            echo "<td>" . $value->PELANGGAN . "</td>";
             echo "<td>" . $value->NO_FAKTUR . "</td>";
             #echo "<td>".date('d-m-Y', strtotime($value->DATE))." / ".date('H:i', strtotime($value->TIME))." / ".$value->CREATED_BY."</td>";
 
@@ -150,11 +150,11 @@
 
             <div class="col-md-6">
               <fieldset class="form-group">
-                <label>PKS</label>
+                <label>Pelanggan</label>
                 <select name="pks_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
                   <?php
-                  foreach ($c_t_m_a_pks as $key => $value) {
-                    echo "<option value='" . $value->PKS_ID . "'>" . $value->PKS . "</option>";
+                  foreach ($c_t_m_d_pelanggan as $key => $value) {
+                    echo "<option value='" . $value->ID . "'>" . $value->PELANGGAN . "</option>";
                   }
                   ?>
                 </select>

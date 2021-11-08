@@ -33,7 +33,7 @@
     <!-- Menampilkan notif !-->
     <?= $this->session->flashdata('notif') ?>
 
-    <a href="<?= base_url("c_t_t_t_penjualan_jasa"); ?>" class="btn waves-effect waves-light btn-inverse"><i class="icofont icofont-double-left"></i>Back</a>
+    <a href="<?= base_url("c_t_t_t_penjualan_jasa_3"); ?>" class="btn waves-effect waves-light btn-inverse"><i class="icofont icofont-double-left"></i>Back</a>
     <!-- Tombol untuk menambah data akun !-->
     <?php
     if($enable_edit==1)
@@ -48,7 +48,7 @@
         <thead>
           <tr>
             <th>No</th>
-            <th>No SPB</th>
+            <th>No SPB/NO Faktur</th>
             <th>Keterangan</th>
             <th>Pengeluaran</th>
             <th>DARI</th>
@@ -58,18 +58,19 @@
             <th>Tgl Bongkar</th>
             <th>No Polisi</th>
             <th>Supir</th>
-            <th>Bruto (Kebun)</th>
-            <th>Tara (Kebun)</th>
-            <th>Total (Kebun)</th>
-            <th>Bruto (Pabrik)</th>
-            <th>Tara (Pabrik)</th>
-            <th>Total (Pabrik)</th>
-            <th>Susut (Kg)</th>
-            <th>Toleransi (%)</th>
-            <th>Nilai Toleransi</th>
-            <th>Claim Susut</th>
-            <th>Harga/Kg (Kebun)</th>
-            <th>Harga/Kg (Pabrik)</th>
+            
+
+            <th>Petak</th>
+            <th>No Petak</th>
+            <th>Bruto</th>
+            <th>Tara</th>
+            <th>Tonase</th>
+            <th>Pinalty 1</th>
+            <th>Pinalty 2</th>
+            <th>Neto 1</th>
+            <th>Neto 2</th>
+            
+            <th>Harga Kayu</th>
             <th>Sub Total</th>
             <th>PPN(%)</th>
             <th>PPN Rp</th>
@@ -82,7 +83,7 @@
         </thead>
         <tbody>
           <?php
-          foreach ($c_t_t_t_penjualan_jasa_rincian as $key => $value) {
+          foreach ($c_t_t_t_penjualan_jasa_rincian_3 as $key => $value) {
 
             if($value->MARK_FOR_DELETE == 'f')
             {
@@ -109,18 +110,20 @@
               echo "<td>" . $value->DATE_BONGKAR . "</td>";
               echo "<td>" . $value->NO_POLISI .' / '. $value->NO_UNIT . "</td>";
               echo "<td>" . $value->SUPIR . "</td>";
-              echo "<td>" . number_format(($value->BRUTO_KEBUN), 2, '.', ',') . "</td>";
-              echo "<td>" . number_format(($value->TARA_KEBUN), 2, '.', ',') . "</td>";
-              echo "<td>" . number_format(($value->VALUE_KEBUN), 2, '.', ',') . "</td>";
-              echo "<td>" . number_format(($value->BRUTO_PABRIK), 2, '.', ',') . "</td>";
-              echo "<td>" . number_format(($value->TARA_PABRIK), 2, '.', ',') . "</td>";
-              echo "<td>" . number_format(($value->VALUE_PABRIK), 2, '.', ',') . "</td>";
-              echo "<td>" . number_format(($value->VALUE_SUSUT), 2, '.', ',') . "</td>";
-              echo "<td>" . number_format(($value->TOLERANSI), 2, '.', ',') . "</td>";
-              echo "<td>" . number_format(($value->TOLERANSI_VALUE), 2, '.', ',') . "</td>";
-              echo "<td>" . number_format(($value->CLAIM_SUSUT), 2, '.', ',') . "</td>";
-              echo "<td>" . number_format(($value->HARGA_KEBUN), 2, '.', ',') . "</td>";
-              echo "<td>" . number_format(($value->HARGA_PABRIK), 2, '.', ',') . "</td>";
+              
+              echo "<td>" . $value->PETAK . "</td>";
+              echo "<td>" . $value->NO_PETAK . "</td>";
+              echo "<td>" . number_format(($value->BRUTO_KAYU), 2, '.', ',') . "</td>";
+              echo "<td>" . number_format(($value->TARA_KAYU), 2, '.', ',') . "</td>";
+              echo "<td>" . number_format(($value->TONASE), 2, '.', ',') . "</td>";
+              echo "<td>" . number_format(($value->PINALTY_1), 2, '.', ',') . "</td>";
+              echo "<td>" . number_format(($value->PINALTY_2), 2, '.', ',') . "</td>";
+              echo "<td>" . number_format(($value->NETO_1), 2, '.', ',') . "</td>";
+              echo "<td>" . number_format(($value->NETO_2), 2, '.', ',') . "</td>";
+
+
+
+              echo "<td>" . number_format(($value->HARGA_KAYU), 2, '.', ',') . "</td>";
               echo "<td>" . number_format(($value->SUB_TOTAL), 2, '.', ',') . "</td>";
               echo "<td>" . number_format(($value->PPN_PERCENTAGE), 2, '.', ',') . "</td>";
               echo "<td>" . number_format(($value->PPN_VALUE), 2, '.', ',') . "</td>";
@@ -139,7 +142,7 @@
                 echo "</a>";
 
 
-                echo "<a href='".site_url('c_t_t_t_penjualan_jasa_rincian/delete/'.$value->ID.'/'.$penjualan_jasa_id)."' ";
+                echo "<a href='".site_url('c_t_t_t_penjualan_jasa_rincian_3/delete/'.$value->ID.'/'.$penjualan_jasa_id)."' ";
                 echo "onclick=\"return confirm('Apakah kamu yakin ingin menghapus data ini?')\"";
 
 
@@ -180,7 +183,7 @@
 
 
 <!-- MODAL TAMBAH PEMASUKAN! !-->
-<form action="<?php echo base_url('c_t_t_t_penjualan_jasa_rincian/tambah/'.$penjualan_jasa_id) ?>" method="post" id='add_data'>
+<form action="<?php echo base_url('c_t_t_t_penjualan_jasa_rincian_3/tambah/'.$penjualan_jasa_id) ?>" method="post" id='add_data'>
   <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -197,7 +200,7 @@
           
 
           <div class="form-group">
-              <label>No SPB</label>
+              <label>No SPB/NO Faktur</label>
               <input type='text' class='form-control' placeholder='Input Text' name='no_spb'>
           </div>
         
@@ -319,13 +322,20 @@
 
 
 
-
           <div class="row">
             <div class="col-md-6">
 
               <fieldset class="form-group">
-                <label>Bruto (Kebun)</label>
-                <input type='text' class='form-control' placeholder='Input Number' name='bruto_kebun' value=''>
+                <label>Petak</label>
+                <select name="petak_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                  <?php
+                  foreach ($c_t_m_d_petak as $key => $value) 
+                  {
+                    echo "<option value='".$value->ID."'>".$value->PETAK."</option>";
+
+                  }
+                  ?>
+                </select>
               </fieldset>
 
             </div><!-- Membungkus Row Kedua !-->
@@ -334,8 +344,54 @@
             <div class="col-md-6">
 
               <fieldset class="form-group">
-                <label>Tara (Kebun)</label>
-                <input type='text' class='form-control' placeholder='Input Number' name='tara_kebun' value=''>  
+                <label>Nomor Petak</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='no_petak' value=''>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+          </div>
+
+
+
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Bruto</label>
+                <input type='text' class='form-control' placeholder='Input Number' name='bruto_kayu' value=''>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Tara</label>
+                <input type='text' class='form-control' placeholder='Input Number' name='tara_kayu' value=''>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+          </div>
+
+
+
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Pinalty 1</label>
+                <input type='text' class='form-control' placeholder='Input Number' name='pinalty_1' value=''>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Pinalty 2</label>
+                <input type='text' class='form-control' placeholder='Input Number' name='pinalty_2' value=''>  
               </fieldset>
             </div> <!-- Membungkus Row !-->
           </div>
@@ -346,8 +402,8 @@
             <div class="col-md-6">
 
               <fieldset class="form-group">
-                <label>Bruto (Pabrik)</label>
-                <input type='text' class='form-control' placeholder='Input Number' name='bruto_pabrik' value=''>
+                <label>Neto 1</label>
+                <input type='text' class='form-control' placeholder='Input Number' name='neto_1' value=''>
               </fieldset>
 
             </div><!-- Membungkus Row Kedua !-->
@@ -356,8 +412,8 @@
             <div class="col-md-6">
 
               <fieldset class="form-group">
-                <label>Tara (Pabrik)</label>
-                <input type='text' class='form-control' placeholder='Input Number' name='tara_pabrik' value=''>  
+                <label>Neto 2</label>
+                <input type='text' class='form-control' placeholder='Input Number' name='neto_2' value=''>  
               </fieldset>
             </div> <!-- Membungkus Row !-->
           </div>
@@ -366,56 +422,26 @@
 
 
 
-          
+
+
+
+
+
 
 
 
           <div class="row">
-            <div class="col-md-6">
 
+
+            <div class="col-md-6">
               <fieldset class="form-group">
-                <label>Toleransi (%)</label>
-                <input type='text' class='form-control' placeholder='0.2' name='toleransi' value='0.2'>
+                <label>Harga</label>
+                <input type='text' class='form-control' placeholder='Input Number' name='harga_kayu' value=''>
               </fieldset>
-
-            </div><!-- Membungkus Row Kedua !-->
-
-
-            <div class="col-md-6">
-
-              <fieldset class="form-group">
                 
-              </fieldset>
             </div> <!-- Membungkus Row !-->
-          </div>
 
 
-
-
-
-          <div class="row">
-            <div class="col-md-6">
-
-              <fieldset class="form-group">
-                <label>Harga/Kg (Kebun)</label>
-                <input type='text' class='form-control' placeholder='Input Number' name='harga_kebun' value=''>
-              </fieldset>
-
-            </div><!-- Membungkus Row Kedua !-->
-
-
-            <div class="col-md-6">
-
-              <fieldset class="form-group">
-                <label>Harga/Kg (Pabrik)</label>
-                <input type='text' class='form-control' placeholder='Input Number' name='harga_pabrik' value=''>  
-              </fieldset>
-            </div> <!-- Membungkus Row !-->
-          </div>
-
-
-
-          <div class="row">
             <div class="col-md-6">
 
               <fieldset class="form-group">
@@ -426,11 +452,22 @@
             </div><!-- Membungkus Row Kedua !-->
 
 
-            <div class="col-md-6">
-
-              
-            </div> <!-- Membungkus Row !-->
           </div>
+
+
+
+
+
+          
+
+
+
+          
+
+
+
+
+     
 
 
        
@@ -480,7 +517,7 @@
 <!-- MODAL EDIT AKUN !-->
 <div class="modal fade" id="Modal_Edit" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <form action="<?php echo base_url('c_t_t_t_penjualan_jasa_rincian/edit_action/'.$penjualan_jasa_id) ?>" method="post" autocomplete="off" id='edit_data'>
+    <form action="<?php echo base_url('c_t_t_t_penjualan_jasa_rincian_3/edit_action/'.$penjualan_jasa_id) ?>" method="post" autocomplete="off" id='edit_data'>
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Edit Data
@@ -499,7 +536,7 @@
 
 
           <div class="form-group">
-              <label>No SPB</label>
+              <label>No SPB/NO Faktur</label>
               <input type='text' class='form-control' placeholder='Input Text' name='no_spb'>
           </div>
         
@@ -627,62 +664,28 @@
 
 
 
-          <div class="row">
-            <div class="col-md-6">
-
-              <fieldset class="form-group">
-                <label>Bruto (Kebun)</label>
-                <input type='text' class='form-control' placeholder='Input Number' name='bruto_kebun' value=''>
-              </fieldset>
-
-            </div><!-- Membungkus Row Kedua !-->
-
-
-            <div class="col-md-6">
-
-              <fieldset class="form-group">
-                <label>Tara (Kebun)</label>
-                <input type='text' class='form-control' placeholder='Input Number' name='tara_kebun' value=''>  
-              </fieldset>
-            </div> <!-- Membungkus Row !-->
-          </div>
-
-
-
-          <div class="row">
-            <div class="col-md-6">
-
-              <fieldset class="form-group">
-                <label>Bruto (Pabrik)</label>
-                <input type='text' class='form-control' placeholder='Input Number' name='bruto_pabrik' value=''>
-              </fieldset>
-
-            </div><!-- Membungkus Row Kedua !-->
-
-
-            <div class="col-md-6">
-
-              <fieldset class="form-group">
-                <label>Tara (Pabrik)</label>
-                <input type='text' class='form-control' placeholder='Input Number' name='tara_pabrik' value=''>  
-              </fieldset>
-            </div> <!-- Membungkus Row !-->
-          </div>
-
-
-
-
-
           
 
 
 
+
+
           <div class="row">
             <div class="col-md-6">
 
               <fieldset class="form-group">
-                <label>Toleransi</label>
-                <input type='text' class='form-control' placeholder='Input Number' name='toleransi' value=''>
+                <label>Petak</label>
+                <div class="searchable">
+                  <input type="text" name='petak' placeholder="search" onkeyup="filterFunction(this,event)">
+                  <ul>
+                    <?php
+                    foreach ($c_t_m_d_petak as $key => $value) 
+                    {
+                      echo "<li>".$value->PETAK."</li>";
+                    }
+                    ?>
+                  </ul>
+                </div>
               </fieldset>
 
             </div><!-- Membungkus Row Kedua !-->
@@ -691,38 +694,104 @@
             <div class="col-md-6">
 
               <fieldset class="form-group">
+                <label>Nomor Petak</label>
+                <input type='text' class='form-control' placeholder='Input Text' name='no_petak' value=''>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+          </div>
+
+
+
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Bruto</label>
+                <input type='text' class='form-control' placeholder='Input Number' name='bruto_kayu' value=''>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Tara</label>
+                <input type='text' class='form-control' placeholder='Input Number' name='tara_kayu' value=''>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+          </div>
+
+
+
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Pinalty 1</label>
+                <input type='text' class='form-control' placeholder='Input Number' name='pinalty_1' value=''>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Pinalty 2</label>
+                <input type='text' class='form-control' placeholder='Input Number' name='pinalty_2' value=''>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+          </div>
+
+
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Neto 1</label>
+                <input type='text' class='form-control' placeholder='Input Number' name='neto_1' value=''>
+              </fieldset>
+
+            </div><!-- Membungkus Row Kedua !-->
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Neto 2</label>
+                <input type='text' class='form-control' placeholder='Input Number' name='neto_2' value=''>  
+              </fieldset>
+            </div> <!-- Membungkus Row !-->
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <div class="row">
+
+
+            <div class="col-md-6">
+              <fieldset class="form-group">
+                <label>Harga</label>
+                <input type='text' class='form-control' placeholder='Input Number' name='harga_kayu' value=''>
+              </fieldset>
                 
-              </fieldset>
             </div> <!-- Membungkus Row !-->
-          </div>
 
 
-
-
-
-          <div class="row">
-            <div class="col-md-6">
-
-              <fieldset class="form-group">
-                <label>Harga/Kg (Kebun)</label>
-                <input type='text' class='form-control' placeholder='Input Number' name='harga_kebun' value=''>
-              </fieldset>
-
-            </div><!-- Membungkus Row Kedua !-->
-
-
-            <div class="col-md-6">
-
-              <fieldset class="form-group">
-                <label>Harga/Kg (Pabrik)</label>
-                <input type='text' class='form-control' placeholder='Input Number' name='harga_pabrik' value=''>  
-              </fieldset>
-            </div> <!-- Membungkus Row !-->
-          </div>
-
-
-
-          <div class="row">
             <div class="col-md-6">
 
               <fieldset class="form-group">
@@ -733,10 +802,6 @@
             </div><!-- Membungkus Row Kedua !-->
 
 
-            <div class="col-md-6">
-
-              
-            </div> <!-- Membungkus Row !-->
           </div>
           
 
@@ -768,7 +833,7 @@
 
 
 <script>
-  const read_data = <?= json_encode($c_t_t_t_penjualan_jasa_rincian) ?>;
+  const read_data = <?= json_encode($c_t_t_t_penjualan_jasa_rincian_3) ?>;
   console.log(read_data);
   let elModalEdit = document.querySelector("#Modal_Edit");
   console.log(elModalEdit);
@@ -792,13 +857,20 @@
 
         NO_POLISI : no_polisi,
         SUPIR : supir,
-        BRUTO_KEBUN : bruto_kebun,
-        TARA_KEBUN : tara_kebun,
-        BRUTO_PABRIK : bruto_pabrik,
-        TARA_PABRIK : tara_pabrik,
-        TOLERANSI : toleransi,
-        HARGA_KEBUN : harga_kebun,
-        HARGA_PABRIK : harga_pabrik,
+       
+        PETAK : petak,
+        NO_PETAK : no_petak,
+        BRUTO_KAYU : bruto_kayu,
+        TARA_KAYU : tara_kayu,
+        PINALTY_1 : pinalty_1,
+        PINALTY_2 : pinalty_2,
+        NETO_1 : neto_1,
+        NETO_2 : neto_2,
+        HARGA_KAYU : harga_kayu,
+        
+
+
+
         PPN_PERCENTAGE : ppn_percentage,
         KET : ket,
         JARAK_KM : jarak_km
@@ -817,13 +889,20 @@
       elModalEdit.querySelector("[name=to_nama_kota]").value = to_nama_kota;
       elModalEdit.querySelector("[name=no_polisi]").value = no_polisi;
       elModalEdit.querySelector("[name=supir]").value = supir;
-      elModalEdit.querySelector("[name=bruto_kebun]").value = bruto_kebun;
-      elModalEdit.querySelector("[name=tara_kebun]").value = tara_kebun;
-      elModalEdit.querySelector("[name=bruto_pabrik]").value = bruto_pabrik;
-      elModalEdit.querySelector("[name=tara_pabrik]").value = tara_pabrik;
-      elModalEdit.querySelector("[name=toleransi]").value = toleransi;
-      elModalEdit.querySelector("[name=harga_kebun]").value = harga_kebun;
-      elModalEdit.querySelector("[name=harga_pabrik]").value = harga_pabrik;
+      
+      elModalEdit.querySelector("[name=petak]").value = petak;
+      elModalEdit.querySelector("[name=no_petak]").value = no_petak;
+      elModalEdit.querySelector("[name=bruto_kayu]").value = bruto_kayu;
+      elModalEdit.querySelector("[name=tara_kayu]").value = tara_kayu;
+      elModalEdit.querySelector("[name=pinalty_1]").value = pinalty_1;
+      elModalEdit.querySelector("[name=pinalty_2]").value = pinalty_2;
+      elModalEdit.querySelector("[name=neto_1]").value = neto_1;
+      elModalEdit.querySelector("[name=neto_2]").value = neto_2;
+      elModalEdit.querySelector("[name=harga_kayu]").value = harga_kayu;
+
+
+
+
       elModalEdit.querySelector("[name=ppn_percentage]").value = ppn_percentage;
       elModalEdit.querySelector("[name=ket]").value = ket;
       elModalEdit.querySelector("[name=jarak_km]").value = jarak_km;

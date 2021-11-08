@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class M_t_t_t_penjualan_jasa_rincian extends CI_Model {
+class M_t_t_t_penjualan_jasa_rincian_3 extends CI_Model {
     
     
 public function update($data, $id)
@@ -49,6 +49,23 @@ public function update($data, $id)
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.KET");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.JARAK_KM");
 
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.PC");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.HARGA_PC");
+
+
+
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.PETAK_ID");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.NO_PETAK");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.BRUTO_KAYU");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.TARA_KAYU");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.TONASE");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.HARGA_PC");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.PINALTY_1");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.PINALTY_2");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.NETO_1");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.NETO_2");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.HARGA_KAYU");
+
 
 
 
@@ -58,6 +75,7 @@ public function update($data, $id)
     $this->db->select('T_M_D_SUPIR.SUPIR');
     $this->db->select("T_M_D_FROM_NAMA_KOTA.FROM_NAMA_KOTA");
     $this->db->select("T_M_D_TO_NAMA_KOTA.TO_NAMA_KOTA");
+    $this->db->select('T_M_D_PETAK.PETAK');
 
 
    
@@ -70,6 +88,7 @@ public function update($data, $id)
 
     $this->db->join('T_M_D_NO_POLISI', 'T_M_D_NO_POLISI.ID = T_T_T_PENJUALAN_JASA_RINCIAN.NO_POLISI_ID', 'left');
     $this->db->join('T_M_D_SUPIR', 'T_M_D_SUPIR.ID = T_T_T_PENJUALAN_JASA_RINCIAN.SUPIR_ID', 'left');
+    $this->db->join('T_M_D_PETAK', 'T_M_D_PETAK.ID = T_T_T_PENJUALAN_JASA_RINCIAN.PETAK_ID', 'left');
     $this->db->join('T_M_D_FROM_NAMA_KOTA', 'T_M_D_FROM_NAMA_KOTA.ID = T_T_T_PENJUALAN_JASA_RINCIAN.FROM_NAMA_KOTA_ID', 'left');
     $this->db->join('T_M_D_TO_NAMA_KOTA', 'T_M_D_TO_NAMA_KOTA.ID = T_T_T_PENJUALAN_JASA_RINCIAN.TO_NAMA_KOTA_ID', 'left');
 
@@ -137,9 +156,20 @@ public function update($data, $id)
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.MARK_FOR_DELETE");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.KET");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.JARAK_KM");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.PC");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.HARGA_PC");
 
-
-
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.PETAK_ID");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.NO_PETAK");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.BRUTO_KAYU");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.TARA_KAYU");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.TONASE");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.HARGA_PC");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.PINALTY_1");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.PINALTY_2");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.NETO_1");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.NETO_2");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.HARGA_KAYU");
 
 
     $this->db->select('T_M_D_NO_POLISI.NO_POLISI');
@@ -147,6 +177,8 @@ public function update($data, $id)
     $this->db->select('T_M_D_SUPIR.SUPIR');
     $this->db->select("T_M_D_FROM_NAMA_KOTA.FROM_NAMA_KOTA");
     $this->db->select("T_M_D_TO_NAMA_KOTA.TO_NAMA_KOTA");
+
+    $this->db->select('T_M_D_PETAK.PETAK');
 
 
    
@@ -158,6 +190,7 @@ public function update($data, $id)
 
     $this->db->join('T_M_D_NO_POLISI', 'T_M_D_NO_POLISI.ID = T_T_T_PENJUALAN_JASA_RINCIAN.NO_POLISI_ID', 'left');
     $this->db->join('T_M_D_SUPIR', 'T_M_D_SUPIR.ID = T_T_T_PENJUALAN_JASA_RINCIAN.SUPIR_ID', 'left');
+    $this->db->join('T_M_D_PETAK', 'T_M_D_PETAK.ID = T_T_T_PENJUALAN_JASA_RINCIAN.PETAK_ID', 'left');
     $this->db->join('T_M_D_FROM_NAMA_KOTA', 'T_M_D_FROM_NAMA_KOTA.ID = T_T_T_PENJUALAN_JASA_RINCIAN.FROM_NAMA_KOTA_ID', 'left');
     $this->db->join('T_M_D_TO_NAMA_KOTA', 'T_M_D_TO_NAMA_KOTA.ID = T_T_T_PENJUALAN_JASA_RINCIAN.TO_NAMA_KOTA_ID', 'left');
 
