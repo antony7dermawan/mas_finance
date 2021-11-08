@@ -219,21 +219,24 @@ if($level_user_id==1 or $level_user_id==6 )
         }
         ?>
 
+
+
         <?php
-        if($level_user_id==1 or  $level_user_id==2 or $level_user_id==3 or $level_user_id==6 or $level_user_id==7or $level_user_id==8 or $level_user_id==10)
+        if($level_user_id==1 or  $level_user_id==2 or $level_user_id==3 or $level_user_id==6 or $level_user_id==8 or $level_user_id==9)
         {
         ?>
         <ul class="pcoded-submenu">
             <li class="">
-                <a href="<?= base_url("https://acien-id.com/"); ?>" class="submenu waves-effect waves-dark">
-                    <span class="pcoded-mtext">none</span>
+                <a href="<?= base_url("c_t_t_t_penjualan_jasa_2"); ?>" class="submenu waves-effect waves-dark">
+                    <span class="pcoded-mtext">Pendapatan Non CPO</span>
                 </a>
             </li>
         </ul>
-
         <?php
         }
         ?>
+
+       
     </li>
 
 

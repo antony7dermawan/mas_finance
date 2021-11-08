@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class C_t_t_t_penjualan_jasa_rincian extends MY_Controller
+class C_t_t_t_penjualan_jasa_rincian_2 extends MY_Controller
 {
 
   public function __construct()
@@ -11,7 +11,7 @@ class C_t_t_t_penjualan_jasa_rincian extends MY_Controller
 
     $this->load->model('m_t_t_t_penjualan_jasa');
 
-    $this->load->model('m_t_t_t_penjualan_jasa_rincian'); 
+    $this->load->model('m_t_t_t_penjualan_jasa_rincian_2'); 
 
     
     $this->load->model('m_t_m_d_satuan');
@@ -39,7 +39,7 @@ class C_t_t_t_penjualan_jasa_rincian extends MY_Controller
 
     $data = [
       //"select_barang_with_supplier" => $this->m_t_t_t_pembelian_rincian->select_barang_with_supplier(),
-      "c_t_t_t_penjualan_jasa_rincian" => $this->m_t_t_t_penjualan_jasa_rincian->select($penjualan_jasa_id),
+      "c_t_t_t_penjualan_jasa_rincian_2" => $this->m_t_t_t_penjualan_jasa_rincian_2->select($penjualan_jasa_id),
 
       "c_t_t_t_penjualan_jasa_by_id" => $this->m_t_t_t_penjualan_jasa->select_by_id($penjualan_jasa_id),
 
@@ -53,7 +53,7 @@ class C_t_t_t_penjualan_jasa_rincian extends MY_Controller
       "title" => "Rincian Nomor SPB",
       "description" => ""
     ];
-    $this->render_backend('template/backend/pages/t_t_t_penjualan_jasa_rincian', $data);
+    $this->render_backend('template/backend/pages/t_t_t_penjualan_jasa_rincian_2', $data);
   }
 
 
@@ -64,13 +64,13 @@ class C_t_t_t_penjualan_jasa_rincian extends MY_Controller
         'UPDATED_BY' => $this->session->userdata('username'),
         'MARK_FOR_DELETE' => TRUE
     );
-    $this->m_t_t_t_penjualan_jasa_rincian->update($data, $id);
+    $this->m_t_t_t_penjualan_jasa_rincian_2->update($data, $id);
 
 
 
     $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
 
-    redirect('c_t_t_t_penjualan_jasa_rincian/index/' . $penjualan_jasa_id);
+    redirect('c_t_t_t_penjualan_jasa_rincian_2/index/' . $penjualan_jasa_id);
   }
 
 
@@ -107,35 +107,13 @@ class C_t_t_t_penjualan_jasa_rincian extends MY_Controller
 
 
 
-    $bruto_kebun = floatval($this->input->post("bruto_kebun"));
-    $tara_kebun = floatval($this->input->post("tara_kebun"));
-
-    $value_kebun = $bruto_kebun - $tara_kebun;
-
-    $bruto_pabrik = floatval($this->input->post("bruto_pabrik"));
-    $tara_pabrik = floatval($this->input->post("tara_pabrik"));
-
-    $value_pabrik = $bruto_pabrik - $tara_pabrik;
-
-
-    $value_susut = $value_kebun - $value_pabrik;
-
-    $percentage_susut = (($value_kebun - $value_pabrik)/$value_kebun)*100;
-
-
-    $toleransi = floatval($this->input->post("toleransi"));
-
-    $toleransi_value = ($toleransi * $value_kebun)/100;
-
-
-    $claim_susut = $toleransi_value - $value_susut;
-
+  
     
-    $harga_kebun = floatval($this->input->post("harga_kebun"));
-    $harga_pabrik = floatval($this->input->post("harga_pabrik"));
+    $pc = floatval($this->input->post("pc"));
+    $harga_pc = floatval($this->input->post("harga_pc"));
 
 
-    $sub_total = ($value_kebun*$harga_kebun) + ($value_pabrik*$harga_pabrik);
+    $sub_total = ($harga_pc*$pc) ;
 
 
     $ppn_percentage = floatval($this->input->post("ppn_percentage"));
@@ -155,18 +133,9 @@ class C_t_t_t_penjualan_jasa_rincian extends MY_Controller
         'TO_NAMA_KOTA_ID' => $to_nama_kota_id,
         'NO_POLISI_ID' => $no_polisi_id,
         'SUPIR_ID' => $supir_id,
-        'BRUTO_KEBUN' => $bruto_kebun,
-        'TARA_KEBUN' => $tara_kebun,
-        'VALUE_KEBUN' => $value_kebun,
-        'BRUTO_PABRIK' => $bruto_pabrik,
-        'TARA_PABRIK' => $tara_pabrik,
-        'VALUE_PABRIK' => $value_pabrik,
-        'VALUE_SUSUT' => $value_susut,
-        'PERCENTAGE_SUSUT' => $percentage_susut,
-        'TOLERANSI' => $toleransi,
-        'CLAIM_SUSUT' => $claim_susut,
-        'HARGA_KEBUN' => $harga_kebun,
-        'HARGA_PABRIK' => $harga_pabrik,
+        
+        'PC' => $pc,
+        'HARGA_PC' => $harga_pc,
         'SUB_TOTAL' => $sub_total,
         'PPN_PERCENTAGE' => $ppn_percentage,
         'PPN_VALUE' => $ppn_value,
@@ -180,17 +149,17 @@ class C_t_t_t_penjualan_jasa_rincian extends MY_Controller
         'JARAK_KM' => $jarak_km
     );
 
-    $this->m_t_t_t_penjualan_jasa_rincian->tambah($data);
+    $this->m_t_t_t_penjualan_jasa_rincian_2->tambah($data);
 
 
 
       $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
-      redirect('c_t_t_t_penjualan_jasa_rincian/index/' . $penjualan_jasa_id);
+      redirect('c_t_t_t_penjualan_jasa_rincian_2/index/' . $penjualan_jasa_id);
     
     
 
     
-    redirect('c_t_t_t_penjualan_jasa_rincian/index/'.$penjualan_jasa_id);
+    redirect('c_t_t_t_penjualan_jasa_rincian_2/index/'.$penjualan_jasa_id);
   }
 
 
@@ -251,34 +220,13 @@ class C_t_t_t_penjualan_jasa_rincian extends MY_Controller
 
 
 
-    $bruto_kebun = floatval($this->input->post("bruto_kebun"));
-    $tara_kebun = floatval($this->input->post("tara_kebun"));
-
-    $value_kebun = $bruto_kebun - $tara_kebun;
-
-    $bruto_pabrik = floatval($this->input->post("bruto_pabrik"));
-    $tara_pabrik = floatval($this->input->post("tara_pabrik"));
-
-    $value_pabrik = $bruto_pabrik - $tara_pabrik;
+  
+    $pc = floatval($this->input->post("pc"));
+    $harga_pc = floatval($this->input->post("harga_pc"));
 
 
-    $value_susut = $value_kebun - $value_pabrik;
+    $sub_total = ($harga_pc*$pc) ;
 
-    $percentage_susut = (($value_kebun - $value_pabrik)/$value_kebun)*100;
-
-
-    $toleransi = floatval($this->input->post("toleransi"));
-
-
-    $toleransi_value = ($toleransi * $value_kebun)/100;
-
-
-    $claim_susut = $toleransi_value - $value_susut;
-    $harga_kebun = floatval($this->input->post("harga_kebun"));
-    $harga_pabrik = floatval($this->input->post("harga_pabrik"));
-
-
-    $sub_total = ($value_kebun*$harga_kebun) + ($value_pabrik*$harga_pabrik);
 
 
     $ppn_percentage = floatval($this->input->post("ppn_percentage"));
@@ -297,18 +245,9 @@ class C_t_t_t_penjualan_jasa_rincian extends MY_Controller
         'TO_NAMA_KOTA_ID' => $to_nama_kota_id,
         'NO_POLISI_ID' => $no_polisi_id,
         'SUPIR_ID' => $supir_id,
-        'BRUTO_KEBUN' => $bruto_kebun,
-        'TARA_KEBUN' => $tara_kebun,
-        'VALUE_KEBUN' => $value_kebun,
-        'BRUTO_PABRIK' => $bruto_pabrik,
-        'TARA_PABRIK' => $tara_pabrik,
-        'VALUE_PABRIK' => $value_pabrik,
-        'VALUE_SUSUT' => $value_susut,
-        'PERCENTAGE_SUSUT' => $percentage_susut,
-        'TOLERANSI' => $toleransi,
-        'CLAIM_SUSUT' => $claim_susut,
-        'HARGA_KEBUN' => $harga_kebun,
-        'HARGA_PABRIK' => $harga_pabrik,
+        
+        'PC' => $pc,
+        'HARGA_PC' => $harga_pc,
         'SUB_TOTAL' => $sub_total,
         'PPN_PERCENTAGE' => $ppn_percentage,
         'PPN_VALUE' => $ppn_value,
@@ -322,18 +261,18 @@ class C_t_t_t_penjualan_jasa_rincian extends MY_Controller
         'JARAK_KM' => $jarak_km
     );
 
-    $this->m_t_t_t_penjualan_jasa_rincian->update($data, $id);
+    $this->m_t_t_t_penjualan_jasa_rincian_2->update($data, $id);
       $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
 
 
 
       $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
-      redirect('c_t_t_t_penjualan_jasa_rincian/index/' . $penjualan_jasa_id);
+      redirect('c_t_t_t_penjualan_jasa_rincian_2/index/' . $penjualan_jasa_id);
     
     
 
     
-    redirect('c_t_t_t_penjualan_jasa_rincian/index/'.$penjualan_jasa_id);
+    redirect('c_t_t_t_penjualan_jasa_rincian_2/index/'.$penjualan_jasa_id);
   }
 
 

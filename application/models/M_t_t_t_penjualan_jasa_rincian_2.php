@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class M_t_t_t_penjualan_jasa_rincian extends CI_Model {
+class M_t_t_t_penjualan_jasa_rincian_2 extends CI_Model {
     
     
 public function update($data, $id)
@@ -48,6 +48,9 @@ public function update($data, $id)
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.MARK_FOR_DELETE");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.KET");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.JARAK_KM");
+
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.PC");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.HARGA_PC");
 
 
 
@@ -137,7 +140,8 @@ public function update($data, $id)
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.MARK_FOR_DELETE");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.KET");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.JARAK_KM");
-
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.PC");
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.HARGA_PC");
 
 
 

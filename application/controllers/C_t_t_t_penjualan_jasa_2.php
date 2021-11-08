@@ -2,14 +2,14 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class C_t_t_t_penjualan_jasa extends MY_Controller
+class C_t_t_t_penjualan_jasa_2 extends MY_Controller
 {
 
   public function __construct()
   {
     parent::__construct();
 
-    $this->load->model('m_t_t_t_penjualan_jasa');
+    $this->load->model('m_t_t_t_penjualan_jasa_2');
     $this->load->model('m_t_m_d_company');
     $this->load->model('m_t_m_d_payment_method');
     $this->load->model('m_t_m_d_pelanggan');
@@ -23,7 +23,7 @@ class C_t_t_t_penjualan_jasa extends MY_Controller
   {
     
     
-    $this->session->set_userdata('t_t_t_penjualan_jasa_delete_logic', '1');
+    $this->session->set_userdata('t_t_t_penjualan_jasa_2_delete_logic', '1');
     $this->session->set_userdata('t_m_d_payment_method_delete_logic', '0');
     $this->session->set_userdata('t_m_d_pelanggan_delete_logic', '0');
     $this->session->set_userdata('t_m_d_no_polisi_delete_logic', '0');
@@ -31,13 +31,13 @@ class C_t_t_t_penjualan_jasa extends MY_Controller
     $this->session->set_userdata('t_m_d_lokasi_delete_logic', '0');
 
 
-    if($this->session->userdata('date_penjualan_jasa')=='')
+    if($this->session->userdata('date_penjualan_jasa_2')=='')
     {
       $date_penjualan = date('Y-m-d');
-      $this->session->set_userdata('date_penjualan_jasa', $date_penjualan_jasa);
+      $this->session->set_userdata('date_penjualan_jasa_2', $date_penjualan_jasa_2);
     }
     $data = [
-      "c_t_t_t_penjualan_jasa" => $this->m_t_t_t_penjualan_jasa->select($this->session->userdata('date_penjualan_jasa'),1),   //tipe cpo
+      "c_t_t_t_penjualan_jasa_2" => $this->m_t_t_t_penjualan_jasa_2->select($this->session->userdata('date_penjualan_jasa_2'),2),   //tipe non cpo
 
       "c_t_m_d_company" => $this->m_t_m_d_company->select(),
       "c_t_m_d_payment_method" => $this->m_t_m_d_payment_method->select(),
@@ -48,18 +48,18 @@ class C_t_t_t_penjualan_jasa extends MY_Controller
       "c_t_m_d_no_polisi" => $this->m_t_m_d_no_polisi->select(),
       "c_t_m_d_supir" => $this->m_t_m_d_supir->select(),
 
-      "title" => "Transaksi Pendapatan CPO",
+      "title" => "Pendapatan Non-CPO",
       "description" => " "
     ];
-    $this->render_backend('template/backend/pages/t_t_t_penjualan_jasa', $data);
+    $this->render_backend('template/backend/pages/t_t_t_penjualan_jasa_2', $data);
   }
 
 
-  public function date_penjualan_jasa()
+  public function date_penjualan_jasa_2()
   {
-    $date_penjualan_jasa = ($this->input->post("date_penjualan_jasa"));
-    $this->session->set_userdata('date_penjualan_jasa', $date_penjualan_jasa);
-    redirect('/c_t_t_t_penjualan_jasa');
+    $date_penjualan_jasa_2 = ($this->input->post("date_penjualan_jasa_2"));
+    $this->session->set_userdata('date_penjualan_jasa_2', $date_penjualan_jasa_2);
+    redirect('/c_t_t_t_penjualan_jasa_2');
   }
 
 
@@ -69,9 +69,9 @@ class C_t_t_t_penjualan_jasa extends MY_Controller
         'UPDATED_BY' => $this->session->userdata('username'),
         'MARK_FOR_DELETE' => TRUE
     );
-    $this->m_t_t_t_penjualan_jasa->update($data, $id);
+    $this->m_t_t_t_penjualan_jasa_2->update($data, $id);
     $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
-    redirect('/c_t_t_t_penjualan_jasa');
+    redirect('/c_t_t_t_penjualan_jasa_2');
   }
 
   public function undo_delete($id)
@@ -80,10 +80,10 @@ class C_t_t_t_penjualan_jasa extends MY_Controller
         'UPDATED_BY' => $this->session->userdata('username'),
         'MARK_FOR_DELETE' => FALSE
     );
-    $this->m_t_t_t_penjualan_jasa->update($data, $id);
+    $this->m_t_t_t_penjualan_jasa_2->update($data, $id);
     
     $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Dikembalikan!</strong></p></div>');
-    redirect('/c_t_t_t_penjualan_jasa');
+    redirect('/c_t_t_t_penjualan_jasa_2');
   }
 
  
@@ -98,8 +98,9 @@ class C_t_t_t_penjualan_jasa extends MY_Controller
   {
     $pelanggan_id = intval($this->input->post("pelanggan_id"));
     $payment_method_id = intval($this->input->post("payment_method_id"));
-    $target_party = floatval($this->input->post("target_party"));
-    $jarak_km = floatval($this->input->post("jarak_km"));
+
+    $target_party = 0;
+    $jarak_km = 0;
     
     $no_faktur_pajak = substr($this->input->post("no_faktur_pajak"), 0, 100);
    
@@ -123,8 +124,8 @@ class C_t_t_t_penjualan_jasa extends MY_Controller
     
    
 
-    $date_penjualan_jasa = $date;
-    $this->session->set_userdata('date_penjualan_jasa', $date_penjualan_jasa);
+    $date_penjualan_jasa_2 = $date;
+    $this->session->set_userdata('date_penjualan_jasa_2', $date_penjualan_jasa_2);
 
     if($pelanggan_id!=0 and $payment_method_id!=0  )
     {
@@ -146,7 +147,7 @@ class C_t_t_t_penjualan_jasa extends MY_Controller
         'NO_FAKTUR_PAJAK' => $no_faktur_pajak,
 
         'NO_DO' => $no_do,
-        'TYPE_ID' => 1, //tipe cpo
+        'TYPE_ID' => 2, //tipe non cpo
         'TARGET_PARTY' => $target_party,
         'DATE_KONTRAK' => $date_kontrak,
         'NO_KONTRAK' => $no_kontrak,
@@ -154,7 +155,7 @@ class C_t_t_t_penjualan_jasa extends MY_Controller
  
       );
 
-      $this->m_t_t_t_penjualan_jasa->tambah($data);
+      $this->m_t_t_t_penjualan_jasa_2->tambah($data);
 
 
 
@@ -171,7 +172,7 @@ class C_t_t_t_penjualan_jasa extends MY_Controller
     
 
     
-    redirect('c_t_t_t_penjualan_jasa');
+    redirect('c_t_t_t_penjualan_jasa_2');
   }
 
 
@@ -185,8 +186,8 @@ class C_t_t_t_penjualan_jasa extends MY_Controller
     
 
    
-    $target_party = floatval($this->input->post("target_party"));
-    $jarak_km = floatval($this->input->post("jarak_km"));
+    $target_party = 0;
+    $jarak_km = 0;
     
     $no_faktur_pajak = substr($this->input->post("no_faktur_pajak"), 0, 100);
     
@@ -257,7 +258,7 @@ class C_t_t_t_penjualan_jasa extends MY_Controller
 
 
       );
-      $this->m_t_t_t_penjualan_jasa->update($data, $id);
+      $this->m_t_t_t_penjualan_jasa_2->update($data, $id);
       $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
     }
     else
@@ -265,6 +266,6 @@ class C_t_t_t_penjualan_jasa extends MY_Controller
       $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> Data Tidak Lengkap!</p></div>');
     }
     
-    redirect('/c_t_t_t_penjualan_jasa');
+    redirect('/c_t_t_t_penjualan_jasa_2');
   }
 }
