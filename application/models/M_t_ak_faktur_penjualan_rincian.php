@@ -27,11 +27,12 @@ public function update($data, $id)
     $this->db->select("T_T_T_PENJUALAN_JASA.DATE");
     $this->db->select("T_T_T_PENJUALAN_JASA.TIME");
 
-    $this->db->select("T_T_T_PENJUALAN_JASA.INV");
+    $this->db->select("T_T_T_PENJUALAN_JASA.NO_DO");
 
     $this->db->select("T_AK_FAKTUR_PENJUALAN.ENABLE_EDIT");
 
     $this->db->select("SUM_SUB_TOTAL");
+    $this->db->select("SUM_PPN_VALUE");
 
     
     $this->db->from('T_AK_FAKTUR_PENJUALAN_RINCIAN');
@@ -42,6 +43,9 @@ public function update($data, $id)
 
 
     $this->db->join("(select \"PENJUALAN_JASA_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PENJUALAN_JASA_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PENJUALAN_JASA_ID\") as t_sum_1", 'T_T_T_PENJUALAN_JASA.ID = t_sum_1.PENJUALAN_JASA_ID', 'left');
+
+    $this->db->join("(select \"PENJUALAN_JASA_ID\",sum(\"PPN_VALUE\")\"SUM_PPN_VALUE\" from \"T_T_T_PENJUALAN_JASA_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PENJUALAN_JASA_ID\") as t_sum_2", 'T_T_T_PENJUALAN_JASA.ID = t_sum_2.PENJUALAN_JASA_ID', 'left');
+
 
     
     $this->db->where('T_AK_FAKTUR_PENJUALAN_RINCIAN.FAKTUR_PENJUALAN_ID', $id);

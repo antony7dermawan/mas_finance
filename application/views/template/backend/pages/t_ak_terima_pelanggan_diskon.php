@@ -68,7 +68,7 @@
               
             if($disabled == '')
             {
-              echo "<a href='".site_url('c_t_ak_terima_pelanggan_diskon/delete/'.$value->ID.'/'.$terima_pelanggan_id.'/'.$pks_id)."' ";
+              echo "<a href='".site_url('c_t_ak_terima_pelanggan_diskon/delete/'.$value->ID.'/'.$terima_pelanggan_id.'/'.$pelanggan_id)."' ";
               echo "onclick=\"return confirm('Apakah kamu yakin ingin menghapus data ini?')\"";
               echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
             }
@@ -89,7 +89,7 @@
 
 
 <!-- MODAL TAMBAH PEMASUKAN! !-->
-<form action="<?php echo base_url("c_t_ak_terima_pelanggan_diskon/tambah/".$terima_pelanggan_id."/".$pks_id) ?>" method="post">
+<form action="<?php echo base_url("c_t_ak_terima_pelanggan_diskon/tambah/".$terima_pelanggan_id."/".$pelanggan_id) ?>" method="post">
   <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

@@ -15,7 +15,7 @@
     }
 
     ?>
-    <form action='<?php echo base_url("c_t_ak_faktur_penjualan_rincian/create_faktur_penjualan/" . $faktur_penjualan_id . "/" . $pks_id); ?>' class='no_voucer_area' method="post" id=''>
+    <form action='<?php echo base_url("c_t_ak_faktur_penjualan_rincian/create_faktur_penjualan/" . $faktur_penjualan_id . "/" . $pelanggan_id); ?>' class='no_voucer_area' method="post" id=''>
       <table>
         <tr>
           <th>
@@ -37,6 +37,7 @@
       </table>
 
 
+
     </form>
   </div>
   <div class="card-block">
@@ -50,11 +51,10 @@
           <tr>
             <th>No</th>
             <th>Keterangan</th>
-            <th>Tanggal Kirim</th>
-            <th>No Tiket</th>
-            <th>Jumlah</th>
-            <th>Harga Satuan</th>
+            <th>Tanggal DO</th>
+            <th>No DO</th>
             <th>Jumlah Tagihan</th>
+            <th>PPN</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -66,16 +66,16 @@
             echo "<td>" . $value->KETERANGAN . "</td>";
             #echo "<td>".date('d-m-Y', strtotime($value->DATE))."</td>";
             echo "<td>" . $value->DATE . "</td>";
-            echo "<td>" . $value->NO_TIKET . "</td>";
-            echo "<td>" . $value->NETO . "</td>";
-            echo "<td>" . number_format($value->HARGA) . "</td>";
-            echo "<td>" . number_format($value->TOTAL_PENJUALAN) . "</td>";
+            echo "<td>" . $value->NO_DO . "</td>";
+            echo "<td>" . number_format(($value->SUM_SUB_TOTAL),2,'.',',') . "</td>";
+            echo "<td>" . number_format(($value->SUM_PPN_VALUE),2,'.',',') . "</td>";
+
 
 
             echo "<td>";
             if($disabled=='')
             {
-              echo "<a href='" . site_url('c_t_ak_faktur_penjualan_rincian/delete/' . $value->ID) . "/" . $value->PENJUALAN_PKS_ID ."/" . $faktur_penjualan_id ."/" . $pks_id . "' ";
+              echo "<a href='" . site_url('c_t_ak_faktur_penjualan_rincian/delete/' . $value->ID) . "/" . $value->PENJUALAN_ID ."/" . $faktur_penjualan_id ."/" . $pelanggan_id . "' ";
               echo "onclick=\"return confirm('Apakah kamu yakin ingin menghapus data ini?')\"";
               echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
             }

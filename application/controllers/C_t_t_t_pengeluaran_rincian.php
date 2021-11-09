@@ -11,6 +11,8 @@ class C_t_t_t_pengeluaran_rincian extends MY_Controller
     $this->load->model('m_t_t_t_pengeluaran_rincian');
     $this->load->model('m_t_t_t_penjualan_jasa_rincian_1');
     $this->load->model('m_t_t_t_penjualan_jasa_1');
+    $this->load->model('m_t_t_t_penjualan_jasa_rincian_3');
+    $this->load->model('m_t_t_t_penjualan_jasa_3');
     $this->load->model('m_t_ak_jurnal');
     
     $this->load->model('m_ak_m_coa');
@@ -103,6 +105,34 @@ class C_t_t_t_pengeluaran_rincian extends MY_Controller
       $time_move = '23:59:00.'.$minute_send;
     }
 
+
+
+    $read_select = $this->m_t_t_t_penjualan_jasa_3->select_by_id($penjualan_jasa_id);
+    foreach ($read_select as $key => $value) 
+    {
+      $date_do=$value->DATE;
+      $no_do_pendapatan=$value->NO_DO;
+      $payment_method_id=$value->PAYMENT_METHOD_ID;
+      $pelanggan_id=$value->PELANGGAN_ID;
+    }
+
+    $read_select = $this->m_t_t_t_penjualan_jasa_rincian_3->select_by_id($penjualan_jasa_rincian_id);
+    foreach ($read_select as $key => $value) 
+    {
+      $no_spb_pendapatan=$value->NO_SPB;
+      $no_polisi_id=$value->NO_POLISI_ID;
+      $supir_id=$value->SUPIR_ID;
+      $from_nama_kota_id=$value->FROM_NAMA_KOTA_ID;
+      $to_nama_kota_id=$value->TO_NAMA_KOTA_ID;
+      
+      $gandengan_id=0;
+      $date_muat=$value->DATE_MUAT;
+      $date_bongkar=$value->DATE_BONGKAR;
+    }
+
+
+
+
     $data = array(
         'DATE' => $date,
         'TIME' => $time_move,
@@ -112,12 +142,29 @@ class C_t_t_t_pengeluaran_rincian extends MY_Controller
         'DEBIT' => 0,
         'KREDIT' => floatval($nilai_pengeluaran),
         'CATATAN' => $ket,
-        'DEPARTEMEN' => '0',
+        'DEPARTEMEN' => '',
         'NO_VOUCER' => $no_voucer,
         'CREATED_ID' => $created_id,
         'CHECKED_ID' => 1,
         'SPECIAL_ID' => 0,
-        'COMPANY_ID' => $this->session->userdata('company_id')
+        'COMPANY_ID' => $this->session->userdata('company_id'),
+        'NO_SPB_PENDAPATAN' => $no_spb_pendapatan,
+        'NO_INVOICE_PENDAPATAN' => '',
+        'NO_POLISI_ID' => $no_polisi_id,
+        'SUPIR_ID' => $supir_id,
+        'FROM_NAMA_KOTA_ID' => $from_nama_kota_id,
+        'TO_NAMA_KOTA_ID' => $to_nama_kota_id,
+        'PELANGGAN_ID' => $pelanggan_id,
+        'GANDENGAN_ID' => $gandengan_id,
+        'NO_DO_PENDAPATAN' => $no_do_pendapatan,
+        'DATE_DO' => $date_do,
+        'QTY_JURNAL' => 0,
+        'HARGA_JURNAL' => 0,
+        'DATE_MUAT' => $date_muat,
+        'LOKASI_ID' => 0,
+        'PAYMENT_METHOD_ID' => $payment_method_id,
+        'DATE_BONGKAR' => $date_bongkar
+
     );
     $this->m_t_ak_jurnal->tambah($data);
 
@@ -126,16 +173,32 @@ class C_t_t_t_pengeluaran_rincian extends MY_Controller
         'TIME' => $time_move,
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => '',
-        'COA_ID' => $coa_id_pengeluaran,
+        'COA_ID' => $coa_id,
         'DEBIT' => floatval($nilai_pengeluaran),
         'KREDIT' => 0,
         'CATATAN' => $ket,
-        'DEPARTEMEN' => '0',
+        'DEPARTEMEN' => '',
         'NO_VOUCER' => $no_voucer,
         'CREATED_ID' => $created_id,
         'CHECKED_ID' => 1,
         'SPECIAL_ID' => 0,
-        'COMPANY_ID' => $this->session->userdata('company_id')
+        'COMPANY_ID' => $this->session->userdata('company_id'),
+        'NO_SPB_PENDAPATAN' => $no_spb_pendapatan,
+        'NO_INVOICE_PENDAPATAN' => '',
+        'NO_POLISI_ID' => $no_polisi_id,
+        'SUPIR_ID' => $supir_id,
+        'FROM_NAMA_KOTA_ID' => $from_nama_kota_id,
+        'TO_NAMA_KOTA_ID' => $to_nama_kota_id,
+        'PELANGGAN_ID' => $pelanggan_id,
+        'GANDENGAN_ID' => $gandengan_id,
+        'NO_DO_PENDAPATAN' => $no_do_pendapatan,
+        'DATE_DO' => $date_do,
+        'QTY_JURNAL' => 0,
+        'HARGA_JURNAL' => 0,
+        'DATE_MUAT' => $date_muat,
+        'LOKASI_ID' => 0,
+        'PAYMENT_METHOD_ID' => $payment_method_id,
+        'DATE_BONGKAR' => $date_bongkar
     );
     $this->m_t_ak_jurnal->tambah($data);
 

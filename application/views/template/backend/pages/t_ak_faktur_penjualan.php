@@ -44,10 +44,10 @@
             #echo "<td>".date('d-m-Y', strtotime($value->DATE))." / ".date('H:i', strtotime($value->TIME))." / ".$value->CREATED_BY."</td>";
 
             echo "<td>";
-            echo "<a href='" . site_url('c_t_ak_faktur_penjualan_rincian/index/' . $value->ID) . "/" . $value->PKS_ID . "' ";
+            echo "<a href='" . site_url('c_t_ak_faktur_penjualan_rincian/index/' . $value->ID) . "/" . $value->PELANGGAN_ID . "' ";
             echo "onclick=\"return confirm('Isi Rincian?')\"";
             echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-            echo "Rp" . number_format(round($value->SUM_TOTAL_PENJUALAN)) . "</td>";
+            echo "Rp" . number_format(($value->SUM_TOTAL_PENJUALAN+$value->SUM_PPN_VALUE),2,'.',',') . "</td>";
 
 
             echo "<td>";
@@ -81,7 +81,7 @@
               echo "<script>";
               echo "function p_1_" . $key . "()";
               echo "{";
-              echo "window.open('laporan_pdf/c_faktur_penjualan_print/index/" . $value->ID . "/" . $value->PKS_ID . "');";
+              echo "window.open('laporan_pdf/c_faktur_penjualan_print/index/" . $value->ID . "/" . $value->PELANGGAN_ID . "');";
               echo "}";
               echo "</script>";
 
@@ -151,7 +151,7 @@
             <div class="col-md-6">
               <fieldset class="form-group">
                 <label>Pelanggan</label>
-                <select name="pks_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                <select name="pelanggan_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
                   <?php
                   foreach ($c_t_m_d_pelanggan as $key => $value) {
                     echo "<option value='" . $value->ID . "'>" . $value->PELANGGAN . "</option>";

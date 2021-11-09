@@ -2,7 +2,7 @@
   <div class="card-header">
     <?php
     #echo $faktur_penjualan_id;
-    #echo $pks_id;
+    #echo $pelanggan_id;
 
     $today = date('Y-m-d');
 
@@ -52,7 +52,7 @@
             echo "<td>".($key + 1)."</td>";
             echo "<td>".$value->NO_FAKTUR."</td>";
             echo "<td>".date('d-m-Y', strtotime($value->DATE))."</td>";
-            echo "<td>Rp".number_format($value->TOTAL_PENJUALAN)."</td>";
+            echo "<td>Rp".number_format(($value->TOTAL_PENJUALAN),2,'.',',')."</td>";
             
             echo "<td>Rp".number_format($value->PAYMENT_T)."</td>";
           
@@ -62,7 +62,7 @@
             if($disabled == '')
             {
 
-              echo "<a href='".site_url('c_t_ak_terima_pelanggan_no_faktur/delete/' . $value->ID.'/'.$terima_pelanggan_id.'/'.$pks_id)."' ";
+              echo "<a href='".site_url('c_t_ak_terima_pelanggan_no_faktur/delete/' . $value->ID.'/'.$terima_pelanggan_id.'/'.$pelanggan_id)."' ";
               echo "onclick=\"return confirm('Apakah kamu yakin ingin menghapus data ini?')\"";
               echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
               
@@ -100,7 +100,7 @@
 
 
 <!-- MODAL TAMBAH PEMASUKAN! !-->
-<form action="<?php echo base_url("c_t_ak_terima_pelanggan_no_faktur/tambah/".$terima_pelanggan_id."/".$pks_id) ?>" method="post">
+<form action="<?php echo base_url("c_t_ak_terima_pelanggan_no_faktur/tambah/".$terima_pelanggan_id."/".$pelanggan_id) ?>" method="post">
   <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

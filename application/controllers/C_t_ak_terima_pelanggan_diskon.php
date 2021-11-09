@@ -16,7 +16,7 @@ class C_t_ak_terima_pelanggan_diskon extends MY_Controller
     $this->load->model('m_t_ak_terima_pelanggan_no_faktur');
   }
 
-  public function index($id, $pks_id)
+  public function index($id, $pelanggan_id)
   {
     $data = [
       "c_t_ak_terima_pelanggan_diskon" => $this->m_t_ak_terima_pelanggan_diskon->select($id),
@@ -24,7 +24,7 @@ class C_t_ak_terima_pelanggan_diskon extends MY_Controller
       "terima_pelanggan_id" => $id,
       "no_akun_option" => $this->m_ak_m_coa->select_no_akun(),
       "select_no_faktur" => $this->m_t_ak_faktur_penjualan->select_no_faktur(),
-      "pks_id" => $pks_id,
+      "pelanggan_id" => $pelanggan_id,
       "title" => "Rincian Diskon Terima Pelanggan",
       "description" => ""
     ];
@@ -34,7 +34,7 @@ class C_t_ak_terima_pelanggan_diskon extends MY_Controller
 
 
 
-  public function delete($id, $terima_pelanggan_id, $pks_id)
+  public function delete($id, $terima_pelanggan_id, $pelanggan_id)
   {
     
 
@@ -84,12 +84,12 @@ class C_t_ak_terima_pelanggan_diskon extends MY_Controller
     $this->m_t_ak_terima_pelanggan_diskon->delete($id);
     $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
 
-    redirect('c_t_ak_terima_pelanggan_diskon/index/' . $terima_pelanggan_id . '/' . $pks_id);
+    redirect('c_t_ak_terima_pelanggan_diskon/index/' . $terima_pelanggan_id . '/' . $pelanggan_id);
   }
 
 
 
-  function tambah($terima_pelanggan_id, $pks_id)
+  function tambah($terima_pelanggan_id, $pelanggan_id)
   {
     $jumlah = intval($this->input->post("jumlah"));
     $coa_id = intval($this->input->post("coa_id"));
@@ -104,8 +104,8 @@ class C_t_ak_terima_pelanggan_diskon extends MY_Controller
       $sum_payment_t_saldo_awal = $sum_payment_t_saldo_awal+intval($value->PAYMENT_T);
     }
 
-    // if(($sum_payment_t_saldo_awal+$jumlah)<=$sum_total_penjualan)
-    // {
+    if(($sum_payment_t_saldo_awal+$jumlah)<=$sum_total_penjualan)
+    {
       $data = array(
         'TERIMA_PELANGGAN_ID' => $terima_pelanggan_id,
         'COA_ID' => $coa_id,
@@ -169,12 +169,12 @@ class C_t_ak_terima_pelanggan_diskon extends MY_Controller
 
       $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
       
-    // }
-    // if(($sum_payment_t_saldo_awal+$jumlah)>$sum_total_penjualan)
-    // {
-      // $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> Input Lebih Besar Dari Total Tagihan!</p></div>');
-    // }
-    redirect('c_t_ak_terima_pelanggan_diskon/index/' . $terima_pelanggan_id . '/' . $pks_id);
+    }
+    if(($sum_payment_t_saldo_awal+$jumlah)>$sum_total_penjualan)
+    {
+      $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> Input Lebih Besar Dari Total Tagihan!</p></div>');
+    }
+    redirect('c_t_ak_terima_pelanggan_diskon/index/' . $terima_pelanggan_id . '/' . $pelanggan_id);
     
   }
 }

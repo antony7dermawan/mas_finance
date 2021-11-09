@@ -29,11 +29,12 @@
           <tr>
             <th>No</th>
             <th>Date</th>
-            <th>PKS</th>
+            <th>Pelanggan</th>
             <th>No Form</th>
 
             <th>No Faktur</th>
             <th>Sudah Dibayar</th>
+            <th>Sisa Pembayaran</th>
             <th>Payment</th>
 
             <th>Diskon</th>
@@ -46,7 +47,7 @@
             echo "<tr>";
             echo "<td>" . ($key + 1) . "</td>";
             echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . " / " . date('H:i', strtotime($value->TIME)) . "</td>";
-            echo "<td>" . $value->PKS . "</td>";
+            echo "<td>" . $value->PELANGGAN . "</td>";
             echo "<td>" . $value->NO_FORM . "</td>";
 
 
@@ -54,17 +55,23 @@
 
             //satu button
             echo "<td>";
-            echo "<a href='" . site_url('c_t_ak_terima_pelanggan_no_faktur/index/' . $value->ID) . "/" . $value->PKS_ID . "' ";
+            echo "<a href='" . site_url('c_t_ak_terima_pelanggan_no_faktur/index/' . $value->ID) . "/" . $value->PELANGGAN_ID . "' ";
             echo "onclick=\"return confirm('Lanjut?')\"";
             echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-            echo " Rp" . number_format(round($value->SUM_TOTAL_PENJUALAN)) . "</td>";
+            echo " Rp" . number_format(($value->SUM_TOTAL_PENJUALAN),2,'.',',') . "</td>";
             //satu button
 
 
             //satu button
             echo "<td>";
             
-            echo " Rp" . number_format(round($value->SUM_PAYMENT_T)) . "</td>";
+            echo " Rp" . number_format(($value->SUM_PAYMENT_T),2,'.',',') . "</td>";
+
+
+
+            echo "<td>";
+            
+            echo " Rp" . number_format(($value->SUM_TOTAL_PENJUALAN - $value->SUM_PAYMENT_T),2,'.',',') . "</td>";
             //satu button
 
 
@@ -72,11 +79,11 @@
             echo "<td>";
             if(intval($value->SUM_TOTAL_PENJUALAN)>0 or intval($value->SUM_JUMLAH)>0)
             {
-              echo "<a href='" . site_url('c_t_ak_terima_pelanggan_metode_bayar/index/' . $value->ID) . "/" . $value->PKS_ID . "' ";
+              echo "<a href='" . site_url('c_t_ak_terima_pelanggan_metode_bayar/index/' . $value->ID) . "/" . $value->PELANGGAN_ID . "' ";
               echo "onclick=\"return confirm('Lanjut?')\"";
               echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
             }
-            echo " Rp" . number_format(round($value->SUM_JUMLAH));
+            echo " Rp" . number_format(($value->SUM_JUMLAH),2,'.',',');
             echo "</td>";
             //satu button
 
@@ -88,11 +95,11 @@
             echo "<td>";
             if(intval($value->SUM_JUMLAH)>0 or intval($value->SUM_DISKON)>0)
             {
-              echo "<a href='" . site_url('c_t_ak_terima_pelanggan_diskon/index/' . $value->ID) . "/" . $value->PKS_ID . "' ";
+              echo "<a href='" . site_url('c_t_ak_terima_pelanggan_diskon/index/' . $value->ID) . "/" . $value->PELANGGAN_ID . "' ";
               echo "onclick=\"return confirm('Lanjut?')\"";
               echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
             }
-            echo " Rp" . number_format(round($value->SUM_DISKON));
+            echo " Rp" . number_format(($value->SUM_DISKON),2,'.',',');
             echo "</td>";
             //satu button
 
@@ -122,7 +129,7 @@
               echo "<script>";
               echo "function p_1_" . $key . "()";
               echo "{";
-              echo "window.open('laporan_pdf/c_terima_pelanggan_print/index/" . $value->ID . "/" . $value->PKS_ID . "');";
+              echo "window.open('laporan_pdf/c_terima_pelanggan_print/index/" . $value->ID . "/" . $value->PELANGGAN_ID . "');";
               echo "}";
               echo "</script>";
             }
@@ -196,11 +203,11 @@
             <div class="col-md-6">
 
               <fieldset class="form-group">
-                <label>PKS</label>
-                <select name="pks_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                <label>Pelanggan</label>
+                <select name="pelanggan_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
                   <?php
-                  foreach ($c_t_m_a_pks as $key => $value) {
-                    echo "<option value='" . $value->PKS_ID . "'>" . $value->PKS . "</option>";
+                  foreach ($c_t_m_d_pelanggan as $key => $value) {
+                    echo "<option value='" . $value->ID . "'>" . $value->PELANGGAN . "</option>";
                   }
                   ?>
                 </select>

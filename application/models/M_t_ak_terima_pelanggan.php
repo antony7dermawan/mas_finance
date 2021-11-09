@@ -25,7 +25,7 @@ public function update($data, $id)
     $this->db->select("T_AK_TERIMA_PELANGGAN.KET");
     $this->db->select("T_AK_TERIMA_PELANGGAN.ENABLE_EDIT");
     $this->db->select("T_AK_TERIMA_PELANGGAN.NO_FORM");
-    $this->db->select("T_AK_TERIMA_PELANGGAN.PKS_ID");
+    $this->db->select("T_AK_TERIMA_PELANGGAN.PELANGGAN_ID");
 
 
     $this->db->select("SUM_TOTAL_PENJUALAN");
@@ -39,18 +39,18 @@ public function update($data, $id)
     $this->db->select("SUM_PAYMENT_T");
     
 
-    $this->db->select("T_M_A_PKS.NO_PELANGGAN");
-    $this->db->select("T_M_A_PKS.NAMA");
-    $this->db->select("T_M_A_PKS.PKS");
-    $this->db->select("T_M_A_PKS.ALAMAT");
-    $this->db->select("T_M_A_PKS.NPWP");
-    $this->db->select("T_M_A_PKS.TELEPON");
+    $this->db->select("T_M_D_PELANGGAN.NO_TELP");
+    $this->db->select("T_M_D_PELANGGAN.PELANGGAN");
+    $this->db->select("T_M_D_PELANGGAN.ALAMAT");
+    $this->db->select("T_M_D_PELANGGAN.NPWP");
+    $this->db->select("T_M_D_PELANGGAN.EMAIL");
+    $this->db->select("T_M_D_PELANGGAN.NIK");
 
 
     $this->db->from('T_AK_TERIMA_PELANGGAN');
 
 
-    $this->db->join('T_M_A_PKS', 'T_M_A_PKS.PKS_ID = T_AK_TERIMA_PELANGGAN.PKS_ID', 'left');
+    $this->db->join('T_M_D_PELANGGAN', 'T_M_D_PELANGGAN.ID = T_AK_TERIMA_PELANGGAN.PELANGGAN_ID', 'left');
 
     $this->db->join("(select \"TERIMA_PELANGGAN_ID\",sum(\"TOTAL_PENJUALAN\")\"SUM_TOTAL_PENJUALAN\" from \"T_AK_TERIMA_PELANGGAN_NO_FAKTUR\" group by \"TERIMA_PELANGGAN_ID\") as t_sum_1", 'T_AK_TERIMA_PELANGGAN.ID = t_sum_1.TERIMA_PELANGGAN_ID', 'left');
 
@@ -83,7 +83,7 @@ public function update($data, $id)
     $this->db->select("T_AK_TERIMA_PELANGGAN.KET");
     $this->db->select("T_AK_TERIMA_PELANGGAN.ENABLE_EDIT");
     $this->db->select("T_AK_TERIMA_PELANGGAN.NO_FORM");
-    $this->db->select("T_AK_TERIMA_PELANGGAN.PKS_ID");
+    $this->db->select("T_AK_TERIMA_PELANGGAN.PELANGGAN_ID");
 
 
     $this->db->select("SUM_TOTAL_PENJUALAN");
@@ -92,21 +92,23 @@ public function update($data, $id)
 
     $this->db->select("SUM_DISKON");
 
-
+    $this->db->select("SUM_ADM_BANK");
+    
     $this->db->select("SUM_PAYMENT_T");
     
 
-    $this->db->select("T_M_A_PKS.NO_PELANGGAN");
-    $this->db->select("T_M_A_PKS.NAMA");
-    $this->db->select("T_M_A_PKS.ALAMAT");
-    $this->db->select("T_M_A_PKS.NPWP");
-    $this->db->select("T_M_A_PKS.TELEPON");
+    $this->db->select("T_M_D_PELANGGAN.NO_TELP");
+    $this->db->select("T_M_D_PELANGGAN.PELANGGAN");
+    $this->db->select("T_M_D_PELANGGAN.ALAMAT");
+    $this->db->select("T_M_D_PELANGGAN.NPWP");
+    $this->db->select("T_M_D_PELANGGAN.EMAIL");
+    $this->db->select("T_M_D_PELANGGAN.NIK");
 
 
     $this->db->from('T_AK_TERIMA_PELANGGAN');
 
 
-    $this->db->join('T_M_A_PKS', 'T_M_A_PKS.PKS_ID = T_AK_TERIMA_PELANGGAN.PKS_ID', 'left');
+    $this->db->join('T_M_D_PELANGGAN', 'T_M_D_PELANGGAN.ID = T_AK_TERIMA_PELANGGAN.PELANGGAN_ID', 'left');
 
     $this->db->join("(select \"TERIMA_PELANGGAN_ID\",sum(\"TOTAL_PENJUALAN\")\"SUM_TOTAL_PENJUALAN\" from \"T_AK_TERIMA_PELANGGAN_NO_FAKTUR\" group by \"TERIMA_PELANGGAN_ID\") as t_sum_1", 'T_AK_TERIMA_PELANGGAN.ID = t_sum_1.TERIMA_PELANGGAN_ID', 'left');
 
@@ -115,6 +117,7 @@ public function update($data, $id)
 
     $this->db->join("(select \"TERIMA_PELANGGAN_ID\",sum(\"JUMLAH\")\"SUM_DISKON\" from \"T_AK_TERIMA_PELANGGAN_DISKON\" group by \"TERIMA_PELANGGAN_ID\") as t_sum_3", 'T_AK_TERIMA_PELANGGAN.ID = t_sum_3.TERIMA_PELANGGAN_ID', 'left');
 
+    $this->db->join("(select \"TERIMA_PELANGGAN_ID\",sum(\"ADM_BANK\")\"SUM_ADM_BANK\" from \"T_AK_TERIMA_PELANGGAN_METODE_BAYAR\" group by \"TERIMA_PELANGGAN_ID\") as t_sum_4", 'T_AK_TERIMA_PELANGGAN.ID = t_sum_4.TERIMA_PELANGGAN_ID', 'left');
 
     $this->db->join("(select \"T_AK_TERIMA_PELANGGAN_NO_FAKTUR\".\"TERIMA_PELANGGAN_ID\",sum(\"T_AK_FAKTUR_PENJUALAN\".\"PAYMENT_T\")\"SUM_PAYMENT_T\" from \"T_AK_TERIMA_PELANGGAN_NO_FAKTUR\" LEFT OUTER JOIN \"T_AK_FAKTUR_PENJUALAN\" on \"T_AK_FAKTUR_PENJUALAN\".\"ID\"=\"T_AK_TERIMA_PELANGGAN_NO_FAKTUR\".\"FAKTUR_PENJUALAN_ID\" group by \"T_AK_TERIMA_PELANGGAN_NO_FAKTUR\".\"TERIMA_PELANGGAN_ID\") as t_sum_5", 'T_AK_TERIMA_PELANGGAN.ID = t_sum_5.TERIMA_PELANGGAN_ID', 'left');
 
@@ -170,19 +173,7 @@ public function update($data, $id)
   }
 
 
-/*
 
-SELECT 
-        "T_AK_FAKTUR_PENJUALAN"."ID"  , sum as "SUM_TOTAL_PENJUALAN"
-    FROM "T_AK_FAKTUR_PENJUALAN"
-    LEFT OUTER JOIN
-    "T_AK_FAKTUR_PENJUALAN_RINCIAN"
-    ON "T_AK_FAKTUR_PENJUALAN_RINCIAN"."FAKTUR_PENJUALAN_ID" = "T_AK_FAKTUR_PENJUALAN"."ID"
-        LEFT OUTER JOIN 
-            (select  "ID",sum("TOTAL_PENJUALAN") from "T_T_A_PENJUALAN_PKS" group by "ID") as t_sum 
-            ON "T_AK_FAKTUR_PENJUALAN_RINCIAN"."PENJUALAN_PKS_ID" = t_sum."ID" 
-
-*/
   public function delete($id)
   {
     $this->db->where('ID',$id);

@@ -266,61 +266,33 @@ class C_t_ak_faktur_penjualan extends MY_Controller
     redirect('c_t_ak_faktur_penjualan');
   }
 
+  
+
+
+
+
+
   function tambah()
   {
     $pelanggan_id = intval($this->input->post("pelanggan_id"));
     $keterangan = '';
-
-
-    $ppn = $this->input->post("ppn");
-    $pph = $this->input->post("pph");
-
-    if($ppn==null)
-    {
-      $ppn = false;
-    }
-    if($pph==null)
-    {
-      $pph = false;
-    }
-
+    $no_faktur = substr($this->input->post("no_faktur"), 0, 100);
     $date = ($this->input->post("date"));
 
-    if($date=='')
-    {
-      $date = date('Y-m-d');
-    }
-    
     $date_faktur_penjualan = $date;
     $this->session->set_userdata('date_faktur_penjualan', $date_faktur_penjualan);
 
 
-    if($pelanggan_id!=0)
+    if($no_faktur!='')
     {
 
       $logic_no_faktur = 0;
-      
-
-      $inv_int = 0;
-      $read_select = $this->m_t_ak_faktur_penjualan->select_inv_int();
+      $read_select = $this->m_t_ak_faktur_penjualan->read_no_faktur($no_faktur);
       foreach ($read_select as $key => $value) 
       {
-        $inv_int = intval($value->INV_INT)+1;
+        $logic_no_faktur = 1;
+        $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> No Faktur Sudah Digunakan!</p></div>');
       }
-
-      $read_select = $this->m_t_m_d_company->select_by_company_id();
-      foreach ($read_select as $key => $value) 
-      {
-        $inv_faktur_penjualan = $value->INV_FAKTUR_PENJUALAN;
-        $inv_terima_pelanggan = $value->INV_TERIMA_PELANGGAN;
-      }
-
-      $live_inv = $inv_faktur_penjualan.date('y-m').'.'.sprintf('%05d', $inv_int);
-
-
-
-
-
 
       if($logic_no_faktur == 0)
       {
@@ -331,15 +303,11 @@ class C_t_ak_faktur_penjualan extends MY_Controller
           'CREATED_BY' => $this->session->userdata('username'),
           'UPDATED_BY' => $this->session->userdata('username'),
           'KETERANGAN' => $keterangan,
-          'NO_FAKTUR' => $live_inv,
+          'NO_FAKTUR' => $no_faktur,
           'ENABLE_EDIT' => 1,
           'TOTAL_PEMBAYARAN' => 0,
           'PAYMENT_T' =>0,
-          'INV_INT' =>$inv_int,
-          'COMPANY_ID' => $this->session->userdata('company_id'),
-          'PPN' => $ppn,
-          'PPH' => $pph
-          
+          'COMPANY_ID' => $this->session->userdata('company_id')
         );
 
         $this->m_t_ak_faktur_penjualan->tambah($data);
@@ -348,9 +316,9 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       }
       
     }
-    if($pelanggan_id==0)
+    if($no_faktur=='')
     {
-      $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> Pelanggan Tidak Boleh Kosong!</p></div>');
+      $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> No Faktur Tidak Boleh Kosong!</p></div>');
     }
     
     redirect('c_t_ak_faktur_penjualan');

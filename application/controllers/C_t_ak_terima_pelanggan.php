@@ -11,11 +11,12 @@ class C_t_ak_terima_pelanggan extends MY_Controller
 
     $this->load->model('m_t_ak_terima_pelanggan');
     $this->load->model('m_t_ak_faktur_penjualan');
-    $this->load->model('m_t_t_a_penjualan_pks');
-    $this->load->model('m_t_m_a_no_polisi');
-    $this->load->model('m_t_m_a_pks');
-    $this->load->model('m_t_m_a_divisi');
-    $this->load->model('m_t_m_a_kendaraan');
+
+
+
+
+    $this->load->model('m_t_m_d_pelanggan');
+  
     $this->load->model('m_ak_m_coa');
     $this->load->model('m_t_ak_terima_pelanggan_print_setting');
     $this->load->model('m_t_ak_jurnal');
@@ -37,10 +38,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
     
     $data = [
       "c_t_ak_terima_pelanggan" => $this->m_t_ak_terima_pelanggan->select($this->session->userdata('date_terima_pelanggan')),
-      "c_t_m_a_no_polisi" => $this->m_t_m_a_no_polisi->select(),
-      "c_t_m_a_pks" => $this->m_t_m_a_pks->select(),
-      "c_t_m_a_divisi" => $this->m_t_m_a_divisi->select(),
-      "c_t_m_a_kendaraan" => $this->m_t_m_a_kendaraan->select(),
+      "c_t_m_d_pelanggan" => $this->m_t_m_d_pelanggan->select(),
       "title" => "Transaksi Terima Pelanggan",
       "description" => "form terima pelanggan"
     ];
@@ -518,7 +516,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
 
   function tambah()
   {
-    $pks_id = intval($this->input->post("pks_id"));
+    $pelanggan_id = intval($this->input->post("pelanggan_id"));
     $keterangan = substr($this->input->post("ket"), 0, 200);
 
     
@@ -551,7 +549,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           'UPDATED_BY' => $this->session->userdata('username'),
           'ENABLE_EDIT' => 1,
           'NO_FORM' => $no_form,
-          'PKS_ID' => $pks_id
+          'PELANGGAN_ID' => $pelanggan_id
         );
 
         $this->m_t_ak_terima_pelanggan->tambah($data);

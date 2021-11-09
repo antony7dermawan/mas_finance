@@ -53,8 +53,8 @@ class C_t_ak_faktur_penjualan_rincian extends MY_Controller
         'FAKTUR_PENJUALAN_ID' => $id,
         'PENJUALAN_ID' => $penjualan_id,
         'CREATED_BY' => $this->session->userdata('username'),
-        'UPDATED_BY' => $this->session->userdata('username'),
-        'KETERANGAN' => 'PENJUALAN'
+        'UPDATED_BY' => '',
+        'KETERANGAN' => 'PENDAPATAN'
       );
 
       $this->m_t_ak_faktur_penjualan_rincian->tambah($data);
