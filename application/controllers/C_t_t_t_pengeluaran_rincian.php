@@ -173,7 +173,7 @@ class C_t_t_t_pengeluaran_rincian extends MY_Controller
         'TIME' => $time_move,
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => '',
-        'COA_ID' => $coa_id,
+        'COA_ID' => $coa_id_pengeluaran,
         'DEBIT' => floatval($nilai_pengeluaran),
         'KREDIT' => 0,
         'CATATAN' => $ket,

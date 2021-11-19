@@ -15,35 +15,21 @@
     }
 
     ?>
-    <form action='<?php echo base_url("c_t_ak_faktur_penjualan_rincian/create_faktur_penjualan/" . $faktur_penjualan_id . "/" . $pelanggan_id); ?>' class='no_voucer_area' method="post" id=''>
-      <table>
-        <tr>
-          <th>
-            <a href="<?= base_url("c_t_ak_faktur_penjualan"); ?>" class="btn waves-effect waves-light btn-inverse"><i class="icofont icofont-double-left"></i>Back</a>
-          </th>
-          <th>
-            <form action='/action_page.php'>
-              <input type='date' class='form-control' name='date_from_select_penjualan' value='<?php echo $this->session->userdata('date_from_select_penjualan'); ?>' <?= $disabled ?>>
-          </th>
-          <th>-</th>
-          <th>
-            <form action='/action_page.php'>
-              <input type='date' class='form-control' name='date_to_select_penjualan' value='<?php echo $this->session->userdata('date_to_select_penjualan'); ?>' <?= $disabled ?>>
-          </th>
-          <th>
-            <input type="submit" name="submit_no_voucer" class='btn btn-primary waves-effect waves-light' value="Create" <?= $disabled ?>>
-          </th>
-        </tr>
-      </table>
-
-
-
-    </form>
+    
   </div>
+
+
+
+
   <div class="card-block">
     <!-- Menampilkan notif !-->
     <?= $this->session->flashdata('notif') ?>
     <!-- Tombol untuk menambah data akun !-->
+
+    <a href="<?= base_url('c_t_ak_faktur_penjualan_rincian/index/' . $faktur_penjualan_id .'/'.$pelanggan_id); ?>" class="btn waves-effect waves-light btn-inverse"><i class="icofont icofont-double-left"></i>Back</a>
+
+    <button data-toggle="modal" data-target="#addModal" class="btn btn-success waves-effect waves-light">New Data</button>
+
 
     <div class="table-responsive dt-responsive">
       <table id="dom-jqry" class="table table-striped table-bordered nowrap">
@@ -51,47 +37,33 @@
           <tr>
             <th>No</th>
             <th>Keterangan</th>
-            <th>Tanggal DO</th>
-            <th>No DO</th>
+            <th>Tanggal Muat</th>
+            <th>Tanggal Bongkar</th>
+            <th>No SPB</th>
             <th>Jumlah Tagihan</th>
-            <th>Total PPN</th>
-
-
-            <th>Tagihan Real</th>
-            <th>PPN Real</th>
+            <th>PPN</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
           <?php
-          foreach ($c_t_ak_faktur_penjualan_rincian as $key => $value) {
+          foreach ($c_t_ak_faktur_penjualan_rincian2 as $key => $value) {
             echo "<tr>";
             echo "<td>" . ($key + 1) . "</td>";
             echo "<td>" . $value->KETERANGAN . "</td>";
             #echo "<td>".date('d-m-Y', strtotime($value->DATE))."</td>";
-            echo "<td>" . $value->DATE . "</td>";
-            echo "<td>" . $value->NO_DO . "</td>";
-            echo "<td>" . number_format(($value->SUM_SUB_TOTAL),2,'.',',') . "</td>";
-            echo "<td>" . number_format(($value->SUM_PPN_VALUE),2,'.',',') . "</td>";
-
-
-            echo "<td>";
-            echo "<a href='" . site_url('c_t_ak_faktur_penjualan_rincian2/index/' . $value->ID.'/'.$faktur_penjualan_id.'/'.$value->PENJUALAN_ID ."/" . $pelanggan_id) . "' ";
-            echo "onclick=\"return confirm('Lanjut?')\"";
-            echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-            echo number_format(($value->SUM_TOTAL_SPB),2,'.',',') . "</td>";
-
-
-            echo "<td>" . number_format(($value->SUM_TOTAL_SPB_PPN),2,'.',',') . "</td>";
-
-
+            echo "<td>" . $value->DATE_MUAT . "</td>";
+            echo "<td>" . $value->DATE_BONGKAR . "</td>";
+            echo "<td>" . $value->NO_SPB . "</td>";
+            echo "<td>" . number_format(($value->SUB_TOTAL),2,'.',',') . "</td>";
+            echo "<td>" . number_format(($value->PPN_VALUE),2,'.',',') . "</td>";
 
 
 
             echo "<td>";
             if($disabled=='')
             {
-              echo "<a href='" . site_url('c_t_ak_faktur_penjualan_rincian/delete/' . $value->ID) . "/" . $value->PENJUALAN_ID ."/" . $faktur_penjualan_id ."/" . $pelanggan_id . "' ";
+              echo "<a href='" . site_url('c_t_ak_faktur_penjualan_rincian2/delete/'. $value->ID) . "/" . $value->PENJUALAN_RINCIAN_ID ."/" . $faktur_penjualan_rincian_id . "/" . $faktur_penjualan_id ."/" . $penjualan_jasa_id  . "/" . $pelanggan_id  . "' ";
               echo "onclick=\"return confirm('Apakah kamu yakin ingin menghapus data ini?')\"";
               echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
             }
@@ -106,6 +78,64 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+<!-- MODAL TAMBAH PEMASUKAN! !-->
+<form action="<?php echo base_url('c_t_ak_faktur_penjualan_rincian2/tambah/'.$faktur_penjualan_rincian_id.'/'.$faktur_penjualan_id.'/'.$penjualan_jasa_id.'/'.$pelanggan_id) ?>" method="post" id='add_data'>
+  <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">New Data</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="row">
+
+            <div class="col-md-6">
+              <fieldset class="form-group">
+                <label>No SPB</label>
+                <select name="penjualan_jasa_rincian_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                  <?php
+                  foreach ($option_spb as $key => $value) {
+                    echo "<option value='" . $value->ID . "'>" . $value->NO_SPB . "</option>";
+                  }
+                  ?>
+                </select>
+              </fieldset>
+            </div>
+
+
+          </div> <!-- Membungkus Row !-->
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+          <button type="Submit" class="btn btn-primary waves-effect waves-light ">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<!-- MODAL TAMBAH PEMASUKAN SELESAI !-->
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -60,8 +60,8 @@ class C_t_ak_terima_pelanggan_no_faktur extends MY_Controller
     $faktur_penjualan_id = intval($this->input->post("faktur_penjualan_id"));
     $read_select = $this->m_t_ak_faktur_penjualan->select_by_id($faktur_penjualan_id);
     foreach ($read_select as $key => $value) {
-      $sum_total_penjualan = floatval($value->SUM_TOTAL_PENJUALAN);
-      $sum_ppn_value = floatval($value->SUM_PPN_VALUE);
+      $sum_total_penjualan = floatval($value->SUM_TOTAL_TAGIHAN);
+      $sum_ppn_value = floatval($value->SUM_TOTAL_TAGIHAN_PPN);
     }
 
     $data = array(

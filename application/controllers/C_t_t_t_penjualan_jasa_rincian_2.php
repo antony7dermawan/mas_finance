@@ -146,7 +146,8 @@ class C_t_t_t_penjualan_jasa_rincian_2 extends MY_Controller
         'UPDATED_BY' => '',
         'KET' => $ket,
         'TOLERANSI_VALUE' => $toleransi_value,
-        'JARAK_KM' => $jarak_km
+        'JARAK_KM' => $jarak_km,
+        'ENABLE_EDIT' => 1
     );
 
     $this->m_t_t_t_penjualan_jasa_rincian_2->tambah($data);

@@ -33,6 +33,8 @@ public function update($data, $id)
 
     $this->db->select("SUM_SUB_TOTAL");
     $this->db->select("SUM_PPN_VALUE");
+    $this->db->select("SUM_TOTAL_SPB");
+    $this->db->select("SUM_TOTAL_SPB_PPN");
 
     
     $this->db->from('T_AK_FAKTUR_PENJUALAN_RINCIAN');
@@ -45,6 +47,16 @@ public function update($data, $id)
     $this->db->join("(select \"PENJUALAN_JASA_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PENJUALAN_JASA_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PENJUALAN_JASA_ID\") as t_sum_1", 'T_T_T_PENJUALAN_JASA.ID = t_sum_1.PENJUALAN_JASA_ID', 'left');
 
     $this->db->join("(select \"PENJUALAN_JASA_ID\",sum(\"PPN_VALUE\")\"SUM_PPN_VALUE\" from \"T_T_T_PENJUALAN_JASA_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PENJUALAN_JASA_ID\") as t_sum_2", 'T_T_T_PENJUALAN_JASA.ID = t_sum_2.PENJUALAN_JASA_ID', 'left');
+
+
+
+
+
+
+    $this->db->join("(select \"T_AK_FAKTUR_PENJUALAN_RINCIAN2\".\"FAKTUR_PENJUALAN_RINCIAN_ID\",sum(\"T_T_T_PENJUALAN_JASA_RINCIAN\".\"SUB_TOTAL\")\"SUM_TOTAL_SPB\" from \"T_T_T_PENJUALAN_JASA_RINCIAN\" LEFT OUTER JOIN \"T_AK_FAKTUR_PENJUALAN_RINCIAN2\" on \"T_T_T_PENJUALAN_JASA_RINCIAN\".\"ID\"=\"T_AK_FAKTUR_PENJUALAN_RINCIAN2\".\"PENJUALAN_RINCIAN_ID\" group by \"T_AK_FAKTUR_PENJUALAN_RINCIAN2\".\"FAKTUR_PENJUALAN_RINCIAN_ID\") as t_sum_5", 'T_AK_FAKTUR_PENJUALAN_RINCIAN.ID = t_sum_5.FAKTUR_PENJUALAN_RINCIAN_ID', 'left');
+
+
+    $this->db->join("(select \"T_AK_FAKTUR_PENJUALAN_RINCIAN2\".\"FAKTUR_PENJUALAN_RINCIAN_ID\",sum(\"T_T_T_PENJUALAN_JASA_RINCIAN\".\"PPN_VALUE\")\"SUM_TOTAL_SPB_PPN\" from \"T_T_T_PENJUALAN_JASA_RINCIAN\" LEFT OUTER JOIN \"T_AK_FAKTUR_PENJUALAN_RINCIAN2\" on \"T_T_T_PENJUALAN_JASA_RINCIAN\".\"ID\"=\"T_AK_FAKTUR_PENJUALAN_RINCIAN2\".\"PENJUALAN_RINCIAN_ID\" group by \"T_AK_FAKTUR_PENJUALAN_RINCIAN2\".\"FAKTUR_PENJUALAN_RINCIAN_ID\") as t_sum_6", 'T_AK_FAKTUR_PENJUALAN_RINCIAN.ID = t_sum_6.FAKTUR_PENJUALAN_RINCIAN_ID', 'left');
 
 
     
