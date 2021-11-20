@@ -120,7 +120,15 @@ class C_t_t_t_penjualan_jasa_rincian_1 extends MY_Controller
 
     $value_susut = $value_kebun - $value_pabrik;
 
-    $percentage_susut = (($value_kebun - $value_pabrik)/$value_kebun)*100;
+    if($value_kebun==0)
+    {
+        $percentage_susut=0;
+    }
+    if($value_kebun>0)
+    {
+        $percentage_susut = (($value_kebun - $value_pabrik)/$value_kebun)*100;
+    }
+    
 
 
     $toleransi = floatval($this->input->post("toleransi"));

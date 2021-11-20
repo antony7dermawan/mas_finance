@@ -57,7 +57,9 @@
             <th>Tgl Muat</th>
             <th>Tgl Bongkar</th>
             <th>No Polisi</th>
+            <th>Gandengan</th>
             <th>Supir</th>
+            <th>Lokasi</th>
             
             <th>PC</th>
             <th>Harga/PC</th>
@@ -99,7 +101,9 @@
               echo "<td>" . $value->DATE_MUAT . "</td>";
               echo "<td>" . $value->DATE_BONGKAR . "</td>";
               echo "<td>" . $value->NO_POLISI .' / '. $value->NO_UNIT . "</td>";
+              echo "<td>" . $value->GANDENGAN . "</td>";
               echo "<td>" . $value->SUPIR . "</td>";
+              echo "<td>" . $value->LOKASI . "</td>";
               
               echo "<td>" . number_format(($value->PC), 2, '.', ',') . "</td>";
               echo "<td>" . number_format(($value->HARGA_PC), 2, '.', ',') . "</td>";
@@ -298,6 +302,50 @@
 
             </div>
           </div>
+
+
+
+          <div class="row">
+
+
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                <label>Gandengan</label>
+                <select name="gandengan_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                <?php
+                foreach ($c_t_m_d_gandengan as $key => $value) 
+                {
+                  echo "<option value='".$value->ID."'>".$value->GANDENGAN."</option>";
+
+                }
+                ?>
+              </select>
+              </fieldset>
+
+            </div>
+            <div class="col-md-6">
+              <fieldset class="form-group">
+                <label>Lokasi</label>
+                  <select name="lokasi_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+                  <?php
+                  foreach ($c_t_m_d_lokasi as $key => $value) 
+                  {
+                    echo "<option value='".$value->ID."'>".$value->LOKASI."</option>";
+
+                  }
+                  ?>
+                </select>
+              </fieldset>
+            </div>
+
+          </div>
+
+
+
+
+
 
 
 
@@ -554,6 +602,60 @@
 
 
 
+
+
+
+
+
+
+          <div class="row">
+            <div class="col-md-6">
+              <fieldset class="form-group">
+                  <label>Gandengan</label>
+                  <div class="searchable">
+                  <input type="text" name='gandengan' placeholder="search" onkeyup="filterFunction(this,event)">
+                  <ul>
+                    <?php
+                    foreach ($c_t_m_d_gandengan as $key => $value) 
+                    {
+                      echo "<li>".$value->GANDENGAN."</li>";
+                    }
+                    ?>
+                  </ul>
+              </div>
+              </fieldset>
+            </div>
+
+            <div class="col-md-6">
+
+              <fieldset class="form-group">
+                  <label>Lokasi</label>
+                  <div class="searchable">
+                  <input type="text" name='lokasi' placeholder="search" onkeyup="filterFunction(this,event)">
+                  <ul>
+                    <?php
+                    foreach ($c_t_m_d_lokasi as $key => $value) 
+                    {
+                      echo "<li>".$value->LOKASI."</li>";
+                    }
+                    ?>
+                  </ul>
+              </div>
+              </fieldset>
+
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
           
 
 
@@ -657,7 +759,9 @@
         HARGA_PC : harga_pc,
         PPN_PERCENTAGE : ppn_percentage,
         KET : ket,
-        JARAK_KM : jarak_km
+        JARAK_KM : jarak_km,
+        GANDENGAN : gandengan,
+        LOKASI : lokasi
    
         
       } = User[0];
@@ -681,7 +785,8 @@
       elModalEdit.querySelector("[name=ket]").value = ket;
       elModalEdit.querySelector("[name=jarak_km]").value = jarak_km;
 
-
+      elModalEdit.querySelector("[name=gandengan]").value = gandengan;
+      elModalEdit.querySelector("[name=lokasi]").value = lokasi;
 
   
 

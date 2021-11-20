@@ -22,6 +22,8 @@ class C_t_t_t_penjualan_jasa_rincian_2 extends MY_Controller
     $this->load->model('m_t_m_d_supir');
     $this->load->model('m_t_m_d_from_nama_kota');
     $this->load->model('m_t_m_d_to_nama_kota');
+    $this->load->model('m_t_m_d_gandengan');
+    $this->load->model('m_t_m_d_lokasi');
     
   }
 
@@ -35,6 +37,8 @@ class C_t_t_t_penjualan_jasa_rincian_2 extends MY_Controller
     $this->session->set_userdata('t_m_d_supir_delete_logic', '0');
     $this->session->set_userdata('t_m_d_from_nama_kota_delete_logic', '0');
     $this->session->set_userdata('t_m_d_to_nama_kota_delete_logic', '0');
+    $this->session->set_userdata('t_m_d_lokasi_delete_logic', '0');
+    $this->session->set_userdata('t_m_d_gandengan_delete_logic', '0');
 
 
     $data = [
@@ -43,7 +47,8 @@ class C_t_t_t_penjualan_jasa_rincian_2 extends MY_Controller
 
       "c_t_t_t_penjualan_jasa_by_id" => $this->m_t_t_t_penjualan_jasa_2->select_by_id($penjualan_jasa_id),
 
-
+      "c_t_m_d_lokasi" => $this->m_t_m_d_lokasi->select(),
+      "c_t_m_d_gandengan" => $this->m_t_m_d_gandengan->select(),
       "c_t_m_d_from_nama_kota" => $this->m_t_m_d_from_nama_kota->select(),
       "c_t_m_d_to_nama_kota" => $this->m_t_m_d_to_nama_kota->select(),
       "c_t_m_d_no_polisi" => $this->m_t_m_d_no_polisi->select(),
@@ -81,7 +86,8 @@ class C_t_t_t_penjualan_jasa_rincian_2 extends MY_Controller
     $no_spb = substr($this->input->post("no_spb"), 0, 50);
     $ket = substr($this->input->post("ket"), 0, 500);
 
-    
+    $gandengan_id = intval($this->input->post("gandengan_id"));
+    $lokasi_id = intval($this->input->post("lokasi_id"));
 
     $from_nama_kota_id = intval($this->input->post("from_nama_kota_id"));
     $to_nama_kota_id = intval($this->input->post("to_nama_kota_id"));
@@ -147,7 +153,9 @@ class C_t_t_t_penjualan_jasa_rincian_2 extends MY_Controller
         'KET' => $ket,
         'TOLERANSI_VALUE' => $toleransi_value,
         'JARAK_KM' => $jarak_km,
-        'ENABLE_EDIT' => 1
+        'ENABLE_EDIT' => 1,
+        'GANDENGAN_ID' => $gandengan_id,
+        'LOKASI_ID' => $lokasi_id
     );
 
     $this->m_t_t_t_penjualan_jasa_rincian_2->tambah($data);
@@ -158,7 +166,6 @@ class C_t_t_t_penjualan_jasa_rincian_2 extends MY_Controller
       redirect('c_t_t_t_penjualan_jasa_rincian_2/index/' . $penjualan_jasa_id);
     
     
-
     
     redirect('c_t_t_t_penjualan_jasa_rincian_2/index/'.$penjualan_jasa_id);
   }
@@ -181,8 +188,20 @@ class C_t_t_t_penjualan_jasa_rincian_2 extends MY_Controller
     $to_nama_kota = ($this->input->post("to_nama_kota"));
 
 
+    $gandengan = ($this->input->post("gandengan"));
+    $lokasi = ($this->input->post("lokasi"));
     $date_muat = ($this->input->post("date_muat"));
     $date_bongkar = ($this->input->post("date_bongkar"));
+
+
+    $read_select = $this->m_t_m_d_gandengan->select_id($gandengan);
+    foreach ($read_select as $key => $value) {
+      $gandengan_id = $value->ID;
+    }
+    $read_select = $this->m_t_m_d_lokasi->select_id($lokasi);
+    foreach ($read_select as $key => $value) {
+      $lokasi_id = $value->ID;
+    }
 
     if($date_muat=='')
     {
@@ -259,7 +278,9 @@ class C_t_t_t_penjualan_jasa_rincian_2 extends MY_Controller
         'UPDATED_BY' => '',
         'KET' => $ket,
         'TOLERANSI_VALUE' => $toleransi_value,
-        'JARAK_KM' => $jarak_km
+        'JARAK_KM' => $jarak_km,
+        'GANDENGAN_ID' => $gandengan_id,
+        'LOKASI_ID' => $lokasi_id
     );
 
     $this->m_t_t_t_penjualan_jasa_rincian_2->update($data, $id);

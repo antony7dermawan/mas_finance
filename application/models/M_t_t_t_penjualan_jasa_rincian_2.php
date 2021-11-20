@@ -56,11 +56,15 @@ public function update($data, $id)
 
 
 
+
     $this->db->select('T_M_D_NO_POLISI.NO_POLISI');
     $this->db->select('T_M_D_NO_POLISI.NO_UNIT');
     $this->db->select('T_M_D_SUPIR.SUPIR');
     $this->db->select("T_M_D_FROM_NAMA_KOTA.FROM_NAMA_KOTA");
     $this->db->select("T_M_D_TO_NAMA_KOTA.TO_NAMA_KOTA");
+    $this->db->select("T_M_D_GANDENGAN.GANDENGAN");
+
+    $this->db->select("T_M_D_LOKASI.LOKASI");
 
 
    
@@ -76,6 +80,10 @@ public function update($data, $id)
     $this->db->join('T_M_D_FROM_NAMA_KOTA', 'T_M_D_FROM_NAMA_KOTA.ID = T_T_T_PENJUALAN_JASA_RINCIAN.FROM_NAMA_KOTA_ID', 'left');
     $this->db->join('T_M_D_TO_NAMA_KOTA', 'T_M_D_TO_NAMA_KOTA.ID = T_T_T_PENJUALAN_JASA_RINCIAN.TO_NAMA_KOTA_ID', 'left');
 
+
+    $this->db->join('T_M_D_GANDENGAN', 'T_M_D_GANDENGAN.ID = T_T_T_PENJUALAN_JASA_RINCIAN.GANDENGAN_ID', 'left');
+
+    $this->db->join('T_M_D_LOKASI', 'T_M_D_LOKASI.ID = T_T_T_PENJUALAN_JASA_RINCIAN.LOKASI_ID', 'left');
 
 
     $this->db->join("(select \"PENJUALAN_JASA_RINCIAN_ID\",sum(\"VALUE\")\"SUM_VALUE\" from \"T_T_T_PENGELUARAN_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PENJUALAN_JASA_RINCIAN_ID\") as t_sum_1", 'T_T_T_PENJUALAN_JASA_RINCIAN.ID = t_sum_1.PENJUALAN_JASA_RINCIAN_ID', 'left');
@@ -152,6 +160,9 @@ public function update($data, $id)
     $this->db->select("T_M_D_FROM_NAMA_KOTA.FROM_NAMA_KOTA");
     $this->db->select("T_M_D_TO_NAMA_KOTA.TO_NAMA_KOTA");
 
+    $this->db->select("T_M_D_GANDENGAN.GANDENGAN");
+
+    $this->db->select("T_M_D_LOKASI.LOKASI");
 
    
    
@@ -164,7 +175,9 @@ public function update($data, $id)
     $this->db->join('T_M_D_SUPIR', 'T_M_D_SUPIR.ID = T_T_T_PENJUALAN_JASA_RINCIAN.SUPIR_ID', 'left');
     $this->db->join('T_M_D_FROM_NAMA_KOTA', 'T_M_D_FROM_NAMA_KOTA.ID = T_T_T_PENJUALAN_JASA_RINCIAN.FROM_NAMA_KOTA_ID', 'left');
     $this->db->join('T_M_D_TO_NAMA_KOTA', 'T_M_D_TO_NAMA_KOTA.ID = T_T_T_PENJUALAN_JASA_RINCIAN.TO_NAMA_KOTA_ID', 'left');
+    $this->db->join('T_M_D_GANDENGAN', 'T_M_D_GANDENGAN.ID = T_T_T_PENJUALAN_JASA_RINCIAN.GANDENGAN_ID', 'left');
 
+    $this->db->join('T_M_D_LOKASI', 'T_M_D_LOKASI.ID = T_T_T_PENJUALAN_JASA_RINCIAN.LOKASI_ID', 'left');
 
 
 
