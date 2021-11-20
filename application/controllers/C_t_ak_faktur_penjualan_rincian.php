@@ -60,7 +60,7 @@ class C_t_ak_faktur_penjualan_rincian extends MY_Controller
       $this->m_t_ak_faktur_penjualan_rincian->tambah($data);
 
       $data = array(
-        'ENABLE_EDIT' => 0
+        'ENABLE_EDIT' => 1 //masih bisa edit kalau nilai 1
       );
       $this->m_t_t_t_penjualan_jasa_3->update($data, $penjualan_id);
     }

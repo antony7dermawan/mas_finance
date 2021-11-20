@@ -16,12 +16,17 @@
         $pelanggan = $value->PELANGGAN;
         $keterangan_jasa = $value->KET;
         $jarak_km = $value->JARAK_KM;
+        $date_do = $value->DATE;
+        $no_kontrak = $value->NO_KONTRAK;
+        $target_party = $value->TARGET_PARTY;
       }
 
 
       echo 'No DO: '.$inv.'<br>';
+      echo 'Tgl DO: '.$date_do.'<br>';
+      echo 'No Kontrak: '.$no_kontrak.'<br>';
       echo 'Pelanggan: '.$pelanggan.'<br>';
-      echo 'Jarak: '.$jarak_km.'<br>';
+      echo 'Target Party: '.$target_party.'<br>';
       echo 'Keterangan: '.$keterangan_jasa.'<br>';
       ?>
 
@@ -33,7 +38,7 @@
     <!-- Menampilkan notif !-->
     <?= $this->session->flashdata('notif') ?>
 
-    <a href="<?= base_url("c_t_t_t_penjualan_jasa"); ?>" class="btn waves-effect waves-light btn-inverse"><i class="icofont icofont-double-left"></i>Back</a>
+    <a href="<?= base_url("c_t_t_t_penjualan_jasa_1"); ?>" class="btn waves-effect waves-light btn-inverse"><i class="icofont icofont-double-left"></i>Back</a>
     <!-- Tombol untuk menambah data akun !-->
     <?php
     if($enable_edit==1)
@@ -65,6 +70,7 @@
             <th>Tara (Pabrik)</th>
             <th>Total (Pabrik)</th>
             <th>Susut (Kg)</th>
+            <th>Susut (%)</th>
             <th>Toleransi (%)</th>
             <th>Nilai Toleransi</th>
             <th>Claim Susut</th>
@@ -116,6 +122,7 @@
               echo "<td>" . number_format(($value->TARA_PABRIK), 2, '.', ',') . "</td>";
               echo "<td>" . number_format(($value->VALUE_PABRIK), 2, '.', ',') . "</td>";
               echo "<td>" . number_format(($value->VALUE_SUSUT), 2, '.', ',') . "</td>";
+              echo "<td>" . number_format(($value->PERCENTAGE_SUSUT), 2, '.', ',') . "</td>";
               echo "<td>" . number_format(($value->TOLERANSI), 2, '.', ',') . "</td>";
               echo "<td>" . number_format(($value->TOLERANSI_VALUE), 2, '.', ',') . "</td>";
               echo "<td>" . number_format(($value->CLAIM_SUSUT), 2, '.', ',') . "</td>";

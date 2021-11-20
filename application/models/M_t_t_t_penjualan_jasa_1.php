@@ -70,6 +70,7 @@ public function select_inv_penjualan_jasa_1()
 
 
     $this->db->select("SUM_SUB_TOTAL");
+    $this->db->select("SUM_PARTY");
 
    
 
@@ -86,6 +87,7 @@ public function select_inv_penjualan_jasa_1()
 
     $this->db->join("(select \"PENJUALAN_JASA_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PENJUALAN_JASA_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PENJUALAN_JASA_ID\") as t_sum_1", 'T_T_T_PENJUALAN_JASA.ID = t_sum_1.PENJUALAN_JASA_ID', 'left');
 
+    $this->db->join("(select \"PENJUALAN_JASA_ID\",sum(\"VALUE_KEBUN\")\"SUM_PARTY\" from \"T_T_T_PENJUALAN_JASA_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PENJUALAN_JASA_ID\") as t_sum_2", 'T_T_T_PENJUALAN_JASA.ID = t_sum_2.PENJUALAN_JASA_ID', 'left');
     
 
     $date_before = date('Y-m-d',(strtotime ( '-30 day' , strtotime ( $date_penjualan_jasa_1) ) ));
@@ -143,6 +145,7 @@ public function select_inv_penjualan_jasa_1()
 
 
     $this->db->select("SUM_SUB_TOTAL");
+    $this->db->select("SUM_PARTY");
 
    
 
@@ -159,7 +162,7 @@ public function select_inv_penjualan_jasa_1()
 
     $this->db->join("(select \"PENJUALAN_JASA_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PENJUALAN_JASA_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PENJUALAN_JASA_ID\") as t_sum_1", 'T_T_T_PENJUALAN_JASA.ID = t_sum_1.PENJUALAN_JASA_ID', 'left');
 
-    
+    $this->db->join("(select \"PENJUALAN_JASA_ID\",sum(\"VALUE_KEBUN\")\"SUM_PARTY\" from \"T_T_T_PENJUALAN_JASA_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PENJUALAN_JASA_ID\") as t_sum_2", 'T_T_T_PENJUALAN_JASA.ID = t_sum_2.PENJUALAN_JASA_ID', 'left');
 
 
 

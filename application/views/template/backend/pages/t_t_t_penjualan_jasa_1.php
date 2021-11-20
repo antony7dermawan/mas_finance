@@ -35,8 +35,8 @@
             <th>Ket</th>
             <th>Pelanggan</th>
             <th>Payment Method</th>
-            <th>Party</th>
-            <th>Jarak (Km)</th>
+            <th>Target Party</th>
+            <th>Real Party</th>
             <th>Total</th>
 
             <th>Action</th>
@@ -57,8 +57,9 @@
               echo "<td>" . $value->PELANGGAN . "</td>";
               echo "<td>" . $value->PAYMENT_METHOD . "</td>";
 
-              echo "<td>" . $value->TARGET_PARTY . "</td>";
-              echo "<td>" . $value->JARAK_KM . "</td>";
+              echo "<td>" . number_format(($value->TARGET_PARTY),2,'.',',') . "</td>";
+              echo "<td>" . number_format(($value->SUM_PARTY),2,'.',',') . "</td>";
+              
 
 
               //satu button
@@ -66,7 +67,7 @@
               echo "<a href='" . site_url('c_t_t_t_penjualan_jasa_rincian_1/index/' . $value->ID) . "' ";
               echo "onclick=\"return confirm('Lanjut?')\"";
               echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-              echo " Rp" . number_format(intval($value->SUM_SUB_TOTAL)) . "</td>";
+              echo " Rp" . number_format(($value->SUM_SUB_TOTAL),2,'.',',') . "</td>";
               //satu button
 
               
@@ -227,8 +228,8 @@
           <div class="col-md-6">
 
             <fieldset class="form-group">
-              <label>No Faktur Pajak</label>
-              <input type='text' class='form-control' placeholder='Input Text' name='no_faktur_pajak'>
+              <label>Target Party</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='target_party'>
             </fieldset>
 
           </div><!-- Membungkus Row Kedua !-->
@@ -254,7 +255,7 @@
 
      
      
-
+        </div> <!-- ga bole dihapus !-->
        
 
 
@@ -264,30 +265,9 @@
         </div>
 
 
-        <div class="row">
-          <div class="col-md-6">
-
-            <fieldset class="form-group">
-              <label>Target Party</label>
-              <input type='text' class='form-control' placeholder='Input Text' name='target_party'>
-            </fieldset>
-
-          </div><!-- Membungkus Row Kedua !-->
-
-
-          <div class="col-md-6">
-            <fieldset class="form-group">
-              <label>Jarak (Km)</label>
-              <input type='text' class='form-control' placeholder='Input Text' name='jarak_km'>
-            </fieldset>
-          </div> <!-- Membungkus Row !-->
-
-
-        </div>
 
 
 
-        </div>
 
           <div class="modal-footer">
             <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
@@ -396,8 +376,8 @@
           <div class="col-md-6">
 
             <fieldset class="form-group">
-              <label>No Faktur Pajak</label>
-              <input type='text' class='form-control' placeholder='Input Text' name='no_faktur_pajak'>
+              <label>Target Party</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='target_party'>
             </fieldset>
 
           </div><!-- Membungkus Row Kedua !-->
@@ -439,27 +419,7 @@
 
 
 
-        <div class="row">
-          <div class="col-md-6">
-
-            <fieldset class="form-group">
-              <label>Target Party</label>
-              <input type='text' class='form-control' placeholder='Input Text' name='target_party'>
-            </fieldset>
-
-          </div><!-- Membungkus Row Kedua !-->
-
-
-          <div class="col-md-6">
-            <fieldset class="form-group">
-              <label>Jarak (Km)</label>
-              <input type='text' class='form-control' placeholder='Input Text' name='jarak_km'>
-            </fieldset>
-          </div> <!-- Membungkus Row !-->
-
-          
-        </div>
-
+       
 
 
 
@@ -510,13 +470,11 @@
         UPDATED_BY : updated_by,
         CREATED_BY : created_by,
 
-        NO_FAKTUR_PAJAK : no_faktur_pajak,
         NO_DO : no_do,
         DATE : date,
         NO_KONTRAK : no_kontrak,
         DATE_KONTRAK : date_kontrak,
-        TARGET_PARTY : target_party,
-        JARAK_KM : jarak_km
+        TARGET_PARTY : target_party
         
       } = User[0];
 
@@ -529,13 +487,11 @@
       elModalEdit.querySelector("[name=created_by]").text = created_by;
 
 
-      elModalEdit.querySelector("[name=no_faktur_pajak]").value = no_faktur_pajak;
       elModalEdit.querySelector("[name=no_do]").value = no_do;
       elModalEdit.querySelector("[name=date]").value = date;
       elModalEdit.querySelector("[name=no_kontrak]").value = no_kontrak;
       elModalEdit.querySelector("[name=date_kontrak]").value = date_kontrak;
       elModalEdit.querySelector("[name=target_party]").value = target_party;
-      elModalEdit.querySelector("[name=jarak_km]").value = jarak_km;
 
   
 
@@ -548,6 +504,25 @@
     </form>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

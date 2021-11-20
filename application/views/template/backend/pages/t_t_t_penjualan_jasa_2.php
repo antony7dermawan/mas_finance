@@ -224,8 +224,7 @@
           <div class="col-md-6">
 
             <fieldset class="form-group">
-              <label>No Faktur Pajak</label>
-              <input type='text' class='form-control' placeholder='Input Text' name='no_faktur_pajak'>
+              
             </fieldset>
 
           </div><!-- Membungkus Row Kedua !-->
@@ -373,8 +372,7 @@
           <div class="col-md-6">
 
             <fieldset class="form-group">
-              <label>No Faktur Pajak</label>
-              <input type='text' class='form-control' placeholder='Input Text' name='no_faktur_pajak'>
+              
             </fieldset>
 
           </div><!-- Membungkus Row Kedua !-->
@@ -465,7 +463,6 @@
         UPDATED_BY : updated_by,
         CREATED_BY : created_by,
 
-        NO_FAKTUR_PAJAK : no_faktur_pajak,
         NO_DO : no_do,
         DATE : date,
         NO_KONTRAK : no_kontrak,
@@ -482,7 +479,6 @@
       elModalEdit.querySelector("[name=created_by]").text = created_by;
 
 
-      elModalEdit.querySelector("[name=no_faktur_pajak]").value = no_faktur_pajak;
       elModalEdit.querySelector("[name=no_do]").value = no_do;
       elModalEdit.querySelector("[name=date]").value = date;
       elModalEdit.querySelector("[name=no_kontrak]").value = no_kontrak;

@@ -102,9 +102,7 @@ class C_t_t_t_penjualan_jasa_3 extends MY_Controller
     $target_party = 0;
     $jarak_km = 0;
     
-    $no_faktur_pajak = substr($this->input->post("no_faktur_pajak"), 0, 100);
-   
-
+    
     $ket = substr($this->input->post("ket"), 0, 500);
     $date = $this->input->post("date");
     $date_kontrak = $this->input->post("date_kontrak");
@@ -144,7 +142,6 @@ class C_t_t_t_penjualan_jasa_3 extends MY_Controller
         
 
         'ENABLE_EDIT' => 1,
-        'NO_FAKTUR_PAJAK' => $no_faktur_pajak,
 
         'NO_DO' => $no_do,
         'TYPE_ID' => 3, //tipe kayu
@@ -189,7 +186,6 @@ class C_t_t_t_penjualan_jasa_3 extends MY_Controller
     $target_party = 0;
     $jarak_km = 0;
     
-    $no_faktur_pajak = substr($this->input->post("no_faktur_pajak"), 0, 100);
     
 
     $ket = substr($this->input->post("ket"), 0, 500);
@@ -248,7 +244,7 @@ class C_t_t_t_penjualan_jasa_3 extends MY_Controller
      
 
 
-        'NO_FAKTUR_PAJAK' => $no_faktur_pajak,
+      
 
         'NO_DO' => $no_do,
         'TARGET_PARTY' => $target_party,

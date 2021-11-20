@@ -99,9 +99,6 @@ class C_t_t_t_penjualan_jasa_1 extends MY_Controller
     $pelanggan_id = intval($this->input->post("pelanggan_id"));
     $payment_method_id = intval($this->input->post("payment_method_id"));
     $target_party = floatval($this->input->post("target_party"));
-    $jarak_km = floatval($this->input->post("jarak_km"));
-    
-    $no_faktur_pajak = substr($this->input->post("no_faktur_pajak"), 0, 100);
    
 
     $ket = substr($this->input->post("ket"), 0, 500);
@@ -143,14 +140,12 @@ class C_t_t_t_penjualan_jasa_1 extends MY_Controller
         
 
         'ENABLE_EDIT' => 1,
-        'NO_FAKTUR_PAJAK' => $no_faktur_pajak,
 
         'NO_DO' => $no_do,
         'TYPE_ID' => 1, //tipe cpo
         'TARGET_PARTY' => $target_party,
         'DATE_KONTRAK' => $date_kontrak,
-        'NO_KONTRAK' => $no_kontrak,
-        'JARAK_KM' => $jarak_km
+        'NO_KONTRAK' => $no_kontrak
  
       );
 
@@ -186,9 +181,6 @@ class C_t_t_t_penjualan_jasa_1 extends MY_Controller
 
    
     $target_party = floatval($this->input->post("target_party"));
-    $jarak_km = floatval($this->input->post("jarak_km"));
-    
-    $no_faktur_pajak = substr($this->input->post("no_faktur_pajak"), 0, 100);
     
 
     $ket = substr($this->input->post("ket"), 0, 500);
@@ -247,13 +239,11 @@ class C_t_t_t_penjualan_jasa_1 extends MY_Controller
      
 
 
-        'NO_FAKTUR_PAJAK' => $no_faktur_pajak,
 
         'NO_DO' => $no_do,
         'TARGET_PARTY' => $target_party,
         'DATE_KONTRAK' => $date_kontrak,
-        'NO_KONTRAK' => $no_kontrak,
-        'JARAK_KM' => $jarak_km
+        'NO_KONTRAK' => $no_kontrak
 
 
       );
