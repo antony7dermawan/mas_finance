@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class c_faktur_penjualan_print extends MY_Controller
+class c_faktur_penjualan_print2 extends MY_Controller
 {
 
   public function __construct()
@@ -123,17 +123,29 @@ class c_faktur_penjualan_print extends MY_Controller
         $pdf->Cell(100, 4,'INVOICE', 1, 1, 'C');
         $pdf->SetFont('','',10);
         $pdf->Cell(90, 4, "", 0, 0, 'L');
-        $pdf->Cell(30, 4, "No. Inv", 1, 0, 'L');
-        $pdf->Cell(70, 4,':  '.$no_faktur, 1, 1, 'L');
+        $pdf->Cell(35, 4, "No. Inv", 1, 0, 'L');
+        $pdf->Cell(65, 4,':  '.$no_faktur, 1, 1, 'L');
         $pdf->Cell(90, 4, "", 0, 0, 'L');
-        $pdf->Cell(30, 4, "No. Faktur Pajak", 1, 0, 'L');
-        $pdf->Cell(70, 4,':  '.$no_faktur_pajak, 1, 1, 'L');
+        $pdf->Cell(35, 4, "No. Faktur Pajak", 1, 0, 'L');
+        $pdf->Cell(65, 4,':  '.$no_faktur_pajak, 1, 1, 'L');
         $pdf->Cell(90, 4, "", 0, 0, 'L');
-        $pdf->Cell(30, 4, "Tanggal", 1, 0, 'L');
-        $pdf->Cell(70, 4,':  '.date('d-m-Y', strtotime($tgl_faktur)), 1, 1, 'L');
+        $pdf->Cell(35, 4, "Tanggal", 1, 0, 'L');
+        $pdf->Cell(65, 4,':  '.date('d-m-Y', strtotime($tgl_faktur)), 1, 1, 'L');
         $pdf->Cell(90, 4, "", 0, 0, 'L');
-        $pdf->Cell(30, 4, "No. Kontrak", 1, 0, 'L');
-        $pdf->Cell(70, 4,':  '.$no_kontrak, 1, 1, 'L');
+        $pdf->Cell(35, 4, "Attention", 1, 0, 'L');
+        $pdf->Cell(65, 4,':  '.$attention, 1, 1, 'L');
+        $pdf->Cell(90, 4, "", 0, 0, 'L');
+        $pdf->Cell(35, 4, "Department", 1, 0, 'L');
+        $pdf->Cell(65, 4,':  '.$department, 1, 1, 'L');
+        $pdf->Cell(90, 4, "", 0, 0, 'L');
+        $pdf->Cell(35, 4, "Telp. No", 1, 0, 'L');
+        $pdf->Cell(65, 4,':  '.$telp_no, 1, 1, 'L');
+        $pdf->Cell(90, 4, "", 0, 0, 'L');
+        $pdf->Cell(35, 4, "Purchase Order No", 1, 0, 'L');
+        $pdf->Cell(65, 4,':  '.$po_no, 1, 1, 'L');
+        $pdf->Cell(90, 4, "", 0, 0, 'L');
+        $pdf->Cell(35, 4, "Delivery Note No", 1, 0, 'L');
+        $pdf->Cell(65, 4,':  '.$dn_no, 1, 1, 'L');
 
 
 

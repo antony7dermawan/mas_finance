@@ -42,6 +42,25 @@ public function select_no_faktur()
     $this->db->select("T_AK_FAKTUR_PENJUALAN.PAYMENT_T");
 
 
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.NO_FAKTUR_PAJAK");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.NO_KONTRAK");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.KET_2");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.ATTENTION");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.DEPARTMENT");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.TELP_NO");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.PO_NO");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.DN_NO");
+
+
+
+
+
+
+
+
+
+
+
     $this->db->select("T_M_D_PELANGGAN.ID as PELANGGAN_ID");
     $this->db->select("T_M_D_PELANGGAN.PELANGGAN");
 
@@ -57,6 +76,8 @@ public function select_no_faktur()
     $this->db->select("SUM_PPN_VALUE");
     $this->db->select("SUM_TOTAL_TAGIHAN");
     $this->db->select("SUM_TOTAL_TAGIHAN_PPN");
+    $this->db->select("SUM_VALUE_DISKON");
+    $this->db->select("SUM_VALUE_PPH");
 
 
     $this->db->from("T_AK_FAKTUR_PENJUALAN");
@@ -76,6 +97,13 @@ public function select_no_faktur()
 
 
     $this->db->join("(select \"T_AK_FAKTUR_PENJUALAN_RINCIAN\".\"FAKTUR_PENJUALAN_ID\",sum(\"T_T_T_PENJUALAN_JASA_RINCIAN\".\"PPN_VALUE\")\"SUM_TOTAL_TAGIHAN_PPN\" from \"T_T_T_PENJUALAN_JASA_RINCIAN\"LEFT OUTER JOIN \"T_AK_FAKTUR_PENJUALAN_RINCIAN2\" ON \"T_T_T_PENJUALAN_JASA_RINCIAN\".\"ID\"=\"T_AK_FAKTUR_PENJUALAN_RINCIAN2\".\"PENJUALAN_RINCIAN_ID\" LEFT OUTER JOIN \"T_AK_FAKTUR_PENJUALAN_RINCIAN\" ON \"T_AK_FAKTUR_PENJUALAN_RINCIAN\".\"ID\" = \"T_AK_FAKTUR_PENJUALAN_RINCIAN2\".\"FAKTUR_PENJUALAN_RINCIAN_ID\" where \"T_T_T_PENJUALAN_JASA_RINCIAN\".\"MARK_FOR_DELETE\"=false group by \"T_AK_FAKTUR_PENJUALAN_RINCIAN\".\"FAKTUR_PENJUALAN_ID\") as t_sum6", 'T_AK_FAKTUR_PENJUALAN.ID = t_sum6.FAKTUR_PENJUALAN_ID', 'left');
+
+
+
+    $this->db->join("(select \"FAKTUR_PENJUALAN_ID\",sum(\"VALUE_DISKON\")\"SUM_VALUE_DISKON\" from \"T_AK_FAKTUR_PENJUALAN_DISKON\" where \"MARK_FOR_DELETE\"=false group by \"FAKTUR_PENJUALAN_ID\") as t_sum_7", 'T_AK_FAKTUR_PENJUALAN.ID = t_sum_7.FAKTUR_PENJUALAN_ID', 'left');
+
+
+    $this->db->join("(select \"FAKTUR_PENJUALAN_ID\",sum(\"VALUE_PPH\")\"SUM_VALUE_PPH\" from \"T_AK_FAKTUR_PENJUALAN_PPH\" where \"MARK_FOR_DELETE\"=false group by \"FAKTUR_PENJUALAN_ID\") as t_sum_8", 'T_AK_FAKTUR_PENJUALAN.ID = t_sum_8.FAKTUR_PENJUALAN_ID', 'left');
 
 
 
@@ -122,6 +150,20 @@ public function select_no_faktur()
     $this->db->select("T_AK_FAKTUR_PENJUALAN.ENABLE_EDIT");
 
 
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.NO_FAKTUR_PAJAK");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.NO_KONTRAK");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.KET_2");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.ATTENTION");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.DEPARTMENT");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.TELP_NO");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.PO_NO");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.DN_NO");
+
+
+
+
+
+
     $this->db->select("T_M_D_PELANGGAN.ID as PELANGGAN_ID");
     $this->db->select("T_M_D_PELANGGAN.PELANGGAN");
 
@@ -136,6 +178,9 @@ public function select_no_faktur()
     $this->db->select("SUM_PPN_VALUE");
     $this->db->select("SUM_TOTAL_TAGIHAN");
     $this->db->select("SUM_TOTAL_TAGIHAN_PPN");
+    $this->db->select("SUM_VALUE_DISKON");
+    $this->db->select("SUM_VALUE_PPH");
+
 
 
     
@@ -159,6 +204,12 @@ public function select_no_faktur()
 
 
     $this->db->join("(select \"T_AK_FAKTUR_PENJUALAN_RINCIAN\".\"FAKTUR_PENJUALAN_ID\",sum(\"T_T_T_PENJUALAN_JASA_RINCIAN\".\"PPN_VALUE\")\"SUM_TOTAL_TAGIHAN_PPN\" from \"T_T_T_PENJUALAN_JASA_RINCIAN\"LEFT OUTER JOIN \"T_AK_FAKTUR_PENJUALAN_RINCIAN2\" ON \"T_T_T_PENJUALAN_JASA_RINCIAN\".\"ID\"=\"T_AK_FAKTUR_PENJUALAN_RINCIAN2\".\"PENJUALAN_RINCIAN_ID\" LEFT OUTER JOIN \"T_AK_FAKTUR_PENJUALAN_RINCIAN\" ON \"T_AK_FAKTUR_PENJUALAN_RINCIAN\".\"ID\" = \"T_AK_FAKTUR_PENJUALAN_RINCIAN2\".\"FAKTUR_PENJUALAN_RINCIAN_ID\" where \"T_T_T_PENJUALAN_JASA_RINCIAN\".\"MARK_FOR_DELETE\"=false group by \"T_AK_FAKTUR_PENJUALAN_RINCIAN\".\"FAKTUR_PENJUALAN_ID\") as t_sum6", 'T_AK_FAKTUR_PENJUALAN.ID = t_sum6.FAKTUR_PENJUALAN_ID', 'left');
+
+
+    $this->db->join("(select \"FAKTUR_PENJUALAN_ID\",sum(\"VALUE_DISKON\")\"SUM_VALUE_DISKON\" from \"T_AK_FAKTUR_PENJUALAN_DISKON\" where \"MARK_FOR_DELETE\"=false group by \"FAKTUR_PENJUALAN_ID\") as t_sum_7", 'T_AK_FAKTUR_PENJUALAN.ID = t_sum_7.FAKTUR_PENJUALAN_ID', 'left');
+
+
+    $this->db->join("(select \"FAKTUR_PENJUALAN_ID\",sum(\"VALUE_PPH\")\"SUM_VALUE_PPH\" from \"T_AK_FAKTUR_PENJUALAN_PPH\" where \"MARK_FOR_DELETE\"=false group by \"FAKTUR_PENJUALAN_ID\") as t_sum_8", 'T_AK_FAKTUR_PENJUALAN.ID = t_sum_8.FAKTUR_PENJUALAN_ID', 'left');
 
 
     
@@ -186,6 +237,22 @@ public function select_no_faktur()
     $this->db->select("T_AK_FAKTUR_PENJUALAN.ENABLE_EDIT");
 
 
+
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.NO_FAKTUR_PAJAK");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.NO_KONTRAK");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.KET_2");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.ATTENTION");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.DEPARTMENT");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.TELP_NO");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.PO_NO");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.DN_NO");
+
+
+
+
+
+
+
     $this->db->select("T_M_D_PELANGGAN.ID as PELANGGAN_ID");
     $this->db->select("T_M_D_PELANGGAN.PELANGGAN");
 
@@ -204,8 +271,13 @@ public function select_no_faktur()
 
 
     $this->db->select("SUM_PPN_VALUE");
+
+    
     $this->db->select("SUM_TOTAL_TAGIHAN");
     $this->db->select("SUM_TOTAL_TAGIHAN_PPN");
+    $this->db->select("SUM_VALUE_DISKON");
+    $this->db->select("SUM_VALUE_PPH");
+
 
     $this->db->from('T_AK_FAKTUR_PENJUALAN');
 
@@ -225,6 +297,12 @@ public function select_no_faktur()
 
 
     $this->db->join("(select \"T_AK_FAKTUR_PENJUALAN_RINCIAN\".\"FAKTUR_PENJUALAN_ID\",sum(\"T_T_T_PENJUALAN_JASA_RINCIAN\".\"PPN_VALUE\")\"SUM_TOTAL_TAGIHAN_PPN\" from \"T_T_T_PENJUALAN_JASA_RINCIAN\"LEFT OUTER JOIN \"T_AK_FAKTUR_PENJUALAN_RINCIAN2\" ON \"T_T_T_PENJUALAN_JASA_RINCIAN\".\"ID\"=\"T_AK_FAKTUR_PENJUALAN_RINCIAN2\".\"PENJUALAN_RINCIAN_ID\" LEFT OUTER JOIN \"T_AK_FAKTUR_PENJUALAN_RINCIAN\" ON \"T_AK_FAKTUR_PENJUALAN_RINCIAN\".\"ID\" = \"T_AK_FAKTUR_PENJUALAN_RINCIAN2\".\"FAKTUR_PENJUALAN_RINCIAN_ID\" where \"T_T_T_PENJUALAN_JASA_RINCIAN\".\"MARK_FOR_DELETE\"=false group by \"T_AK_FAKTUR_PENJUALAN_RINCIAN\".\"FAKTUR_PENJUALAN_ID\") as t_sum6", 'T_AK_FAKTUR_PENJUALAN.ID = t_sum6.FAKTUR_PENJUALAN_ID', 'left');
+
+
+    $this->db->join("(select \"FAKTUR_PENJUALAN_ID\",sum(\"VALUE_DISKON\")\"SUM_VALUE_DISKON\" from \"T_AK_FAKTUR_PENJUALAN_DISKON\" where \"MARK_FOR_DELETE\"=false group by \"FAKTUR_PENJUALAN_ID\") as t_sum_7", 'T_AK_FAKTUR_PENJUALAN.ID = t_sum_7.FAKTUR_PENJUALAN_ID', 'left');
+
+
+    $this->db->join("(select \"FAKTUR_PENJUALAN_ID\",sum(\"VALUE_PPH\")\"SUM_VALUE_PPH\" from \"T_AK_FAKTUR_PENJUALAN_PPH\" where \"MARK_FOR_DELETE\"=false group by \"FAKTUR_PENJUALAN_ID\") as t_sum_8", 'T_AK_FAKTUR_PENJUALAN.ID = t_sum_8.FAKTUR_PENJUALAN_ID', 'left');
     
     $this->db->where('T_AK_FAKTUR_PENJUALAN.ID',$id);
     $this->db->order_by("ID", "desc");

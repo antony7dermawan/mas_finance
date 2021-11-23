@@ -52,7 +52,7 @@ public function update($data, $id)
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.PC");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.HARGA_PC");
 
-
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.ENABLE_EDIT");
 
 
 
@@ -151,7 +151,7 @@ public function update($data, $id)
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.PC");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.HARGA_PC");
 
-
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.ENABLE_EDIT");
 
 
     $this->db->select('T_M_D_NO_POLISI.NO_POLISI');

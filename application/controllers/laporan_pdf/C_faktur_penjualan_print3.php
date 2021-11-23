@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class c_faktur_penjualan_print extends MY_Controller
+class c_faktur_penjualan_print3 extends MY_Controller
 {
 
   public function __construct()
@@ -150,8 +150,8 @@ class c_faktur_penjualan_print extends MY_Controller
         
         $pdf->Cell( $size[0],8,'No.','1',0,'C');
         $pdf->Cell( $size[1],8,'Keterangan','1',0,'C');
-        $pdf->Cell( $size[2],8,'Qty (Kg)','1',0,'C');
-        $pdf->Cell( $size[3],8,'Price (Rp/Kg)','1',0,'C');
+        $pdf->Cell( $size[2],8,'Unit','1',0,'C');
+        $pdf->Cell( $size[3],8,'Price/Unit','1',0,'C');
         $pdf->Cell( $size[4],8,'Jumlah (Rp)','1',1,'C');
 
 

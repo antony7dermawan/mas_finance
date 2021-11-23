@@ -68,12 +68,15 @@ class C_t_ak_faktur_penjualan_rincian2 extends MY_Controller
 
       $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
 
-      redirect('c_t_ak_faktur_penjualan_rincian2/index/' . $faktur_penjualan_rincian_id . '/' . $faktur_penjualan_id. '/' . $penjualan_jasa_id. '/' . $pelanggan_id);
+      
     }
     else
     {
       $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> Data Tidak Lengkap!</p></div>');
     }
+
+
+    redirect('c_t_ak_faktur_penjualan_rincian2/index/' . $faktur_penjualan_rincian_id . '/' . $faktur_penjualan_id. '/' . $penjualan_jasa_id. '/' . $pelanggan_id);
   }
 
 

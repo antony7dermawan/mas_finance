@@ -30,6 +30,8 @@
             <th>Pelanggan</th>
             <th>No Faktur</th>
             <th>Total Tagihan</th>
+            <th>Diskon/Klaim</th>
+            <th>Pot PPH</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -51,6 +53,24 @@
 
 
             echo "<td>";
+            echo "<a href='" . site_url('c_t_ak_faktur_penjualan_diskon/index/' . $value->ID) . "/" . $value->PELANGGAN_ID . "' ";
+            echo "onclick=\"return confirm('Isi Diskon?')\"";
+            echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
+            echo "Rp" . number_format(($value->SUM_VALUE_DISKON),2,'.',',') . "</td>";
+
+
+
+            echo "<td>";
+            echo "<a href='" . site_url('c_t_ak_faktur_penjualan_pph/index/' . $value->ID) . "/" . $value->PELANGGAN_ID . "' ";
+            echo "onclick=\"return confirm('Isi Diskon?')\"";
+            echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
+            echo "Rp" . number_format(($value->SUM_VALUE_PPH),2,'.',',') . "</td>";
+
+
+
+
+
+            echo "<td>";
 
 
             if(intval($value->SUM_TOTAL_PENJUALAN)!=0)
@@ -59,21 +79,12 @@
 
               echo "onclick= 'p_1_" . $key . "()'";
               if ($value->ENABLE_EDIT == 1) {
-                echo "> <i class='fa fa-print text-c-black'></i></a> ";
+                echo " class='btn btn-primary btn-mini waves-effect waves-light' > P.CPO</a> ";
               }
               if ($value->ENABLE_EDIT == 0) {
-                echo "> <i class='fa fa-print text-c-green'></i></a> ";
+                echo "class='btn btn-success btn-mini waves-effect waves-light' > P.CPO</a> ";
 
-                if($this->session->userdata('level_user_id')==1 and $value->PAYMENT_T==0)
-                {
-                  echo "<a href='" . site_url('c_t_ak_faktur_penjualan/undo/' . $value->ID) . "' ";
-                  echo "onclick=\"return confirm('Apakah kamu yakin ingin memperbaiki data ini?')\"";
-                  echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
-                }
-                if($value->PAYMENT_T>0)
-                {
-                  echo "Sudah Dibayar";
-                }
+                
                 
               }
 
@@ -86,8 +97,72 @@
               echo "</script>";
 
 
-              
             }
+
+
+
+            if(intval($value->SUM_TOTAL_PENJUALAN)!=0)
+            {
+              echo "<a href='" . site_url('c_t_ak_faktur_penjualan/update_enable_edit/' . $value->ID) . "/" . intval($value->SUM_TOTAL_PENJUALAN) . "/1/" . $value->ENABLE_EDIT . "'"; #/1 ini artinya kena pajak
+
+              echo "onclick= 'p_2_" . $key . "()'";
+              if ($value->ENABLE_EDIT == 1) {
+                echo " class='btn btn-primary btn-mini waves-effect waves-light' > P.CPO 2</a> ";
+              }
+              if ($value->ENABLE_EDIT == 0) {
+                echo " class='btn btn-success btn-mini waves-effect waves-light' > P.CPO 2</a> ";
+              }
+              
+
+
+              echo "<script>";
+              echo "function p_2_" . $key . "()";
+              echo "{";
+              echo "window.open('laporan_pdf/c_faktur_penjualan_print2/index/" . $value->ID . "/" . $value->PELANGGAN_ID . "');";
+              echo "}";
+              echo "</script>";
+
+
+            }
+
+
+            if(intval($value->SUM_TOTAL_PENJUALAN)!=0)
+            {
+              echo "<a href='" . site_url('c_t_ak_faktur_penjualan/update_enable_edit/' . $value->ID) . "/" . intval($value->SUM_TOTAL_PENJUALAN) . "/1/" . $value->ENABLE_EDIT . "'"; #/1 ini artinya kena pajak
+
+              echo "onclick= 'p_3_" . $key . "()'";
+              if ($value->ENABLE_EDIT == 1) {
+                echo " class='btn btn-primary btn-mini waves-effect waves-light' > P.Non CPO</a> ";
+              }
+              if ($value->ENABLE_EDIT == 0) {
+                echo " class='btn btn-success btn-mini waves-effect waves-light' > P.Non CPO</a> ";
+
+                if($this->session->userdata('level_user_id')==1 and $value->PAYMENT_T==0)
+                {
+                  echo "<a href='" . site_url('c_t_ak_faktur_penjualan/undo/' . $value->ID) . "' ";
+                  echo "onclick=\"return confirm('Apakah kamu yakin ingin memperbaiki data ini?')\"";
+                  echo "> <i class='fa fa-refresh f-w-600 f-16 text-c-red'></i></a>";
+                }
+                if($value->PAYMENT_T>0)
+                {
+                  echo "Sudah Dibayar";
+                }
+              }
+              
+
+
+              echo "<script>";
+              echo "function p_3_" . $key . "()";
+              echo "{";
+              echo "window.open('laporan_pdf/c_faktur_penjualan_print3/index/" . $value->ID . "/" . $value->PELANGGAN_ID . "');";
+              echo "}";
+              echo "</script>";
+
+
+            }
+
+
+            
             
 
 
@@ -122,7 +197,7 @@
 
 
 <!-- MODAL TAMBAH PEMASUKAN! !-->
-<form action="<?php echo base_url('c_t_ak_faktur_penjualan/tambah') ?>" method="post">
+<form action="<?php echo base_url('c_t_ak_faktur_penjualan/tambah') ?>" method="post" id='add_data'>
   <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -138,31 +213,85 @@
         </div>
 
         <div class="modal-body">
-          <div class="row">
-
-            <div class="col-md-6">
-              <fieldset class="form-group">
-                <label>No Faktur</label>
-                <input type='text' class='form-control' placeholder='Input Text' name='no_faktur'>
-              </fieldset>
-            </div><!-- Membungkus Row Kedua !-->
 
 
-            <div class="col-md-6">
-              <fieldset class="form-group">
-                <label>Pelanggan</label>
-                <select name="pelanggan_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
+          
+
+          
+
+
+
+
+
+          <div class="form-group">
+              <label>Pelanggan</label>
+              <select name="pelanggan_id" class='custom_width' id='select-state' placeholder='Pick a state...'>
                   <?php
                   foreach ($c_t_m_d_pelanggan as $key => $value) {
                     echo "<option value='" . $value->ID . "'>" . $value->PELANGGAN . "</option>";
                   }
                   ?>
-                </select>
-              </fieldset>
-            </div>
+              </select>
+          </div>
 
 
-          </div> <!-- Membungkus Row !-->
+          <div class="form-group">
+              <label>No. Inv</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='no_faktur'>
+          </div>
+
+
+          <div class="form-group">
+              <label>No. Faktur Pajak</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='no_faktur_pajak'>
+          </div>
+
+
+          <div class="form-group">
+              <label>No. Kontrak</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='no_kontrak'>
+          </div>
+
+
+          <div class="form-group">
+              <label>Attention</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='attention'>
+          </div>
+          <div class="form-group">
+              <label>Department</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='department'>
+          </div>
+          <div class="form-group">
+              <label>Telp No</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='telp_no'>
+          </div>
+          <div class="form-group">
+              <label>PO No</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='po_no'>
+          </div>
+          <div class="form-group">
+              <label>Delivery Note No</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='dn_no'>
+          </div>
+
+
+
+          <div class="form-group">
+              <label>Keterangan Header</label>
+              <textarea rows='4' cols='20' name='keterangan' id='' form='add_data' class='form-control'></textarea>
+          </div>
+
+          <div class="form-group">
+              <label>Keterangan Footer</label>
+              <textarea rows='4' cols='20' name='ket_2' id='' form='add_data' class='form-control'></textarea>
+          </div>
+
+
+
+
+
+
+
         </div>
 
         <div class="modal-footer">
@@ -180,9 +309,9 @@
 
 
 <!-- MODAL EDIT AKUN !-->
-<div class="modal fade" id="Modal_Edit" tabindex="-1" role="dialog">
+<div class="modal fade" id="Modal_Edit" tabindex="-1" role="dialog" >
   <div class="modal-dialog" role="document">
-    <form action="<?php echo base_url('c_t_ak_faktur_penjualan/edit_action') ?>" method="post">
+    <form action="<?php echo base_url('c_t_ak_faktur_penjualan/edit_action') ?>" method="post" id='edit_data'>
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Edit Data</h4>
@@ -192,20 +321,62 @@
         </div>
         <div class="modal-body">
           <input type="hidden" name="id" value="" class="form-control">
-          <div class="row">
+          
 
 
-            <div class="col-md-6">
-              <fieldset class="form-group">
-                <label>No Faktur</label>
-                <input type='text' class='form-control' placeholder='Input Text' name='no_faktur'>
-              </fieldset>
-            </div><!-- Membungkus Row Kedua !-->
+          <div class="form-group">
+              <label>No. Inv</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='no_faktur'>
+          </div>
+
+
+          <div class="form-group">
+              <label>No. Faktur Pajak</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='no_faktur_pajak'>
+          </div>
+
+
+          <div class="form-group">
+              <label>No. Kontrak</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='no_kontrak'>
+          </div>
+
+
+          <div class="form-group">
+              <label>Attention</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='attention'>
+          </div>
+          <div class="form-group">
+              <label>Department</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='department'>
+          </div>
+          <div class="form-group">
+              <label>Telp No</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='telp_no'>
+          </div>
+          <div class="form-group">
+              <label>PO No</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='po_no'>
+          </div>
+          <div class="form-group">
+              <label>Delivery Note No</label>
+              <input type='text' class='form-control' placeholder='Input Text' name='dn_no'>
+          </div>
 
 
 
+          <div class="form-group">
+              <label>Keterangan Header</label>
+              <textarea rows='4' cols='20' name='keterangan' id='' form='edit_data' class='form-control'></textarea>
+          </div>
 
-          </div> <!-- Membungkus Row !-->
+          <div class="form-group">
+              <label>Keterangan Footer</label>
+              <textarea rows='4' cols='20' name='ket_2' id='' form='edit_data' class='form-control'></textarea>
+          </div>
+
+
+
         </div>
 
 
@@ -233,14 +404,30 @@
             const {
               ID,
               NO_FAKTUR: no_faktur,
-              PKS_ID: pks_id
+              NO_FAKTUR_PAJAK: no_faktur_pajak,
+              NO_KONTRAK: no_kontrak,
+              ATTENTION: attention,
+              DEPARTMENT: department,
+              TELP_NO: telp_no,
+              PO_NO: po_no,
+              DN_NO: dn_no,
+              KETERANGAN: keterangan,
+              KET_2: ket_2
             } = User[0];
 
             elModalEdit.querySelector("[name=id]").value = ID;
 
 
             elModalEdit.querySelector("[name=no_faktur]").value = no_faktur;
-            elModalEdit.querySelector("[name=pks_id]").value = pks_id;
+            elModalEdit.querySelector("[name=no_faktur_pajak]").value = no_faktur_pajak;
+            elModalEdit.querySelector("[name=no_kontrak]").value = no_kontrak;
+            elModalEdit.querySelector("[name=attention]").value = attention;
+            elModalEdit.querySelector("[name=department]").value = department;
+            elModalEdit.querySelector("[name=telp_no]").value = telp_no;
+            elModalEdit.querySelector("[name=po_no]").value = po_no;
+            elModalEdit.querySelector("[name=dn_no]").value = dn_no;
+            elModalEdit.querySelector("[name=keterangan]").value = keterangan;
+            elModalEdit.querySelector("[name=ket_2]").value = ket_2;
 
 
 

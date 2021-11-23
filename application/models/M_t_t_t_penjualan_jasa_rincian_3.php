@@ -66,7 +66,7 @@ public function update($data, $id)
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.NETO_2");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.HARGA_KAYU");
 
-
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.ENABLE_EDIT");
 
 
 
@@ -184,7 +184,7 @@ public function update($data, $id)
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.NETO_2");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.HARGA_KAYU");
 
-
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.ENABLE_EDIT");
 
 
 
@@ -289,7 +289,10 @@ public function update($data, $id)
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.NETO_2");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.HARGA_KAYU");
 
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.ENABLE_EDIT");
 
+
+    
     $this->db->select('T_M_D_NO_POLISI.NO_POLISI');
     $this->db->select('T_M_D_NO_POLISI.NO_UNIT');
     $this->db->select('T_M_D_SUPIR.SUPIR');

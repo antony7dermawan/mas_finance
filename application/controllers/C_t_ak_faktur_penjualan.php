@@ -275,8 +275,23 @@ class C_t_ak_faktur_penjualan extends MY_Controller
   function tambah()
   {
     $pelanggan_id = intval($this->input->post("pelanggan_id"));
-    $keterangan = '';
+    $keterangan = substr($this->input->post("keterangan"), 0, 50);
     $no_faktur = substr($this->input->post("no_faktur"), 0, 100);
+
+
+
+
+    $no_faktur_pajak = substr($this->input->post("no_faktur_pajak"), 0, 50);
+    $no_kontrak = substr($this->input->post("no_kontrak"), 0, 50);
+    $ket_2 = substr($this->input->post("ket_2"), 0, 50);
+    $attention = substr($this->input->post("attention"), 0, 50);
+    $department = substr($this->input->post("department"), 0, 50);
+    $telp_no = substr($this->input->post("telp_no"), 0, 50);
+    $po_no = substr($this->input->post("po_no"), 0, 50);
+    $dn_no = substr($this->input->post("dn_no"), 0, 50);
+
+
+
     $date = ($this->input->post("date"));
 
     $date_faktur_penjualan = $date;
@@ -301,14 +316,28 @@ class C_t_ak_faktur_penjualan extends MY_Controller
           'TIME' => date('H:i:s'),
           'PELANGGAN_ID' => $pelanggan_id,
           'CREATED_BY' => $this->session->userdata('username'),
-          'UPDATED_BY' => $this->session->userdata('username'),
+          'UPDATED_BY' => '',
           'KETERANGAN' => $keterangan,
           'NO_FAKTUR' => $no_faktur,
           'ENABLE_EDIT' => 1,
           'TOTAL_PEMBAYARAN' => 0,
           'PAYMENT_T' =>0,
-          'COMPANY_ID' => $this->session->userdata('company_id')
+          'COMPANY_ID' => $this->session->userdata('company_id'),
+          'NO_FAKTUR_PAJAK' => $no_faktur_pajak,
+          'NO_KONTRAK' => $no_kontrak,
+          'KET_2' => $ket_2,
+          'ATTENTION' => $attention,
+          'DEPARTMENT' => $department,
+          'TELP_NO' => $telp_no,
+          'PO_NO' => $po_no,
+          'DN_NO' => $dn_no
         );
+
+        
+
+
+
+
 
         $this->m_t_ak_faktur_penjualan->tambah($data);
 
@@ -332,24 +361,42 @@ class C_t_ak_faktur_penjualan extends MY_Controller
   public function edit_action()
   {
     $id = $this->input->post("id");
-    $ppn = $this->input->post("ppn");
-    $pph = $this->input->post("pph");
 
 
-    if($ppn==null)
-    {
-      $ppn = false;
-    }
-    if($pph==null)
-    {
-      $pph = false;
-    }
+    $keterangan = substr($this->input->post("keterangan"), 0, 50);
+    $no_faktur = substr($this->input->post("no_faktur"), 0, 100);
 
-//Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
-    $data = array(
-      'PPN' => $ppn,
-      'PPH' => $pph
-    );
+
+
+
+    $no_faktur_pajak = substr($this->input->post("no_faktur_pajak"), 0, 50);
+    $no_kontrak = substr($this->input->post("no_kontrak"), 0, 50);
+    $ket_2 = substr($this->input->post("ket_2"), 0, 50);
+    $attention = substr($this->input->post("attention"), 0, 50);
+    $department = substr($this->input->post("department"), 0, 50);
+    $telp_no = substr($this->input->post("telp_no"), 0, 50);
+    $po_no = substr($this->input->post("po_no"), 0, 50);
+    $dn_no = substr($this->input->post("dn_no"), 0, 50);
+    
+
+
+        $data = array(
+         
+          'UPDATED_BY' => $this->session->userdata('username'),
+       
+          'KETERANGAN' => $keterangan,
+          'NO_FAKTUR' => $no_faktur,
+         
+          'NO_FAKTUR_PAJAK' => $no_faktur_pajak,
+          'NO_KONTRAK' => $no_kontrak,
+          'KET_2' => $ket_2,
+          'ATTENTION' => $attention,
+          'DEPARTMENT' => $department,
+          'TELP_NO' => $telp_no,
+          'PO_NO' => $po_no,
+          'DN_NO' => $dn_no
+        );
+
     $this->m_t_ak_faktur_penjualan->update($data, $id);
     $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
     redirect('/c_t_ak_faktur_penjualan');

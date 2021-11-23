@@ -187,11 +187,7 @@ if($level_user_id==1 or $level_user_id==6 )
                 </a>
             </li>
 
-            <li class="">
-                <a href="<?= base_url("c_t_ak_pembayaran_supplier_print_setting"); ?>" class="submenu waves-effect waves-dark">
-                    <span class="pcoded-mtext">Setting Print Pembayaran Supplier</span>
-                </a>
-            </li>
+            
         </ul>
     </li>
 

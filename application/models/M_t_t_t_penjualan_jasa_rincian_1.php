@@ -50,6 +50,9 @@ public function update($data, $id)
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.JARAK_KM");
 
 
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.ENABLE_EDIT");
+
+
 
 
 
@@ -138,7 +141,7 @@ public function update($data, $id)
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.KET");
     $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.JARAK_KM");
 
-
+    $this->db->select("T_T_T_PENJUALAN_JASA_RINCIAN.ENABLE_EDIT");
 
 
 

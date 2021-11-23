@@ -29,6 +29,8 @@ public function select_id($id)
   {
     $this->db->select('*');
     $this->db->from('T_AK_FAKTUR_PENJUALAN_PRINT_SETTING');
+
+    $this->db->where("COMPANY_ID={$this->session->userdata('company_id')}");
     $this->db->order_by("ID", "asc");
     $akun = $this->db->get ();
     return $akun->result ();
