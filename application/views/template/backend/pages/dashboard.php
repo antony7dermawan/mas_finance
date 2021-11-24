@@ -88,8 +88,8 @@ if($level_user_id==1 or $level_user_id==6)
                     <thead>
                       <tr>
                         <th>No</th>
-                        <th>PKS</th>
-                        <th>No Faktur</th>
+                        <th>Pelanggan</th>
+                        <th>Invoice</th>
                         <th>Tanggal</th>
                         <th>Jumlah</th>
                         <th>Sudah Dibayarkan</th>
@@ -104,11 +104,11 @@ if($level_user_id==1 or $level_user_id==6)
                         {
                           echo "<tr>";
                           echo "<td>" . ($nomor + 1) . "</td>";
-                          echo "<td>" . $value->PKS . "</td>";
+                          echo "<td>" . $value->PELANGGAN . "</td>";
                           echo "<td>" . $value->NO_FAKTUR . "</td>";
                           echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . "</td>";
-                          echo "<td>Rp" . number_format(round($value->SUM_TOTAL_PENJUALAN*1.1)) . "</td>";
-                          echo "<td>Rp" . number_format(round($value->PAYMENT_T)) . "</td>";
+                          echo "<td>Rp" . number_format(($value->SUM_TOTAL_PENJUALAN + $value->SUM_TOTAL_TAGIHAN_PPN - $value->SUM_VALUE_DISKON - $value->SUM_VALUE_PPH),2,'.',',') . "</td>";
+                          echo "<td>Rp" . number_format(($value->PAYMENT_T),2,'.',',') . "</td>";
 
                         }
                         
@@ -137,112 +137,6 @@ if($level_user_id==1 or $level_user_id==6)
           </div>
 
 
-
-          <!-- !-->
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-header">
-                <h5>Rekap Transaksi Pengiriman
-
-                <form action='<?php echo base_url("c_dashboard/search_date"); ?>' class='no_voucer_area' method="post" id=''>
-                  <table>
-                    <tr>
-
-                      <th>
-                        <form action='/action_page.php'>
-                          <input type='date' class='form-control' name='date_from_dashboard' value='<?php echo $this->session->userdata('date_from_dashboard'); ?>'>
-                      </th>
-                      <th>-</th>
-                      <th>
-                        <form action='/action_page.php'>
-                          <input type='date' class='form-control' name='date_to_dashboard' value='<?php echo $this->session->userdata('date_to_dashboard'); ?>'>
-                      </th>
-                      <th>
-                        <input type="submit" name="submit_date" class='btn btn-primary waves-effect waves-light' value="Search">
-                      </th>
-                    </tr>
-                  </table>
-
-
-                </form>
-                </h5>
-              </div>
-              <div class="card-block">
-                <div class="dt-responsive table-responsive">
-                  <table id="order-table" class="table table-striped table-bordered nowrap">
-                    <thead>
-                      <tr>
-                        <th>No</th>
-                        <th>PKS</th>
-                        <th>Trip</th>
-                        <th>Bruto</th>
-                        <th>Sortase</th>
-                        <th>Neto</th>
-                        <th>Total Penjualan</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php
-
-                      $sum_total_penjualan = 0;
-                      $sum_bruto = 0;
-                      $sum_neto = 0;
-                      $sum_uang_jalan = 0;
-                      $sum_trip = 0;
-                      $sum_sortase = 0;
-                      foreach ($pengiriman_select as $key => $value) {
-                        $total_trip = $value->SUM_TRIP;
-                        if ($value->SUM_TRIP == 0) {
-                          $total_trip = 1;
-                        }
-                        $sortase = (round((floatval($value->SUM_SORTASE_PERCENTAGE) / $total_trip) * 100)) / 100;
-                        echo "<tr>";
-                        echo "<td>" . ($key + 1) . "</td>";
-                        echo "<td>" . $value->PKS . "</td>";
-                        echo "<td>" . number_format(round($value->SUM_TRIP)) . "</td>";
-                        echo "<td>" . number_format(round($value->SUM_BRUTO)) . "</td>";
-                        echo "<td>" . $sortase . "</td>";
-                        echo "<td>" . number_format(round($value->SUM_NETO)) . "</td>";
-                        echo "<td>Rp" . number_format(round($value->SUM_TOTAL_PENJUALAN)) . "</td>";
-
-                        $sum_total_penjualan = $sum_total_penjualan+intval($value->SUM_TOTAL_PENJUALAN);
-                        $sum_bruto = $sum_bruto + $value->SUM_BRUTO;
-                        $sum_neto = $sum_neto + (intval($value->SUM_NETO * 100) / 100);
-                        $sum_trip = $sum_trip + $value->SUM_TRIP;
-                        $sum_sortase = $sum_sortase + $sortase;
-                      }
-                      $avg_sortase = $sum_sortase/($key+1);
-                      ?>
-                    </tbody>
-
-                    <tfoot>
-                      <tr>
-                        <th></th>
-                        <th>Total</th>
-                        <th><?=number_format($sum_trip)?></th>
-                        <th><?=number_format($sum_bruto)?></th>
-                        
-                        <th><?=($avg_sortase)?></th>
-                        <th><?=number_format($sum_neto)?></th>
-                        <?php
-
-                        if($level_user_id<8)
-                        {
-                          ?>
-                          <th>Rp<?=number_format($sum_total_penjualan)?></th>
-                          <?php
-                        }
-                        ?>
-                        
-                        
-                      </tr>
-                    </tfoot>
-
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
 
 
 

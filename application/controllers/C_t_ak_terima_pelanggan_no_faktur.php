@@ -62,6 +62,8 @@ class C_t_ak_terima_pelanggan_no_faktur extends MY_Controller
     foreach ($read_select as $key => $value) {
       $sum_total_penjualan = floatval($value->SUM_TOTAL_TAGIHAN);
       $sum_ppn_value = floatval($value->SUM_TOTAL_TAGIHAN_PPN);
+      $sum_value_diskon = floatval($value->SUM_VALUE_DISKON);
+      $sum_value_pph = floatval($value->SUM_VALUE_PPH);
     }
 
     $data = array(
@@ -69,7 +71,7 @@ class C_t_ak_terima_pelanggan_no_faktur extends MY_Controller
       'TERIMA_PELANGGAN_ID' => $terima_pelanggan_id,
       'CREATED_BY' => $this->session->userdata('username'),
       'UPDATED_BY' => '',
-      'TOTAL_PENJUALAN' => ($sum_total_penjualan + $sum_ppn_value)
+      'TOTAL_PENJUALAN' => ($sum_total_penjualan + $sum_ppn_value - $sum_value_diskon - $sum_value_pph)
     );
 
     $this->m_t_ak_terima_pelanggan_no_faktur->tambah($data);

@@ -107,7 +107,9 @@ public function select_no_faktur()
 
 
 
-    $this->db->where('SUM_TOTAL_PENJUALAN>T_AK_FAKTUR_PENJUALAN.PAYMENT_T');
+    //$this->db->where("(((\"SUM_TOTAL_TAGIHAN\"+\"SUM_TOTAL_TAGIHAN_PPN\")-\"SUM_VALUE_DISKON\")-\"SUM_VALUE_PPH\")<>T_AK_FAKTUR_PENJUALAN.PAYMENT_T");
+
+    $this->db->where("T_AK_FAKTUR_PENJUALAN.PAYMENT_T=0");
     $this->db->where("T_AK_FAKTUR_PENJUALAN.COMPANY_ID={$this->session->userdata('company_id')}");
 
     $akun = $this->db->get ();
