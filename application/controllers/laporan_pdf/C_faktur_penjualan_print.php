@@ -97,6 +97,7 @@ class c_faktur_penjualan_print extends MY_Controller
 
         $pdf->Cell( 190,5,'','',1,'C');
         $pdf->Cell( 190,5,'','',1,'C');
+        $pdf->Cell( 190,5,'','',1,'C');
         $pdf->Cell( 190,5,'','B',1,'C'); // GARIS ATAS
 
         $pdf->Cell( 190,5,'','',1,'C');
@@ -113,7 +114,7 @@ class c_faktur_penjualan_print extends MY_Controller
 
 
         $x_value = $pdf->GetX();
-        $y_value =28;
+        $y_value =33;
         $pdf->SetXY($x_value, $y_value);
         
         $pdf->SetFont('','B',12);
@@ -159,9 +160,9 @@ class c_faktur_penjualan_print extends MY_Controller
         {
           $pdf->SetFont('','',9);
           $pdf->MultiCell($size[0], 8, '', 'L', 'C',0,0);
-          $pdf->MultiCell($size[1], 8, substr($keterangan_header, 0, 100), 'L', 'L',0,0);
+          $pdf->MultiCell($size[1], 8, substr($keterangan_header, 0, 200), 'L', 'L',0,0);
 
-          $pdf->MultiCell($size[2], 8, '', 'L', 'C',0,0);
+          $pdf->MultiCell($size[2], 8, '', 'L', 'R',0,0);
           $pdf->MultiCell($size[3], 8, '', 'L', 'R',0,0);
 
           $pdf->MultiCell($size[4], 8, '' , 'LR', 'R',0,1);
@@ -198,9 +199,9 @@ class c_faktur_penjualan_print extends MY_Controller
 
       $pdf->SetFont('','',9);
       $pdf->MultiCell($size[0], 8, $key+1, 'L', 'C',0,0);
-      $pdf->MultiCell($size[1], 8, (substr($value->KET, 0, 100).substr($value->NO_DO, 0, 50)), 'L', 'L',0,0);
+      $pdf->MultiCell($size[1], 8, (substr($value->NO_DO, 0, 50)), 'L', 'L',0,0);
 
-      $pdf->MultiCell($size[2], 8, number_format(($qty_spb),2,'.',','), 'L', 'C',0,0);
+      $pdf->MultiCell($size[2], 8, number_format(($qty_spb),2,'.',','), 'L', 'R',0,0);
       $pdf->MultiCell($size[3], 8, number_format(($price),2,'.',','), 'L', 'R',0,0);
 
       $pdf->MultiCell($size[4], 8, number_format(($value_spb),2,'.',',') , 'LR', 'R',0,1);
@@ -238,14 +239,24 @@ class c_faktur_penjualan_print extends MY_Controller
     $read_select = $this->m_t_ak_faktur_penjualan_diskon->select($id);
     foreach ($read_select as $key => $value) 
     { 
+      $qty_diskon = $value->QTY;
+      $harga_diskon = $value->HARGA;
+
       $value_diskon = $value->VALUE_DISKON;
       $pdf->SetFont('','',9);
       $pdf->MultiCell($size[0], 8, '', 'L', 'C',0,0);
       $pdf->MultiCell($size[1], 8, (substr($value->KETERANGAN, 0, 50)), 'L', 'L',0,0);
 
-      $pdf->MultiCell($size[2], 8, '', 'L', 'C',0,0);
-      $pdf->MultiCell($size[3], 8, '', 'L', 'R',0,0);
-
+      if($qty_diskon==1)
+      {
+        $pdf->MultiCell($size[2], 8, '', 'L', 'C',0,0);
+        $pdf->MultiCell($size[3], 8, '', 'L', 'R',0,0);
+      }
+      if($qty_diskon!=1)
+      {
+        $pdf->MultiCell($size[2], 8, '('.number_format(($qty_diskon),2,'.',',').')', 'L', 'R',0,0);
+        $pdf->MultiCell($size[3], 8, '('.number_format(($harga_diskon),2,'.',',').')', 'L', 'R',0,0);
+      }
       $pdf->MultiCell($size[4], 8, '('.number_format(($value_diskon),2,'.',',').')' , 'LR', 'R',0,1);
     }
 
@@ -255,7 +266,7 @@ class c_faktur_penjualan_print extends MY_Controller
         {
           $pdf->SetFont('','',9);
           $pdf->MultiCell($size[0], 8, '', 'L', 'C',0,0);
-          $pdf->MultiCell($size[1], 8, substr($keterangan_footer, 0, 100), 'L', 'L',0,0);
+          $pdf->MultiCell($size[1], 8, substr($keterangan_footer, 0, 200), 'L', 'L',0,0);
 
           $pdf->MultiCell($size[2], 8, '', 'L', 'C',0,0);
           $pdf->MultiCell($size[3], 8, '', 'L', 'R',0,0);
@@ -395,6 +406,14 @@ class c_faktur_penjualan_print extends MY_Controller
     
     $pdf->MultiCell(60, 7, substr($setting_value, 0, 500), '0', 'L',0,0);
 
+
+
+
+    $x_value = $pdf->GetX();
+    $y_value = $pdf->GetY()+5;
+
+
+    $pdf->SetXY($x_value, $y_value);
 
 
 

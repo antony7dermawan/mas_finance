@@ -275,15 +275,15 @@ class C_t_ak_faktur_penjualan extends MY_Controller
   function tambah()
   {
     $pelanggan_id = intval($this->input->post("pelanggan_id"));
-    $keterangan = substr($this->input->post("keterangan"), 0, 50);
-    $no_faktur = substr($this->input->post("no_faktur"), 0, 100);
+    $keterangan = substr($this->input->post("keterangan"), 0, 100);
+    $no_faktur = substr($this->input->post("no_faktur"), 0, 200);
 
 
 
 
     $no_faktur_pajak = substr($this->input->post("no_faktur_pajak"), 0, 50);
     $no_kontrak = substr($this->input->post("no_kontrak"), 0, 50);
-    $ket_2 = substr($this->input->post("ket_2"), 0, 50);
+    $ket_2 = substr($this->input->post("ket_2"), 0, 200);
     $attention = substr($this->input->post("attention"), 0, 50);
     $department = substr($this->input->post("department"), 0, 50);
     $telp_no = substr($this->input->post("telp_no"), 0, 50);
