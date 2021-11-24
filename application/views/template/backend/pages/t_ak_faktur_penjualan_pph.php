@@ -37,8 +37,9 @@
           <tr>
             <th>No</th>
             <th>Keterangan</th>
-           
-            <th>Total Diskon PPH</th>
+            
+            <th>% Terhadap DPP</th>
+            <th>Total Potongan</th>
             
             <th>Action</th>
           </tr>
@@ -51,6 +52,7 @@
             echo "<td>" . $value->KETERANGAN . "</td>";
             #echo "<td>".date('d-m-Y', strtotime($value->DATE))."</td>";
 
+            echo "<td>" . number_format(($value->PERCENTAGE_PPH),2,'.',',') . "</td>";
             echo "<td>" . number_format(($value->VALUE_PPH),2,'.',',') . "</td>";
 
 
@@ -99,24 +101,13 @@
           </div>
 
 
-          <div class="row">
-            <div class="col-md-6">
-
-              <fieldset class="form-group">
-                <label>Diskon PPH</label>
-                <input type='text' class='form-control' placeholder='Input Number' name='diskon_pph' value=''>
-              </fieldset>
-
-            </div><!-- Membungkus Row Kedua !-->
-
-
-            <div class="col-md-6">
-
-              <fieldset class="form-group">
-                 
-              </fieldset>
-            </div> <!-- Membungkus Row !-->
+          <div class="form-group">
+              <label>Persentase Diskon Terhadap DPP</label>
+              <input type='text' class='form-control' placeholder='Input Number' name='percentage_pph' value=''>
           </div>
+
+
+    
 
 
         </div>

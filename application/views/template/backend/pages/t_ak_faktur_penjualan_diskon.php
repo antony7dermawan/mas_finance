@@ -81,6 +81,7 @@
 
 
 
+
 <!-- MODAL TAMBAH PEMASUKAN! !-->
 <form action="<?php echo base_url('c_t_ak_faktur_penjualan_diskon/tambah/'.$faktur_penjualan_id.'/'.$pelanggan_id) ?>" method="post" id='add_data'>
   <div class="modal fade" id="addModal" tabindex="-1" role="dialog">

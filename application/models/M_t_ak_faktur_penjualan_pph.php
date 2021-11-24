@@ -19,6 +19,7 @@ public function update($data, $id)
     $this->db->select("T_AK_FAKTUR_PENJUALAN_PPH.ID");
     $this->db->select("T_AK_FAKTUR_PENJUALAN_PPH.FAKTUR_PENJUALAN_ID");
     $this->db->select("T_AK_FAKTUR_PENJUALAN_PPH.VALUE_PPH");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN_PPH.PERCENTAGE_PPH");
     $this->db->select("T_AK_FAKTUR_PENJUALAN_PPH.CREATED_BY");
     $this->db->select("T_AK_FAKTUR_PENJUALAN_PPH.UPDATED_BY");
     $this->db->select("T_AK_FAKTUR_PENJUALAN_PPH.KETERANGAN");

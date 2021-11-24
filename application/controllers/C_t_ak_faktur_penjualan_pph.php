@@ -41,17 +41,28 @@ class c_t_ak_faktur_penjualan_pph extends MY_Controller
 
   function tambah($faktur_penjualan_id,$pelanggan_id)
   {
-    $diskon_pph = floatval($this->input->post("diskon_pph"));
+    $percentage_pph = floatval($this->input->post("percentage_pph"));
 
+
+    $read_select = $this->m_t_ak_faktur_penjualan->select_by_id($faktur_penjualan_id);
+    foreach ($read_select as $key => $value) 
+    {
+      $sum_total_tagihan=$value->SUM_TOTAL_TAGIHAN;
+      $sum_total_tagihan_ppn=$value->SUM_TOTAL_TAGIHAN_PPN;
+
+      $sum_value_diskon=$value->SUM_VALUE_DISKON;
+      $sum_value_pph=$value->SUM_VALUE_PPH;
+    }
     $keterangan = substr($this->input->post("keterangan"), 0, 50);
 
-    $value_pph = $qty * $harga;
+    $value_pph =(($sum_total_tagihan - $sum_value_diskon)*$percentage_pph)/100;
 
 
    
       $data = array(
 
-        'VALUE_PPH' => $diskon_pph,
+        'VALUE_PPH' => $value_pph,
+        'PERCENTAGE_PPH' => $percentage_pph,
 
         'FAKTUR_PENJUALAN_ID' => $faktur_penjualan_id,
         'KETERANGAN' => $keterangan,
@@ -87,7 +98,7 @@ class c_t_ak_faktur_penjualan_pph extends MY_Controller
 
 
 
-  public function delete($id,$penjualan_jasa_rincian_id,$faktur_penjualan_rincian_id, $faktur_penjualan_id,$penjualan_jasa_id,$pelanggan_id)
+  public function delete($id,$faktur_penjualan_id,$pelanggan_id)
   {
       $data = array(
         'ENABLE_EDIT' => 1
@@ -96,7 +107,7 @@ class c_t_ak_faktur_penjualan_pph extends MY_Controller
 
     $this->m_t_ak_faktur_penjualan_pph->delete($id);
     $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
-    redirect('c_t_ak_faktur_penjualan_rincian2/index/' . $faktur_penjualan_rincian_id . '/' . $faktur_penjualan_id. '/' . $penjualan_jasa_id. '/' . $pelanggan_id);
+    redirect('c_t_ak_faktur_penjualan_pph/index/' . $faktur_penjualan_id. '/' . $pelanggan_id);
   }
 
 

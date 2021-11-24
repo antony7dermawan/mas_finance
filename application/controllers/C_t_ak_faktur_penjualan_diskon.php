@@ -89,7 +89,7 @@ class C_t_ak_faktur_penjualan_diskon extends MY_Controller
 
 
 
-  public function delete($id,$penjualan_jasa_rincian_id,$faktur_penjualan_rincian_id, $faktur_penjualan_id,$penjualan_jasa_id,$pelanggan_id)
+  public function delete($id,$faktur_penjualan_id,$pelanggan_id)
   {
       $data = array(
         'ENABLE_EDIT' => 1
@@ -98,7 +98,7 @@ class C_t_ak_faktur_penjualan_diskon extends MY_Controller
 
     $this->m_t_ak_faktur_penjualan_diskon->delete($id);
     $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
-    redirect('c_t_ak_faktur_penjualan_rincian2/index/' . $faktur_penjualan_rincian_id . '/' . $faktur_penjualan_id. '/' . $penjualan_jasa_id. '/' . $pelanggan_id);
+    redirect('c_t_ak_faktur_penjualan_diskon/index/' . $faktur_penjualan_id. '/' . $pelanggan_id);
   }
 
 
