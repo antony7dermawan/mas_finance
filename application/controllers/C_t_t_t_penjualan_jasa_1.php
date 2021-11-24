@@ -9,6 +9,7 @@ class C_t_t_t_penjualan_jasa_1 extends MY_Controller
   {
     parent::__construct();
 
+    $this->load->model('m_t_t_t_penjualan_jasa_3');
     $this->load->model('m_t_t_t_penjualan_jasa_1');
     $this->load->model('m_t_m_d_company');
     $this->load->model('m_t_m_d_payment_method');
@@ -23,6 +24,7 @@ class C_t_t_t_penjualan_jasa_1 extends MY_Controller
   {
     
     
+
     $this->session->set_userdata('t_t_t_penjualan_jasa_1_delete_logic', '1');
     $this->session->set_userdata('t_m_d_payment_method_delete_logic', '0');
     $this->session->set_userdata('t_m_d_pelanggan_delete_logic', '0');
@@ -118,45 +120,52 @@ class C_t_t_t_penjualan_jasa_1 extends MY_Controller
       $date_kontrak = date('Y-m-d');
     }
     
-   
+
 
     $date_penjualan_jasa_1 = $date;
     $this->session->set_userdata('date_penjualan_jasa_1', $date_penjualan_jasa_1);
 
-    if($pelanggan_id!=0 and $payment_method_id!=0  )
+    if($pelanggan_id!=0 and $payment_method_id!=0 and $no_do!='')
     {
-      $data = array(
-        'DATE' => $date,
-        'TIME' => date('H:i:s'),
-        
-        'COMPANY_ID' => $this->session->userdata('company_id'),
-        'PAYMENT_METHOD_ID' => $payment_method_id,
-        'PELANGGAN_ID' => $pelanggan_id,
-        
-        'KET' => $ket,
-        'CREATED_BY' => $this->session->userdata('username'),
-        'UPDATED_BY' => '',
-        'MARK_FOR_DELETE' => FALSE,
-        
+      $logic_nomor = 0;
+      $read_select = $this->m_t_t_t_penjualan_jasa_3->read_nomor($no_do);
+      foreach ($read_select as $key => $value) 
+      {
+        $logic_nomor = 1;
+        $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> Nomor Sudah Digunakan!</p></div>');
+      }
 
-        'ENABLE_EDIT' => 1,
+      if($logic_nomor == 0)
+      {
+        $data = array(
+          'DATE' => $date,
+          'TIME' => date('H:i:s'),
+          
+          'COMPANY_ID' => $this->session->userdata('company_id'),
+          'PAYMENT_METHOD_ID' => $payment_method_id,
+          'PELANGGAN_ID' => $pelanggan_id,
+          
+          'KET' => $ket,
+          'CREATED_BY' => $this->session->userdata('username'),
+          'UPDATED_BY' => '',
+          'MARK_FOR_DELETE' => FALSE,
+          
 
-        'NO_DO' => $no_do,
-        'TYPE_ID' => 1, //tipe cpo
-        'TARGET_PARTY' => $target_party,
-        'DATE_KONTRAK' => $date_kontrak,
-        'NO_KONTRAK' => $no_kontrak
- 
-      );
+          'ENABLE_EDIT' => 1,
 
-      $this->m_t_t_t_penjualan_jasa_1->tambah($data);
+          'NO_DO' => $no_do,
+          'TYPE_ID' => 1, //tipe cpo
+          'TARGET_PARTY' => $target_party,
+          'DATE_KONTRAK' => $date_kontrak,
+          'NO_KONTRAK' => $no_kontrak
+   
+        );
 
+        $this->m_t_t_t_penjualan_jasa_1->tambah($data);
 
+        $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
+      }
 
-      
-
-
-      $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
     }
 
     else

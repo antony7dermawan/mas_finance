@@ -115,7 +115,14 @@ public function update($data, $id)
 
 
 
-
+public function read_nomor($no_spb)
+{
+    $this->db->select("NO_SPB");
+    $this->db->from('T_T_T_PENJUALAN_JASA_RINCIAN');
+    $this->db->where('NO_SPB',$no_spb);
+    $akun = $this->db->get ();
+    return $akun->result ();
+}
 
 
 

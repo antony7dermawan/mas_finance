@@ -134,48 +134,61 @@ class C_t_t_t_penjualan_jasa_rincian_3 extends MY_Controller
 
     $jarak_km = floatval($this->input->post("jarak_km"));
 
+    if($no_spb!='')
+    {
+      $logic_nomor = 0;
+      $read_select = $this->m_t_t_t_penjualan_jasa_rincian_3->read_nomor($no_spb);
+      foreach ($read_select as $key => $value) 
+      {
+        $logic_nomor = 1;
+        $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> Nomor Sudah Digunakan!</p></div>');
+      }
 
-    $data = array(
-        'PENJUALAN_JASA_ID' => $penjualan_jasa_id,
-        'NO_SPB' => $no_spb,
-        'DATE_MUAT' => $date_muat,
-        'DATE_BONGKAR' => $date_bongkar,
-        'FROM_NAMA_KOTA_ID' => $from_nama_kota_id,
-        'TO_NAMA_KOTA_ID' => $to_nama_kota_id,
-        'NO_POLISI_ID' => $no_polisi_id,
-        'SUPIR_ID' => $supir_id,
-        
-        'NO_PETAK' => $no_petak,
-        'PETAK_ID' => $petak_id,
-        'BRUTO_KAYU' => $bruto_kayu,
-        'TARA_KAYU' => $tara_kayu,
-        'TONASE' => $tonase,
-        'PINALTY_1' => $pinalty_1,
-        'PINALTY_2' => $pinalty_2,
-        'NETO_1' => $neto_1,
-        'NETO_2' => $neto_2,
-        'HARGA_KAYU' => $harga_kayu,
+        if($logic_nomor == 0)
+        {
+            $data = array(
+                'PENJUALAN_JASA_ID' => $penjualan_jasa_id,
+                'NO_SPB' => $no_spb,
+                'DATE_MUAT' => $date_muat,
+                'DATE_BONGKAR' => $date_bongkar,
+                'FROM_NAMA_KOTA_ID' => $from_nama_kota_id,
+                'TO_NAMA_KOTA_ID' => $to_nama_kota_id,
+                'NO_POLISI_ID' => $no_polisi_id,
+                'SUPIR_ID' => $supir_id,
+                
+                'NO_PETAK' => $no_petak,
+                'PETAK_ID' => $petak_id,
+                'BRUTO_KAYU' => $bruto_kayu,
+                'TARA_KAYU' => $tara_kayu,
+                'TONASE' => $tonase,
+                'PINALTY_1' => $pinalty_1,
+                'PINALTY_2' => $pinalty_2,
+                'NETO_1' => $neto_1,
+                'NETO_2' => $neto_2,
+                'HARGA_KAYU' => $harga_kayu,
 
-        'SUB_TOTAL' => $sub_total,
-        'PPN_PERCENTAGE' => $ppn_percentage,
-        'PPN_VALUE' => $ppn_value,
+                'SUB_TOTAL' => $sub_total,
+                'PPN_PERCENTAGE' => $ppn_percentage,
+                'PPN_VALUE' => $ppn_value,
 
-        'COMPANY_ID' => $this->session->userdata('company_id'),
-        'MARK_FOR_DELETE' => FALSE,
-        'CREATED_BY' => $this->session->userdata('username'),
-        'UPDATED_BY' => '',
-        'KET' => $ket,
-        'TOLERANSI_VALUE' => $toleransi_value,
-        'JARAK_KM' => $jarak_km,
-        'ENABLE_EDIT' => 1
-    );
+                'COMPANY_ID' => $this->session->userdata('company_id'),
+                'MARK_FOR_DELETE' => FALSE,
+                'CREATED_BY' => $this->session->userdata('username'),
+                'UPDATED_BY' => '',
+                'KET' => $ket,
+                'TOLERANSI_VALUE' => $toleransi_value,
+                'JARAK_KM' => $jarak_km,
+                'ENABLE_EDIT' => 1
+            );
 
-    $this->m_t_t_t_penjualan_jasa_rincian_3->tambah($data);
+            $this->m_t_t_t_penjualan_jasa_rincian_3->tambah($data);
 
 
 
-      $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
-      redirect('c_t_t_t_penjualan_jasa_rincian_3/index/' . $penjualan_jasa_id);
+              $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
+
+        }
+    }
     
     
 

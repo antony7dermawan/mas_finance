@@ -12,6 +12,7 @@ class C_t_t_t_penjualan_jasa_rincian_1 extends MY_Controller
     $this->load->model('m_t_t_t_penjualan_jasa_1');
 
     $this->load->model('m_t_t_t_penjualan_jasa_rincian_1'); 
+    $this->load->model('m_t_t_t_penjualan_jasa_rincian_3'); 
 
     
     $this->load->model('m_t_m_d_satuan');
@@ -153,53 +154,71 @@ class C_t_t_t_penjualan_jasa_rincian_1 extends MY_Controller
 
     $jarak_km = floatval($this->input->post("jarak_km"));
 
+    if($no_spb!='')
+    {
+      $logic_nomor = 0;
+      $read_select = $this->m_t_t_t_penjualan_jasa_rincian_3->read_nomor($no_spb);
+      foreach ($read_select as $key => $value) 
+      {
+        $logic_nomor = 1;
+        $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> Nomor Sudah Digunakan!</p></div>');
+      }
 
-    $data = array(
-        'PENJUALAN_JASA_ID' => $penjualan_jasa_id,
-        'NO_SPB' => $no_spb,
-        'DATE_MUAT' => $date_muat,
-        'DATE_BONGKAR' => $date_bongkar,
-        'FROM_NAMA_KOTA_ID' => $from_nama_kota_id,
-        'TO_NAMA_KOTA_ID' => $to_nama_kota_id,
-        'NO_POLISI_ID' => $no_polisi_id,
-        'SUPIR_ID' => $supir_id,
-        'BRUTO_KEBUN' => $bruto_kebun,
-        'TARA_KEBUN' => $tara_kebun,
-        'VALUE_KEBUN' => $value_kebun,
-        'BRUTO_PABRIK' => $bruto_pabrik,
-        'TARA_PABRIK' => $tara_pabrik,
-        'VALUE_PABRIK' => $value_pabrik,
-        'VALUE_SUSUT' => $value_susut,
-        'PERCENTAGE_SUSUT' => $percentage_susut,
-        'TOLERANSI' => $toleransi,
-        'CLAIM_SUSUT' => $claim_susut,
-        'HARGA_KEBUN' => $harga_kebun,
-        'HARGA_PABRIK' => $harga_pabrik,
-        'SUB_TOTAL' => $sub_total,
-        'PPN_PERCENTAGE' => $ppn_percentage,
-        'PPN_VALUE' => $ppn_value,
+        if($logic_nomor == 0)
+        {
+            $data = array(
+                'PENJUALAN_JASA_ID' => $penjualan_jasa_id,
+                'NO_SPB' => $no_spb,
+                'DATE_MUAT' => $date_muat,
+                'DATE_BONGKAR' => $date_bongkar,
+                'FROM_NAMA_KOTA_ID' => $from_nama_kota_id,
+                'TO_NAMA_KOTA_ID' => $to_nama_kota_id,
+                'NO_POLISI_ID' => $no_polisi_id,
+                'SUPIR_ID' => $supir_id,
+                'BRUTO_KEBUN' => $bruto_kebun,
+                'TARA_KEBUN' => $tara_kebun,
+                'VALUE_KEBUN' => $value_kebun,
+                'BRUTO_PABRIK' => $bruto_pabrik,
+                'TARA_PABRIK' => $tara_pabrik,
+                'VALUE_PABRIK' => $value_pabrik,
+                'VALUE_SUSUT' => $value_susut,
+                'PERCENTAGE_SUSUT' => $percentage_susut,
+                'TOLERANSI' => $toleransi,
+                'CLAIM_SUSUT' => $claim_susut,
+                'HARGA_KEBUN' => $harga_kebun,
+                'HARGA_PABRIK' => $harga_pabrik,
+                'SUB_TOTAL' => $sub_total,
+                'PPN_PERCENTAGE' => $ppn_percentage,
+                'PPN_VALUE' => $ppn_value,
 
-        'COMPANY_ID' => $this->session->userdata('company_id'),
-        'MARK_FOR_DELETE' => FALSE,
-        'CREATED_BY' => $this->session->userdata('username'),
-        'UPDATED_BY' => '',
-        'KET' => $ket,
-        'TOLERANSI_VALUE' => $toleransi_value,
-        'JARAK_KM' => $jarak_km,
-        'ENABLE_EDIT' => 1
-    );
+                'COMPANY_ID' => $this->session->userdata('company_id'),
+                'MARK_FOR_DELETE' => FALSE,
+                'CREATED_BY' => $this->session->userdata('username'),
+                'UPDATED_BY' => '',
+                'KET' => $ket,
+                'TOLERANSI_VALUE' => $toleransi_value,
+                'JARAK_KM' => $jarak_km,
+                'ENABLE_EDIT' => 1
+            );
 
-    $this->m_t_t_t_penjualan_jasa_rincian_1->tambah($data);
+            $this->m_t_t_t_penjualan_jasa_rincian_1->tambah($data);
 
 
 
-      $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
-      redirect('c_t_t_t_penjualan_jasa_rincian_1/index/' . $penjualan_jasa_id);
+            $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
+
+        }
+
+    }
+
+
+
+
+    redirect('c_t_t_t_penjualan_jasa_rincian_1/index/' . $penjualan_jasa_id);
     
     
 
     
-    redirect('c_t_t_t_penjualan_jasa_rincian_1/index/'.$penjualan_jasa_id);
   }
 
 

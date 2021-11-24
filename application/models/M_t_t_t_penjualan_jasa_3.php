@@ -25,7 +25,14 @@ public function select_inv_penjualan_jasa_3()
 
 
 
-
+public function read_nomor($no_do)
+{
+    $this->db->select("NO_DO");
+    $this->db->from('T_T_T_PENJUALAN_JASA');
+    $this->db->where('NO_DO',$no_do);
+    $akun = $this->db->get ();
+    return $akun->result ();
+}
 
 
 
