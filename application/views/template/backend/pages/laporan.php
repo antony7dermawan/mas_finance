@@ -10,10 +10,10 @@
         $level_user_id = $this->session->userdata('level_user_id');
         if($level_user_id<8)
         {
-          echo "<option value='laporan_excel/lap_cash_flow/index/' >Laporan Cash Flow</option>";
+
+          echo "<option value='laporan_excel/lap_trial_balance/index/' >Laporan Trial Balance</option>";
           echo "<option value='laporan_excel/lap_laba_rugi/index/' >Laporan Laba Rugi</option>";
           echo "<option value='laporan_excel/lap_neraca/index/' >Laporan Neraca</option>";
-          echo "<option value='laporan_excel/lap_penjualan_pks/index/' >Laporan Penjualan TBS</option>";
           echo "<option value='laporan_excel/lap_jurnal/index/' >Laporan Jurnal</option>";
           echo "<option value='laporan_excel/lap_jurnal_per_sub_akun/index/' >Laporan Jurnal per Sub Akun</option>";
 
@@ -21,7 +21,6 @@
           echo "<option value='laporan_excel/lap_saldo_akun_parent_1_per_sub_akun/index/' >Laporan Saldo Akun Parent 1 per Sub Akun</option>";
         }
           
-          echo "<option value='laporan_excel/lap_po/index/' >Laporan PO</option>";
         
         
         ?>

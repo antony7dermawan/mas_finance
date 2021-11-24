@@ -115,6 +115,67 @@ public function update($data, $id)
       return $this->db->update('AK_M_COA', $data);
   }
 
+
+
+  public function select_trial_balance($from_date,$to_date)
+  {
+    $this->db->select("AK_M_COA.ID");
+    $this->db->select("AK_M_COA.NO_AKUN_1");
+    $this->db->select("AK_M_COA.NO_AKUN_2");
+    $this->db->select("AK_M_COA.NO_AKUN_3");
+    $this->db->select("AK_M_COA.NAMA_AKUN");
+    $this->db->select("AK_M_COA.CASH_FLOW");
+    
+    $this->db->select("AK_M_SUB.SUB_ID");
+    $this->db->select("AK_M_SUB.SUB");
+    $this->db->select("AK_M_TYPE.TYPE_ID");
+    $this->db->select("AK_M_TYPE.TYPE");
+    $this->db->select("AK_M_DB_K.DB_K_ID");
+    $this->db->select("AK_M_DB_K.DB_K");
+    $this->db->select("AK_M_FAMILY.FAMILY_ID");
+    $this->db->select("AK_M_FAMILY.FAMILY");
+
+
+
+    $this->db->select("SUM_DEBIT_AWAL");
+    $this->db->select("SUM_KREDIT_AWAL");
+    $this->db->select("SUM_DEBIT");
+    $this->db->select("SUM_KREDIT");
+
+
+
+
+    $this->db->from('AK_M_COA');
+    $this->db->join('AK_M_SUB', 'AK_M_SUB.SUB_ID = AK_M_COA.SUB_ID', 'left');
+    $this->db->join('AK_M_TYPE', 'AK_M_TYPE.TYPE_ID = AK_M_COA.TYPE_ID', 'left');
+    $this->db->join('AK_M_DB_K', 'AK_M_DB_K.DB_K_ID = AK_M_COA.DB_K_ID', 'left');
+    $this->db->join('AK_M_FAMILY', 'AK_M_FAMILY.FAMILY_ID = AK_M_COA.FAMILY_ID', 'left');
+
+
+    $this->db->join("(select \"COA_ID\",sum(\"DEBIT\")\"SUM_DEBIT_AWAL\" from \"T_AK_JURNAL\" where \"DATE\"<'{$from_date}' group by \"COA_ID\") as t_sum_1", 'AK_M_COA.ID = t_sum_1.COA_ID', 'left');
+
+    $this->db->join("(select \"COA_ID\",sum(\"KREDIT\")\"SUM_KREDIT_AWAL\" from \"T_AK_JURNAL\" where \"DATE\"<'{$from_date}' group by \"COA_ID\") as t_sum_2", 'AK_M_COA.ID = t_sum_2.COA_ID', 'left');
+
+    $this->db->join("(select \"COA_ID\",sum(\"DEBIT\")\"SUM_DEBIT\" from \"T_AK_JURNAL\" where \"DATE\">='{$from_date}' and \"DATE\"<='{$to_date}' group by \"COA_ID\") as t_sum_3", 'AK_M_COA.ID = t_sum_3.COA_ID', 'left');
+
+    $this->db->join("(select \"COA_ID\",sum(\"KREDIT\")\"SUM_KREDIT\" from \"T_AK_JURNAL\" where \"DATE\">='{$from_date}' and \"DATE\"<='{$to_date}' group by \"COA_ID\") as t_sum_4", 'AK_M_COA.ID = t_sum_4.COA_ID', 'left');
+
+
+
+
+
+    $this->db->where(" AK_M_COA.FAMILY_ID=3");
+    
+
+    $this->db->order_by("AK_M_COA.NO_AKUN_1,AK_M_COA.NO_AKUN_2,AK_M_COA.NO_AKUN_3", "asc");
+
+    $akun = $this->db->get ();
+    return $akun->result ();
+  }
+
+
+
+
   public function select()
   {
     $this->db->select("AK_M_COA.ID");
