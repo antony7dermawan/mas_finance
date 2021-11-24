@@ -132,10 +132,40 @@
 
               echo "onclick= 'p_3_" . $key . "()'";
               if ($value->ENABLE_EDIT == 1) {
-                echo " class='btn btn-primary btn-mini waves-effect waves-light' > P.Non CPO</a> ";
+                echo " class='btn btn-primary btn-mini waves-effect waves-light' > P.Mobilisasi</a> ";
               }
               if ($value->ENABLE_EDIT == 0) {
-                echo " class='btn btn-success btn-mini waves-effect waves-light' > P.Non CPO</a> ";
+                echo " class='btn btn-success btn-mini waves-effect waves-light' > P.Mobilisasi</a> ";
+
+                
+              }
+              
+
+
+              echo "<script>";
+              echo "function p_3_" . $key . "()";
+              echo "{";
+              echo "window.open('laporan_pdf/c_faktur_penjualan_print3/index/" . $value->ID . "/" . $value->PELANGGAN_ID . "');";
+              echo "}";
+              echo "</script>";
+
+
+            }
+
+
+            
+
+
+            if(intval($value->SUM_TOTAL_PENJUALAN)!=0)
+            {
+              echo "<a href='" . site_url('c_t_ak_faktur_penjualan/update_enable_edit/' . $value->ID) . "/" . intval($value->SUM_TOTAL_PENJUALAN) . "/1/" . $value->ENABLE_EDIT . "'"; #/1 ini artinya kena pajak
+
+              echo "onclick= 'p_5_" . $key . "()'";
+              if ($value->ENABLE_EDIT == 1) {
+                echo " class='btn btn-primary btn-mini waves-effect waves-light' > P.Pribadi</a> ";
+              }
+              if ($value->ENABLE_EDIT == 0) {
+                echo " class='btn btn-success btn-mini waves-effect waves-light' > P.Pribadi</a> ";
 
                 if($this->session->userdata('level_user_id')==1 and $value->PAYMENT_T==0)
                 {
@@ -152,9 +182,9 @@
 
 
               echo "<script>";
-              echo "function p_3_" . $key . "()";
+              echo "function p_5_" . $key . "()";
               echo "{";
-              echo "window.open('laporan_pdf/c_faktur_penjualan_print3/index/" . $value->ID . "/" . $value->PELANGGAN_ID . "');";
+              echo "window.open('laporan_pdf/c_faktur_penjualan_print4/index/" . $value->ID . "/" . $value->PELANGGAN_ID . "');";
               echo "}";
               echo "</script>";
 

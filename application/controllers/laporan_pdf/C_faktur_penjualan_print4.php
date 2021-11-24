@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class c_faktur_penjualan_print3 extends MY_Controller
+class c_faktur_penjualan_print4 extends MY_Controller
 {
 
   public function __construct()
@@ -94,11 +94,10 @@ class c_faktur_penjualan_print3 extends MY_Controller
         }
         
 
-
-        $pdf->Cell( 190,5,'','',1,'C');
-        $pdf->Cell( 190,5,'','',1,'C');
-        $pdf->Cell( 190,5,'','',1,'C');
-        $pdf->Cell( 190,5,'','B',1,'C'); // GARIS ATAS
+        $pdf->SetFont('','UB',24);
+        $pdf->Cell( 190,5,'TAGIHAN','',1,'C');
+        
+        
 
         $pdf->Cell( 190,5,'','',1,'C');
         
@@ -126,21 +125,11 @@ class c_faktur_penjualan_print3 extends MY_Controller
         $pdf->Cell(90, 4, "", 0, 0, 'L');
         $pdf->Cell(30, 4, "No. Inv", 1, 0, 'L');
         $pdf->Cell(70, 4,':  '.$no_faktur, 1, 1, 'L');
-
-        if($no_faktur_pajak!='')
-        {
-          $pdf->Cell(90, 4, "", 0, 0, 'L');
-          $pdf->Cell(30, 4, "No. Faktur Pajak", 1, 0, 'L');
-          $pdf->Cell(70, 4,':  '.$no_faktur_pajak, 1, 1, 'L');
-        }
         
         $pdf->Cell(90, 4, "", 0, 0, 'L');
         $pdf->Cell(30, 4, "Tanggal", 1, 0, 'L');
         $pdf->Cell(70, 4,':  '.date('d-m-Y', strtotime($tgl_faktur)), 1, 1, 'L');
-        $pdf->Cell(90, 4, "", 0, 0, 'L');
-        $pdf->Cell(30, 4, "No. Kontrak", 1, 0, 'L');
-        $pdf->Cell(70, 4,':  '.$no_kontrak, 1, 1, 'L');
-
+      
 
 
    
@@ -329,30 +318,12 @@ class c_faktur_penjualan_print3 extends MY_Controller
     $pdf->Cell( $size[0]+$size[1]+$size[2]+$size[3]+$size[4],2,'','T',1,'R');
     $pdf->SetFont('','IU',9);
 
-    $pdf->MultiCell(190 ,10,'Says:'.ucwords($this->terbilang($total_pembayaran)).' Rupiah',1,'L');
+    $pdf->MultiCell(190 ,10,'Terbilang:'.ucwords($this->terbilang($total_pembayaran)).' Rupiah',1,'L');
 
 
 
 
-    $pdf->SetFont('','',10);
-    $read_select = $this->m_t_ak_faktur_penjualan_print_setting->select_id(4);
-    foreach ($read_select as $key => $value) 
-    {
-      $setting_value=$value->SETTING_VALUE;
-    }
-    $pdf->Cell( 100,4,$setting_value,'0',1,'L');
-
-
-    $pdf->SetFont('','B',10);
-    $read_select = $this->m_t_ak_faktur_penjualan_print_setting->select_id(5);
-    foreach ($read_select as $key => $value) 
-    {
-      $setting_value=$value->SETTING_VALUE;
-    }
-    $pdf->Cell( 25,4,'Nama Bank','0',0,'L');
-    $pdf->Cell( 100,4,': '.$setting_value,'0',0,'L');
-
-
+    $pdf->Cell( 185,4,'','0',1,'R');
 
     $pdf->SetFont('','',10);
     $read_select = $this->m_t_ak_faktur_penjualan_print_setting->select_id(10);
@@ -361,55 +332,14 @@ class c_faktur_penjualan_print3 extends MY_Controller
       $setting_value=$value->SETTING_VALUE;
     }
 
-    $pdf->Cell( 50,4,$setting_value,'0',1,'R');
 
+    $pdf->Cell( 185,4,$setting_value,'0',1,'R');
 
+    $pdf->Cell( 185,4,'','0',1,'R');
+    $pdf->Cell( 185,4,'','0',1,'R');
+    $pdf->Cell( 185,4,'','0',1,'R');
+    $pdf->Cell( 185,4,'','0',1,'R');
 
-    $pdf->SetFont('','B',10);
-    $read_select = $this->m_t_ak_faktur_penjualan_print_setting->select_id(6);
-    foreach ($read_select as $key => $value) 
-    {
-      $setting_value=$value->SETTING_VALUE;
-    }
-    $pdf->Cell( 25,4,'Cabang','0',0,'L');
-    $pdf->Cell( 100,4,': '.$setting_value,'0',1,'L');
-
-
-    $pdf->SetFont('','B',10);
-    $read_select = $this->m_t_ak_faktur_penjualan_print_setting->select_id(7);
-    foreach ($read_select as $key => $value) 
-    {
-      $setting_value=$value->SETTING_VALUE;
-    }
-    $pdf->Cell( 25,4,'No. Rekening','0',0,'L');
-    $pdf->Cell( 100,4,': '.$setting_value,'0',1,'L');
-
-
-    $pdf->SetFont('','B',10);
-    $read_select = $this->m_t_ak_faktur_penjualan_print_setting->select_id(8);
-    foreach ($read_select as $key => $value) 
-    {
-      $setting_value=$value->SETTING_VALUE;
-    }
-    $pdf->Cell( 25,4,'Atas Nama','0',0,'L');
-    $pdf->Cell( 100,4,': '.$setting_value,'0',1,'L');
-
-
-
-
-
-    $pdf->Cell( 100,4,'','0',1,'L');
-
-   
-    $pdf->SetFont('','',10);
-
-    $read_select = $this->m_t_ak_faktur_penjualan_print_setting->select_id(9);
-    foreach ($read_select as $key => $value) 
-    {
-      $setting_value=$value->SETTING_VALUE;
-    }
-    
-    $pdf->MultiCell(60, 7, substr($setting_value, 0, 500), '0', 'L',0,0);
 
 
     $x_value = $pdf->GetX();
@@ -425,7 +355,7 @@ class c_faktur_penjualan_print3 extends MY_Controller
       $setting_value=$value->SETTING_VALUE;
     }
 
-    $pdf->Cell( 110,4,$setting_value,'0',1,'R');
+    $pdf->Cell( 180,4,$setting_value,'0',1,'R');
 
 
 
