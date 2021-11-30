@@ -11,6 +11,9 @@
         if($level_user_id<8)
         {
 
+
+          echo "<option value='laporan_excel/lap_do_global/index/' >Laporan DO Global</option>";
+
           echo "<option value='laporan_excel/lap_trial_balance/index/' >Laporan Trial Balance</option>";
           echo "<option value='laporan_excel/lap_laba_rugi/index/' >Laporan Laba Rugi</option>";
           echo "<option value='laporan_excel/lap_neraca/index/' >Laporan Neraca</option>";

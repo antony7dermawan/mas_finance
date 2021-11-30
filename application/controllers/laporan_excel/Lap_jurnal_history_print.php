@@ -44,7 +44,7 @@
 
                   
                  $alp='A';
-                  for($x=0;$x<=7;$x++)
+                  for($x=0;$x<=18;$x++)
                   {
                     $spreadsheet->getActiveSheet()
                           ->getColumnDimension($alp)
@@ -131,42 +131,128 @@
                   $no_voucer[$key]=$value->NO_VOUCER;
                   $tanggal[$key]=date('d-m-Y', strtotime($value->DATE));
 
-                            if($value->NO_AKUN_3!='')
-                            {
-                              $no_akun[$key]=$value->NO_AKUN_3;
-                            }
-                            elseif($value->NO_AKUN_2!='')
-                            {
-                              $no_akun[$key]=$value->NO_AKUN_2;
-                            }
-                            else
-                            {
-                              $no_akun[$key]=$value->NO_AKUN_1;
-                            }
+
+
+                  $no_polisi[$key]=$value->NO_POLISI.' / '.$value->NO_UNIT;
+                  $supir[$key]=$value->SUPIR;
+                  $from_nama_kota[$key]=$value->FROM_NAMA_KOTA;
+                  $to_nama_kota[$key]=$value->TO_NAMA_KOTA;
+                  $pelanggan[$key]=$value->PELANGGAN;
+                  $date_muat[$key]=$value->DATE_MUAT;
+                  $no_do_pendapatan[$key]=$value->NO_DO_PENDAPATAN;
+                  $no_invoice_pendapatan[$key]=$value->NO_INVOICE_PENDAPATAN;
+                  $no_spb_pendapatan[$key]=$value->NO_SPB_PENDAPATAN;
+                  $lokasi[$key]=$value->LOKASI;
+
+                  $departmen[$key]=$value->DEPARTEMEN;
+
+                  if($value->NO_AKUN_3!='')
+                  {
+                    $no_akun[$key]=$value->NO_AKUN_3;
+                  }
+                  elseif($value->NO_AKUN_2!='')
+                  {
+                    $no_akun[$key]=$value->NO_AKUN_2;
+                  }
+                  else
+                  {
+                    $no_akun[$key]=$value->NO_AKUN_1;
+                  }
+
+
+
                 }
                 $total_akun = $key;
 
 
                   $row=$row+1;
-                  $sheet->setCellValue('A'.$row, 'Tanggal');
-                  $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
-                  $sheet->setCellValue('B'.$row, 'No Voucer');
-                  $sheet->getStyle('B'.$row)->getAlignment()->setHorizontal('left');
-                  $sheet->setCellValue('C'.$row, 'No. Akun:');
-                  $sheet->getStyle('C'.$row)->getAlignment()->setHorizontal('left');
-                  $sheet->setCellValue('D'.$row, 'Nama Akun');
-                  $sheet->getStyle('D'.$row)->getAlignment()->setHorizontal('left');
-                  $sheet->setCellValue('E'.$row, 'Catatan');
-                  $sheet->getStyle('E'.$row)->getAlignment()->setHorizontal('left');
-                  $sheet->setCellValue('F'.$row, 'Debit');
-                  $sheet->getStyle('F'.$row)->getAlignment()->setHorizontal('left');
-                  $sheet->setCellValue('G'.$row, 'Kredit');
-                  $sheet->getStyle('G'.$row)->getAlignment()->setHorizontal('left');
-                  $sheet->setCellValue('H'.$row, 'Saldo Awal');
-                  $sheet->getStyle('H'.$row)->getAlignment()->setHorizontal('left');
+
+
+                  $alpa='A';
+                  $sheet->setCellValue($alpa.$row, 'Tanggal');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+
+                  $alpa++;
+                  $sheet->setCellValue($alpa.$row, 'No Voucer');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                  $alpa++;
+                  $sheet->setCellValue($alpa.$row, 'No. Akun:');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+
+                  $alpa++;
+                  $sheet->setCellValue($alpa.$row, 'Nama Akun');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                  $alpa++;
+                  $sheet->setCellValue($alpa.$row, 'Catatan');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                  $alpa++;
+                  $sheet->setCellValue($alpa.$row, 'Debit');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                  $alpa++;
+                  $sheet->setCellValue($alpa.$row, 'Kredit');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+
+                  $alpa++;
+                  $sheet->setCellValue($alpa.$row, 'Saldo Awal');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+
+                  $alpa++;
+                  $sheet->setCellValue($alpa.$row, 'NO POLISI');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+
+                  $alpa++;
+                  $sheet->setCellValue($alpa.$row, 'NAMA SUPIR');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                  $alpa++;
+                  $sheet->setCellValue($alpa.$row, 'UJ DARI');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                  $alpa++;
+                  $sheet->setCellValue($alpa.$row, 'TUJUAN');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                  $alpa++;
+                  $sheet->setCellValue($alpa.$row, 'JENIS');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                  $alpa++;
+                  $sheet->setCellValue($alpa.$row, 'TGL MUAT');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                  $alpa++;
+                  $sheet->setCellValue($alpa.$row, 'NO.DO');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                  $alpa++;
+                  $sheet->setCellValue($alpa.$row, 'NO.KONTRAK');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                  $alpa++;
+                  $sheet->setCellValue($alpa.$row, 'PELANGGAN');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                  $alpa++;
+                  $sheet->setCellValue($alpa.$row, 'NO.INVOICE');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                  $alpa++;
+                  $sheet->setCellValue($alpa.$row, 'LOKASI');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+
                   
                   $alp='A';
-                  for($x=0;$x<=7;$x++)
+                  for($x=0;$x<=18;$x++)
                   {
 
                       $area = $alp.$row;
@@ -229,24 +315,90 @@
 
 
                       $row=$row+1;
-                      $sheet->setCellValue('A'.$row, 'Tanggal');
-                      $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
-                      $sheet->setCellValue('B'.$row, 'No Voucer');
-                      $sheet->getStyle('B'.$row)->getAlignment()->setHorizontal('left');
-                      $sheet->setCellValue('C'.$row, 'No. Akun:');
-                      $sheet->getStyle('C'.$row)->getAlignment()->setHorizontal('left');
-                      $sheet->setCellValue('D'.$row, 'Nama Akun');
-                      $sheet->getStyle('D'.$row)->getAlignment()->setHorizontal('left');
-                      $sheet->setCellValue('E'.$row, 'Catatan');
-                      $sheet->getStyle('E'.$row)->getAlignment()->setHorizontal('left');
-                      $sheet->setCellValue('F'.$row, 'Debit');
-                      $sheet->getStyle('F'.$row)->getAlignment()->setHorizontal('left');
-                      $sheet->setCellValue('G'.$row, 'Kredit');
-                      $sheet->getStyle('G'.$row)->getAlignment()->setHorizontal('left');
-                      $sheet->setCellValue('H'.$row, 'Kredit');
-                      $sheet->getStyle('H'.$row)->getAlignment()->setHorizontal('left');
+                      $alpa='A';
+                      $sheet->setCellValue($alpa.$row, 'Tanggal');
+                      $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+
+                      $alpa++;
+                      $sheet->setCellValue($alpa.$row, 'No Voucer');
+                      $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                      $alpa++;
+                      $sheet->setCellValue($alpa.$row, 'No. Akun:');
+                      $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+
+                      $alpa++;
+                      $sheet->setCellValue($alpa.$row, 'Nama Akun');
+                      $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                      $alpa++;
+                      $sheet->setCellValue($alpa.$row, 'Catatan');
+                      $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                      $alpa++;
+                      $sheet->setCellValue($alpa.$row, 'Debit');
+                      $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                      $alpa++;
+                      $sheet->setCellValue($alpa.$row, 'Kredit');
+                      $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+
+                      $alpa++;
+                      $sheet->setCellValue($alpa.$row, 'Saldo Awal');
+                      $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                      $alpa++;
+                      $sheet->setCellValue($alpa.$row, 'NO POLISI');
+                      $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+
+                      $alpa++;
+                      $sheet->setCellValue($alpa.$row, 'NAMA SUPIR');
+                      $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                      $alpa++;
+                      $sheet->setCellValue($alpa.$row, 'UJ DARI');
+                      $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                      $alpa++;
+                      $sheet->setCellValue($alpa.$row, 'TUJUAN');
+                      $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                      $alpa++;
+                      $sheet->setCellValue($alpa.$row, 'JENIS');
+                      $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                      $alpa++;
+                      $sheet->setCellValue($alpa.$row, 'TGL MUAT');
+                      $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                      $alpa++;
+                      $sheet->setCellValue($alpa.$row, 'NO.DO');
+                      $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                      $alpa++;
+                      $sheet->setCellValue($alpa.$row, 'NO.KONTRAK');
+                      $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                      $alpa++;
+                      $sheet->setCellValue($alpa.$row, 'PELANGGAN');
+                      $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                      $alpa++;
+                      $sheet->setCellValue($alpa.$row, 'NO.INVOICE');
+                      $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                      $alpa++;
+                      $sheet->setCellValue($alpa.$row, 'LOKASI');
+                      $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                  
+
                       $alp='A';
-                      for($x=0;$x<=7;$x++)
+                      for($x=0;$x<=18;$x++)
                       {
                           $area = $alp.$row;
                           $spreadsheet->getActiveSheet()->getStyle($area)
@@ -286,7 +438,7 @@
                                         ->getNumberFormat()
                                         ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                         $alp='A';
-                        for($x=0;$x<=7;$x++)
+                        for($x=0;$x<=18;$x++)
                         {
                             $area = $alp.$row;
                             
@@ -299,24 +451,92 @@
                     }
 
                     $row=$row+1;
-                    $sheet->setCellValue('A'.$row, $tanggal[$i]);
-                    $sheet->getStyle('A'.$row)->getAlignment()->setHorizontal('left');
-                    $sheet->setCellValue('B'.$row, $no_voucer[$i]);
-                    $sheet->getStyle('B'.$row)->getAlignment()->setHorizontal('left');
-                    $sheet->setCellValue('C'.$row, $no_akun[$i]);
-                    $sheet->getStyle('C'.$row)->getAlignment()->setHorizontal('left');
-                    $sheet->setCellValue('D'.$row, $nama_akun[$i]);
-                    $sheet->getStyle('D'.$row)->getAlignment()->setHorizontal('left');
-                    $sheet->setCellValue('E'.$row, $catatan[$i]);
-                    $sheet->getStyle('E'.$row)->getAlignment()->setHorizontal('left');
-                    $sheet->setCellValue('F'.$row,intval($debit[$i]));
-                    $sheet->getStyle('F'.$row)->getAlignment()->setHorizontal('left');
-                    $sheet->setCellValue('G'.$row, intval($kredit[$i]));
-                    $sheet->getStyle('G'.$row)->getAlignment()->setHorizontal('left');
+
+
+                    $alpa='A';
+                    $sheet->setCellValue($alpa.$row, $tanggal[$i]);
+                    $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                    $alpa++;
+                    $sheet->setCellValue($alpa.$row, $no_voucer[$i]);
+                    $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                    $alpa++;
+                    $sheet->setCellValue($alpa.$row, $no_akun[$i]);
+                    $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                    $alpa++;
+                    $sheet->setCellValue($alpa.$row, $nama_akun[$i]);
+                    $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                    $alpa++;
+                    $sheet->setCellValue($alpa.$row, $catatan[$i]);
+                    $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                    $alpa++;
+                    $sheet->setCellValue($alpa.$row,intval($debit[$i]));
+                    $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                    $alpa++;
+                    $sheet->setCellValue($alpa.$row, intval($kredit[$i]));
+                    $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
 
                     $saldo_awal = $saldo_awal + $debit[$i] - $kredit[$i];
-                    $sheet->setCellValue('H'.$row, intval($saldo_awal));
-                    $sheet->getStyle('H'.$row)->getAlignment()->setHorizontal('left');
+
+                    $alpa++;
+                    $sheet->setCellValue($alpa.$row, intval($saldo_awal));
+                    $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+
+                    $alpa++;
+                    $sheet->setCellValue($alpa.$row, ($no_polisi[$i]));
+                    $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                    $alpa++;
+                    $sheet->setCellValue($alpa.$row, ($supir[$i]));
+                    $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                    $alpa++;
+                    $sheet->setCellValue($alpa.$row, ($from_nama_kota[$i]));
+                    $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                    $alpa++;
+                    $sheet->setCellValue($alpa.$row, ($to_nama_kota[$i]));
+                    $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                    $alpa++;
+                    $sheet->setCellValue($alpa.$row, ($departmen[$i]));
+                    $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+
+                    $alpa++;
+                    $sheet->setCellValue($alpa.$row, ($date_muat[$i]));
+                    $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+
+                    $alpa++;
+                    $sheet->setCellValue($alpa.$row, ($no_do_pendapatan[$i]));
+                    $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+
+                    $alpa++;
+                    $sheet->setCellValue($alpa.$row, ($no_spb_pendapatan[$i]));
+                    $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+
+                    $alpa++;
+                    $sheet->setCellValue($alpa.$row, ($pelanggan[$i]));
+                    $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+
+                    $alpa++;
+                    $sheet->setCellValue($alpa.$row, ($no_invoice_pendapatan[$i]));
+                    $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                    $alpa++;
+                    $sheet->setCellValue($alpa.$row, ($lokasi[$i]));
+                    $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
                     
 
                     $spreadsheet->getActiveSheet()
@@ -324,7 +544,7 @@
                                       ->getNumberFormat()
                                       ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                       $alp='A';
-                      for($x=0;$x<=7;$x++)
+                      for($x=0;$x<=18;$x++)
                       {
                           $area = $alp.$row;
                           
@@ -347,7 +567,7 @@
                     $row=$row+1;
 
                     $alp='A';
-                    for($z=0;$z<=7;$z++)
+                    for($z=0;$z<=18;$z++)
                     {
                         $area = $alp.$row;
                         
@@ -367,7 +587,7 @@
                   {
                     $row=$row+1;
                     $alp='A';
-                    for($z=0;$z<=7;$z++)
+                    for($z=0;$z<=18;$z++)
                     {
                         $area = $alp.$row;
                         
@@ -390,7 +610,7 @@
                   $sheet->getStyle('H'.$row)->getAlignment()->setHorizontal('left');
 
                     $alp='A';
-                    for($x=0;$x<=7;$x++)
+                    for($x=0;$x<=18;$x++)
                     {
                         $area = $alp.$row;
                         $spreadsheet->getActiveSheet()->getStyle($area)

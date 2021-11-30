@@ -214,6 +214,7 @@ public function select_created_id($created_id)
 
     $this->db->select('T_M_D_NO_POLISI.NO_POLISI');
     $this->db->select('T_M_D_NO_POLISI.NO_UNIT');
+    $this->db->select('T_M_D_JENIS_KENDARAAN.JENIS_KENDARAAN');
     $this->db->select('T_M_D_SUPIR.SUPIR');
     $this->db->select("T_AK_JURNAL.NO_SPB_PENDAPATAN");
     $this->db->select("T_AK_JURNAL.NO_INVOICE_PENDAPATAN");
@@ -221,6 +222,7 @@ public function select_created_id($created_id)
     $this->db->select("T_M_D_FROM_NAMA_KOTA.FROM_NAMA_KOTA");
     $this->db->select("T_M_D_TO_NAMA_KOTA.TO_NAMA_KOTA");
     $this->db->select("T_M_D_GANDENGAN.GANDENGAN");
+    $this->db->select("T_M_D_LOKASI.LOKASI");
 
 
     $this->db->select("T_AK_JURNAL.NO_DO_PENDAPATAN");
@@ -238,6 +240,9 @@ public function select_created_id($created_id)
     $this->db->join('AK_M_COA', 'AK_M_COA.ID = T_AK_JURNAL.COA_ID', 'left');
 
     $this->db->join('T_M_D_NO_POLISI', 'T_M_D_NO_POLISI.ID = T_AK_JURNAL.NO_POLISI_ID', 'left');
+
+
+    $this->db->join('T_M_D_JENIS_KENDARAAN', 'T_M_D_NO_POLISI.JENIS_KENDARAAN_ID = T_M_D_JENIS_KENDARAAN.ID', 'left');
     $this->db->join('T_M_D_SUPIR', 'T_M_D_SUPIR.ID = T_AK_JURNAL.SUPIR_ID', 'left');
     $this->db->join('T_M_D_PELANGGAN', 'T_M_D_PELANGGAN.ID = T_AK_JURNAL.PELANGGAN_ID', 'left');
     $this->db->join('T_M_D_FROM_NAMA_KOTA', 'T_M_D_FROM_NAMA_KOTA.ID = T_AK_JURNAL.FROM_NAMA_KOTA_ID', 'left');
