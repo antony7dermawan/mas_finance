@@ -91,6 +91,14 @@
             echo "<td>";
             if($disabled=='')
             {
+              echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='" . $value->ID . "'>";
+              echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
+              echo "</a>";
+
+
+
+
+
               echo "<a href='" . site_url('c_t_ak_faktur_penjualan_rincian/delete/' . $value->ID) . "/" . $value->PENJUALAN_ID ."/" . $faktur_penjualan_id ."/" . $pelanggan_id . "' ";
               echo "onclick=\"return confirm('Apakah kamu yakin ingin menghapus data ini?')\"";
               echo "> <i class='feather icon-trash-2 f-w-600 f-16 text-c-red'></i></a>";
@@ -106,6 +114,146 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- MODAL EDIT AKUN !-->
+<div class="modal fade" id="Modal_Edit" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <form action="<?php echo base_url('c_t_ak_faktur_penjualan_rincian/edit_action/'.$faktur_penjualan_id.'/'.$pelanggan_id) ?>" method="post" autocomplete="off" id='edit_data'>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Action
+            
+          </h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        
+        <div class="modal-body">
+        <input type="hidden" name="id" value="" class="form-control">
+
+
+
+
+
+
+       
+
+
+
+
+        <div class="form-group">
+              <label>Keterangan</label>
+              <textarea rows='4' cols='20' name='ket' id='' form='edit_data' class='form-control'></textarea>
+        </div>
+
+        
+
+
+
+
+
+        
+
+
+          <div class="modal-footer">
+            <div class="created_form">
+              Created By : <a name='created_by'></a>
+              <br>
+              Updated By : <a name='updated_by'></a>
+            </div>
+            <style type="text/css">
+              .created_form
+              {
+                float: left;
+                margin right: : 20px;
+                font-size: 10px;
+              }
+            </style>
+            <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+            <button type="Submit" class="btn btn-primary waves-effect waves-light ">Save changes</button>
+          </div>
+
+        </div>
+
+
+<script>
+
+  const read_data = <?= json_encode($c_t_ak_faktur_penjualan_rincian) ?>;
+  console.log(read_data);
+  let elModalEdit = document.querySelector("#Modal_Edit");
+  console.log(elModalEdit);
+  let elBtnEdits = document.querySelectorAll(".btn-edit");
+  [...elBtnEdits].forEach(edit => {
+    edit.addEventListener("click", (e) => {
+      let id = edit.getAttribute("data-id");
+      let User = read_data.filter(user => {
+        if (user.ID == id)
+          return user;
+      });
+      const {
+        ID,
+        KET : ket,
+        UPDATED_BY : updated_by,
+        CREATED_BY : created_by
+      
+        
+      } = User[0];
+
+      elModalEdit.querySelector("[name=id]").value = ID;
+      elModalEdit.querySelector("[name=ket]").value = ket;
+      elModalEdit.querySelector("[name=updated_by]").text = updated_by;
+      elModalEdit.querySelector("[name=created_by]").text = created_by;
+
+
+    })
+  })
+</script>
+
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

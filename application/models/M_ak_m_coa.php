@@ -164,7 +164,15 @@ public function update($data, $id)
 
 
 
+
     $this->db->where(" AK_M_COA.FAMILY_ID=3");
+
+
+    $this->db->where("SUM_DEBIT_AWAL>0");
+    $this->db->where("SUM_KREDIT_AWAL>0");
+    $this->db->where("SUM_DEBIT>0");
+    $this->db->where("SUM_KREDIT>0");
+
     
 
     $this->db->order_by("AK_M_COA.NO_AKUN_1,AK_M_COA.NO_AKUN_2,AK_M_COA.NO_AKUN_3", "asc");

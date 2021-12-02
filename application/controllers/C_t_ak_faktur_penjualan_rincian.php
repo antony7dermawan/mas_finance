@@ -18,6 +18,7 @@ class C_t_ak_faktur_penjualan_rincian extends MY_Controller
   public function index($id, $pelanggan_id)
   {
     $data = [
+      "c_t_t_t_penjualan_jasa_3" => $this->m_t_t_t_penjualan_jasa_3->select($this->session->userdata('date_faktur_penjualan'),3),   //tipe kayu
       "c_t_ak_faktur_penjualan_rincian" => $this->m_t_ak_faktur_penjualan_rincian->select($id),
       "c_t_ak_faktur_penjualan" => $this->m_t_ak_faktur_penjualan->select_by_id($id),
       "faktur_penjualan_id" => $id,
@@ -82,6 +83,39 @@ class C_t_ak_faktur_penjualan_rincian extends MY_Controller
 
     $this->m_t_ak_faktur_penjualan_rincian->delete($id_faktur_penjualan_rincian);
     $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
+    redirect('c_t_ak_faktur_penjualan_rincian/index/' . $id_faktur_penjualan . '/' . $pelanggan_id);
+  }
+
+
+
+
+
+
+
+
+
+
+  public function edit_action($id_faktur_penjualan,$pelanggan_id)
+  {
+    $id = $this->input->post("id");
+    $ket = substr($this->input->post("ket"), 0, 500);
+
+
+    $read_select = $this->m_t_ak_faktur_penjualan_rincian->select_by_id($id);
+    foreach ($read_select as $key => $value) {
+
+      $penjualan_id = $value->PENJUALAN_ID;
+
+    }
+
+
+      $data = array(
+        'TIME' => date('H:i:s'),
+        'KET' => $ket,
+        'UPDATED_BY' => $this->session->userdata('username')
+      );
+      $this->m_t_t_t_penjualan_jasa_3->update($data, $penjualan_id);
+      $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
     redirect('c_t_ak_faktur_penjualan_rincian/index/' . $id_faktur_penjualan . '/' . $pelanggan_id);
   }
 
