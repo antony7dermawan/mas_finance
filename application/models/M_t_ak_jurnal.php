@@ -12,6 +12,18 @@ public function update($data, $id)
 }
 
 
+
+public function select_where_no_voucer($no_voucer_textbox)
+{
+    $this->db->select("NO_VOUCER");
+    $this->db->from('T_AK_JURNAL');
+    $this->db->where("NO_VOUCER='{$no_voucer_textbox}'");
+
+
+    $akun = $this->db->get ();
+    return $akun->result ();
+}
+
 public function select_no_voucer()
 {
     $this->db->limit(1);

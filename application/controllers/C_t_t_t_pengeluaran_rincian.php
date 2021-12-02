@@ -89,6 +89,15 @@ class C_t_t_t_pengeluaran_rincian extends MY_Controller
     
 
     $no_voucer = substr($this->input->post("no_voucer"), 0, 50);
+
+    $no_voucer_logic = 0;
+    $read_select = $this->m_t_ak_jurnal->select_where_no_voucer($no_voucer);
+    foreach ($read_select as $key => $value) {
+      $no_voucer_logic = 1;
+      $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> Nomor Voucer Sudah Digunakan!</p></div>');
+    }
+
+
     $ket = substr($this->input->post("ket"), 0, 500);
     
  
@@ -131,100 +140,103 @@ class C_t_t_t_pengeluaran_rincian extends MY_Controller
     }
 
 
+    if($no_voucer_logic == 0)
+    {
+        $data = array(
+            'DATE' => $date,
+            'TIME' => $time_move,
+            'CREATED_BY' => $this->session->userdata('username'),
+            'UPDATED_BY' => '',
+            'COA_ID' => $coa_id,
+            'DEBIT' => 0,
+            'KREDIT' => floatval($nilai_pengeluaran),
+            'CATATAN' => $ket,
+            'DEPARTEMEN' => '',
+            'NO_VOUCER' => $no_voucer,
+            'CREATED_ID' => $created_id,
+            'CHECKED_ID' => 1,
+            'SPECIAL_ID' => 0,
+            'COMPANY_ID' => $this->session->userdata('company_id'),
+            'NO_SPB_PENDAPATAN' => $no_spb_pendapatan,
+            'NO_INVOICE_PENDAPATAN' => '',
+            'NO_POLISI_ID' => $no_polisi_id,
+            'SUPIR_ID' => $supir_id,
+            'FROM_NAMA_KOTA_ID' => $from_nama_kota_id,
+            'TO_NAMA_KOTA_ID' => $to_nama_kota_id,
+            'PELANGGAN_ID' => $pelanggan_id,
+            'GANDENGAN_ID' => $gandengan_id,
+            'NO_DO_PENDAPATAN' => $no_do_pendapatan,
+            'DATE_DO' => $date_do,
+            'QTY_JURNAL' => 0,
+            'HARGA_JURNAL' => 0,
+            'DATE_MUAT' => $date_muat,
+            'LOKASI_ID' => 0,
+            'PAYMENT_METHOD_ID' => $payment_method_id,
+            'DATE_BONGKAR' => $date_bongkar
 
+        );
+        $this->m_t_ak_jurnal->tambah($data);
 
-    $data = array(
-        'DATE' => $date,
-        'TIME' => $time_move,
-        'CREATED_BY' => $this->session->userdata('username'),
-        'UPDATED_BY' => '',
-        'COA_ID' => $coa_id,
-        'DEBIT' => 0,
-        'KREDIT' => floatval($nilai_pengeluaran),
-        'CATATAN' => $ket,
-        'DEPARTEMEN' => '',
-        'NO_VOUCER' => $no_voucer,
-        'CREATED_ID' => $created_id,
-        'CHECKED_ID' => 1,
-        'SPECIAL_ID' => 0,
-        'COMPANY_ID' => $this->session->userdata('company_id'),
-        'NO_SPB_PENDAPATAN' => $no_spb_pendapatan,
-        'NO_INVOICE_PENDAPATAN' => '',
-        'NO_POLISI_ID' => $no_polisi_id,
-        'SUPIR_ID' => $supir_id,
-        'FROM_NAMA_KOTA_ID' => $from_nama_kota_id,
-        'TO_NAMA_KOTA_ID' => $to_nama_kota_id,
-        'PELANGGAN_ID' => $pelanggan_id,
-        'GANDENGAN_ID' => $gandengan_id,
-        'NO_DO_PENDAPATAN' => $no_do_pendapatan,
-        'DATE_DO' => $date_do,
-        'QTY_JURNAL' => 0,
-        'HARGA_JURNAL' => 0,
-        'DATE_MUAT' => $date_muat,
-        'LOKASI_ID' => 0,
-        'PAYMENT_METHOD_ID' => $payment_method_id,
-        'DATE_BONGKAR' => $date_bongkar
+        $data = array(
+            'DATE' => $date,
+            'TIME' => $time_move,
+            'CREATED_BY' => $this->session->userdata('username'),
+            'UPDATED_BY' => '',
+            'COA_ID' => $coa_id_pengeluaran,
+            'DEBIT' => floatval($nilai_pengeluaran),
+            'KREDIT' => 0,
+            'CATATAN' => $ket,
+            'DEPARTEMEN' => '',
+            'NO_VOUCER' => $no_voucer,
+            'CREATED_ID' => $created_id,
+            'CHECKED_ID' => 1,
+            'SPECIAL_ID' => 0,
+            'COMPANY_ID' => $this->session->userdata('company_id'),
+            'NO_SPB_PENDAPATAN' => $no_spb_pendapatan,
+            'NO_INVOICE_PENDAPATAN' => '',
+            'NO_POLISI_ID' => $no_polisi_id,
+            'SUPIR_ID' => $supir_id,
+            'FROM_NAMA_KOTA_ID' => $from_nama_kota_id,
+            'TO_NAMA_KOTA_ID' => $to_nama_kota_id,
+            'PELANGGAN_ID' => $pelanggan_id,
+            'GANDENGAN_ID' => $gandengan_id,
+            'NO_DO_PENDAPATAN' => $no_do_pendapatan,
+            'DATE_DO' => $date_do,
+            'QTY_JURNAL' => 0,
+            'HARGA_JURNAL' => 0,
+            'DATE_MUAT' => $date_muat,
+            'LOKASI_ID' => 0,
+            'PAYMENT_METHOD_ID' => $payment_method_id,
+            'DATE_BONGKAR' => $date_bongkar
+        );
+        $this->m_t_ak_jurnal->tambah($data);
 
-    );
-    $this->m_t_ak_jurnal->tambah($data);
+        //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
+        $data = array(
 
-    $data = array(
-        'DATE' => $date,
-        'TIME' => $time_move,
-        'CREATED_BY' => $this->session->userdata('username'),
-        'UPDATED_BY' => '',
-        'COA_ID' => $coa_id_pengeluaran,
-        'DEBIT' => floatval($nilai_pengeluaran),
-        'KREDIT' => 0,
-        'CATATAN' => $ket,
-        'DEPARTEMEN' => '',
-        'NO_VOUCER' => $no_voucer,
-        'CREATED_ID' => $created_id,
-        'CHECKED_ID' => 1,
-        'SPECIAL_ID' => 0,
-        'COMPANY_ID' => $this->session->userdata('company_id'),
-        'NO_SPB_PENDAPATAN' => $no_spb_pendapatan,
-        'NO_INVOICE_PENDAPATAN' => '',
-        'NO_POLISI_ID' => $no_polisi_id,
-        'SUPIR_ID' => $supir_id,
-        'FROM_NAMA_KOTA_ID' => $from_nama_kota_id,
-        'TO_NAMA_KOTA_ID' => $to_nama_kota_id,
-        'PELANGGAN_ID' => $pelanggan_id,
-        'GANDENGAN_ID' => $gandengan_id,
-        'NO_DO_PENDAPATAN' => $no_do_pendapatan,
-        'DATE_DO' => $date_do,
-        'QTY_JURNAL' => 0,
-        'HARGA_JURNAL' => 0,
-        'DATE_MUAT' => $date_muat,
-        'LOKASI_ID' => 0,
-        'PAYMENT_METHOD_ID' => $payment_method_id,
-        'DATE_BONGKAR' => $date_bongkar
-    );
-    $this->m_t_ak_jurnal->tambah($data);
+          'DATE' => $date,
+          'TIME' => $time_move,
+          'COA_ID' => $coa_id,
+          'COA_ID_PENGELUARAN' => $coa_id_pengeluaran,
 
-    //Dikiri nama kolom pada database, dikanan hasil yang kita tangkap nama formnya.
-    $data = array(
+          'KET' => $ket,
 
-      'DATE' => $date,
-      'TIME' => $time_move,
-      'COA_ID' => $coa_id,
-      'COA_ID_PENGELUARAN' => $coa_id_pengeluaran,
+          'VALUE' => $nilai_pengeluaran,
 
-      'KET' => $ket,
+          'CREATED_BY' => $this->session->userdata('username'),
+          'UPDATED_BY' => '',
+          'MARK_FOR_DELETE' => FALSE,
+          
+          'NO_VOUCER' => $no_voucer,
+          'PENJUALAN_JASA_RINCIAN_ID' => $penjualan_jasa_rincian_id
+        );
 
-      'VALUE' => $nilai_pengeluaran,
+        $this->m_t_t_t_pengeluaran_rincian->tambah($data);
 
-      'CREATED_BY' => $this->session->userdata('username'),
-      'UPDATED_BY' => '',
-      'MARK_FOR_DELETE' => FALSE,
-      
-      'NO_VOUCER' => $no_voucer,
-      'PENJUALAN_JASA_RINCIAN_ID' => $penjualan_jasa_rincian_id
-    );
+        $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
+    }
 
-    $this->m_t_t_t_pengeluaran_rincian->tambah($data);
-
-    $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
+    
     
 
 

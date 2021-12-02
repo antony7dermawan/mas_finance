@@ -70,13 +70,30 @@ class C_t_ak_jurnal_create extends MY_Controller
   {
     $no_voucer_textbox = ($this->input->post("no_voucer_textbox"));
 
-    $this->session->set_userdata('now_no_voucer', $no_voucer_textbox);
 
-    $data = array(
-      'NO_VOUCER' => $this->session->userdata('now_no_voucer')
-    );
+    $no_voucer_logic = 0;
+    $read_select = $this->m_t_ak_jurnal->select_where_no_voucer($no_voucer_textbox);
+    foreach ($read_select as $key => $value) {
+      $no_voucer_logic = 1;
+      $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> Nomor Voucer Sudah Digunakan!</p></div>');
+    }
 
-    $this->m_t_ak_jurnal_create->update_all($data, $id);
+    if($no_voucer_logic == 0)
+    {
+      $this->session->set_userdata('now_no_voucer', $no_voucer_textbox);
+
+      $data = array(
+        'NO_VOUCER' => $this->session->userdata('now_no_voucer')
+      );
+
+      $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Nomor Voucer Diterima!</strong></p></div>');
+
+
+      $this->m_t_ak_jurnal_create->update_all($data, $id);
+    }
+
+
+    
 
     redirect('c_t_ak_jurnal_create');
   }
