@@ -347,8 +347,8 @@ class C_t_ak_jurnal_create extends MY_Controller
     $id = $this->input->post("id");
 
     $date = $this->input->post("date");
-    $debit = intval($this->input->post("debit"));
-    $kredit = intval($this->input->post("kredit"));
+    $debit = floatval($this->input->post("debit"));
+    $kredit = floatval($this->input->post("kredit"));
     $catatan = ($this->input->post("catatan"));
     $departemen = ($this->input->post("departemen"));
     $no_spb_pendapatan = substr(($this->input->post("no_spb_pendapatan")), 0, 50);
