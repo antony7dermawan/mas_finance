@@ -44,16 +44,17 @@ class C_terima_pelanggan_print extends MY_Controller
     $pdf->SetFont('','',9);
 
 
+
     $read_select = $this->m_t_ak_terima_pelanggan->select_by_id($id);
     foreach ($read_select as $key => $value) 
     {
-      $no_pelanggan=$value->NO_PELANGGAN;
+      $no_pelanggan=$value->PELANGGAN;
       $no_form=$value->NO_FORM;
       $tgl_faktur=$value->DATE;
-      $nama=$value->NAMA;
+      $nama=$value->PELANGGAN;
       $alamat=$value->ALAMAT;
       $npwp=$value->NPWP;
-      $telepon=$value->TELEPON;
+      $telepon=$value->NO_TELP;
       $catatan=$value->KET;
     }
 
@@ -275,9 +276,15 @@ class C_terima_pelanggan_print extends MY_Controller
        
         $kelebihan_bayar = (floatval($sum_total_penjualan) - floatval($total_payment_t))*-1;
 
+        $note = 'Kelebihan Bayar';
+        if($kelebihan_bayar<0)
+        {
+          $note = 'Kurang Bayar';
+        }
+
         $pdf->Cell(45, 5, '', 0, 0, 'C');
         $pdf->Cell(65, 5, '', 0, 0, 'C');
-        $pdf->Cell(35, 5, 'Kelebihan Bayar', 1, 0, 'R');
+        $pdf->Cell(35, 5, $note, 1, 0, 'R');
         $pdf->Cell(35, 5, number_format((floatval(intval($kelebihan_bayar*100)))/100), 1, 1, 'R');
 
     $x_value = $pdf->GetX();
