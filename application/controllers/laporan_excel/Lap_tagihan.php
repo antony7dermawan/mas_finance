@@ -48,7 +48,7 @@
 
 
                   $alp='A';
-                  $total_colom=21;
+                  $total_colom=27;
                   for($x=0;$x<=$total_colom;$x++)
                   {
                     $spreadsheet->getActiveSheet()
@@ -212,7 +212,7 @@
 
 
                         $alp='A';
-                        $total_alp=16;
+                        $total_alp=22;
                         for($n=0;$n<=$total_alp;$n++)
                         {
                               $area = $alp.$row;
@@ -235,9 +235,10 @@
                   $read_select = $this->m_t_ak_faktur_penjualan->select_by_date($date_from_laporan,$date_to_laporan);
                   foreach ($read_select as $key => $value) 
                   {   
-                    $data_logic = 1;
+                        $data_logic = 1;
                         $r_id[$key]=$value->ID;
                         $r_time[$key]=$value->TIME;
+                        $r_pelanggan[$key]=$value->PELANGGAN;
 
 
 
@@ -245,7 +246,7 @@
                         $r_no_faktur_pajak[$key]=$value->NO_FAKTUR_PAJAK;
                         $r_no_do[$key]='';
                         $r_date[$key]=$value->DATE;
-                        $r_ket_atas$key]=$value->KETERANGAN;
+                        $r_ket_atas[$key]=$value->KETERANGAN;
                         $r_ket_bawah[$key]=$value->KET_2;
                         $r_sum_value_kebun[$key]=$value->SUM_VALUE_KEBUN;
 
@@ -256,6 +257,7 @@
                         $r_payment_t[$key]=$value->PAYMENT_T;
 
 
+                        $r_date_pelunasan[$key]=$value->DATE_PELUNASAN;
 
 
 
@@ -286,69 +288,121 @@
                             $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
 
                             $alpa++;
-                            $sheet->setCellValue($alpa.$row, $r_no_do[$i]);
-                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue($alpa.$row, $r_no_faktur[$i]);
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
 
-                            $alpa++;
-                            $sheet->setCellValue($alpa.$row, date('d-m-y', strtotime($r_date[$i])).'/'.date('H:i', strtotime($r_time[$i])));
-                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
-                            
 
-                            $alpa++;
-                            $sheet->setCellValue($alpa.$row, $r_no_kontrak[$i]);
-                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
 
                             $alpa++;
                             $sheet->setCellValue($alpa.$row, $r_pelanggan[$i]);
-                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                          
+                            
 
                             $alpa++;
-                            $sheet->setCellValue($alpa.$row, $r_target_party[$i]);
-                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
-
-
-                            $alpa++;
-                            $sheet->setCellValue($alpa.$row, $r_sum_value_kebun[$i]);
-                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
-
+                            $sheet->setCellValue($alpa.$row, $r_no_faktur_pajak[$i]);
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
 
                             $alpa++;
-                            $sheet->setCellValue($alpa.$row, $r_sum_value_pabrik[$i]);
-                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
-
+                            $sheet->setCellValue($alpa.$row, $r_no_do[$i]);
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
 
                             $alpa++;
-                            $sheet->setCellValue($alpa.$row, $r_sisa[$i]);
-                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue($alpa.$row, $r_date[$i]);
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('right');
 
 
                             $alpa++;
-                            $sheet->setCellValue($alpa.$row, $r_susut[$i]);
-                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
-
-                            $alpa++;
-                            $sheet->setCellValue($alpa.$row, $r_susut_percentage[$i]);
-                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue($alpa.$row, $r_ket_atas[$i]);
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
 
 
                             $alpa++;
-                            $sheet->setCellValue($alpa.$row, $r_ket[$i]);
-                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
-
-
-                            $alpa++;
-                            $sheet->setCellValue($alpa.$row, '');
-                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue($alpa.$row, $r_ket_bawah[$i]);
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
 
 
                             $alpa++;
                             $sheet->setCellValue($alpa.$row, $r_sum_value_kebun[$i]);
-                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('right');
+
+
+
+                            $value_harga=0;
+                            if($r_sum_value_kebun[$i]>0)
+                            {
+                              $value_harga=$r_sum_total_tagihan[$i]/$r_sum_value_kebun[$i];
+                            }
 
                             $alpa++;
-                            $sheet->setCellValue($alpa.$row, $r_sisa[$i]);
-                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
+                            $sheet->setCellValue($alpa.$row, $value_harga);
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('right');
 
+                            $alpa++;
+                            $sheet->setCellValue($alpa.$row, $r_sum_value_diskon[$i]);
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('right');
+
+
+                            $alpa++;
+                            $sheet->setCellValue($alpa.$row, $r_sum_total_tagihan[$i]);
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('right');
+
+
+
+                            $alpa++;
+                            $sheet->setCellValue($alpa.$row, $r_sum_total_tagihan_ppn[$i]);
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('right');
+
+                            $alpa++;
+                            $sheet->setCellValue($alpa.$row, $r_sum_value_pph[$i]);
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('right');
+
+
+
+                            $jumlah_piutang = $r_sum_total_tagihan[$i] + $r_sum_total_tagihan_ppn[$i] - $r_sum_value_pph[$i];
+
+
+                            $alpa++;
+                            $sheet->setCellValue($alpa.$row, $jumlah_piutang);
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('right');
+
+
+                            $alpa++;
+                            $sheet->setCellValue($alpa.$row, $r_sum_value_diskon[$i]);
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('right');
+
+
+
+                            $alpa++;
+                            $sheet->setCellValue($alpa.$row, ''); //ga ngerti
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('right');
+                            
+                            $alpa++;
+                            $sheet->setCellValue($alpa.$row, $r_payment_t[$i]);
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('right');
+
+
+                            $sisa_tagihan = $jumlah_piutang - $r_payment_t[$i];
+                            $alpa++;
+                            $sheet->setCellValue($alpa.$row, $sisa_tagihan);
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('right');
+
+
+
+                             $status_lunas = 'Lunas';
+                            if($sisa_tagihan > 0)
+                            {
+                              $status_lunas = 'Belum Lunas';
+                            }
+
+                            $alpa++;
+                            $sheet->setCellValue($alpa.$row, $status_lunas);
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('right');
+
+                            $alpa++;
+                            $sheet->setCellValue($alpa.$row, $r_date_pelunasan[$i]);
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('right');
 
 
 
@@ -368,17 +422,10 @@
                         
 
 
-
-                        $sum_all_target_party=$sum_all_target_party + $r_target_party[$i];
-                        $sum_all_value_kebun=$sum_all_value_kebun + $r_sum_value_kebun[$i];
-                        $sum_all_value_pabrik=$sum_all_value_pabrik + $r_sum_value_pabrik[$i];
-                        $sum_all_sisa= $sum_all_sisa + $r_sisa[$i];
-                        $sum_all_susut= $sum_all_susut + $r_susut[$i];
-
                        
 
                           $spreadsheet->getActiveSheet()
-                                  ->getStyle('F'.$row.':O'.$row)
+                                  ->getStyle('F'.$row.':S'.$row)
                                   ->getNumberFormat()
                                   ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
 
@@ -386,55 +433,8 @@
                   }
 
 
-                  $row = $row + 1;
                         
 
-                        $alpa='F';
-
-                            $alpa++;
-                            $sheet->setCellValue($alpa.$row, $sum_all_target_party);
-                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
-
-                            $alpa++;
-                            $sheet->setCellValue($alpa.$row, $sum_all_value_kebun);
-                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
-
-
-                            $alpa++;
-                            $sheet->setCellValue($alpa.$row, $sum_all_value_pabrik);
-                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
-
-                            $alpa++;
-                            $sheet->setCellValue($alpa.$row, $sum_all_sisa);
-                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
-
-                            $alpa++;
-                            $sheet->setCellValue($alpa.$row, $sum_all_susut);
-                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
-
-
-
-
-
-
-
-                        $alp='A';
-                        $total_alp=16;
-                        for($n=0;$n<=$total_alp;$n++)
-                        {
-                              $area = $alp.$row;
-                              $spreadsheet->getActiveSheet()->getStyle($area)
-                                        ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
-                              $spreadsheet->getActiveSheet()->getStyle($area)
-                                        ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
-                              
-                              $alp++;
-                        }
-
-                          $spreadsheet->getActiveSheet()
-                                  ->getStyle('F'.$row.':O'.$row)
-                                  ->getNumberFormat()
-                                  ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                   
 
                   }#end of data logic ==1
@@ -442,7 +442,7 @@
 
 
                   $writer = new Xlsx($spreadsheet);
-                  $filename = 'Lap_DO_Global';
+                  $filename = 'Lap_tagihan';
                   
                   header('Content-Type: application/vnd.ms-excel');
                   header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 

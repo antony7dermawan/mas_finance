@@ -70,14 +70,12 @@ class C_terima_pelanggan_print extends MY_Controller
     $pdf->SetXY($x_value, $y_value+2);
 
     $pdf->Cell(45, 5, "Tanggal", 1, 0, 'C');
-    $pdf->Cell(45, 5, "No. Form", 1, 0, 'C');
-    $pdf->Cell(45, 5, "Tanggal Cek", 1, 0, 'C');
-    $pdf->Cell(45, 5, "No. Cek", 1, 1, 'C');
+    $pdf->Cell(45, 5, "No. Form", 1, 1, 'C');
+    
 
     $pdf->Cell(45, 5, $tgl_faktur, 1, 0, 'C');
-    $pdf->Cell(45, 5, $no_form, 1, 0, 'C');
-    $pdf->Cell(45, 5, $tgl_faktur, 1, 0, 'C');
-    $pdf->Cell(45, 5, "", 1, 1, 'C');
+    $pdf->Cell(45, 5, $no_form, 1, 1, 'C');
+   
 
 
 
@@ -261,7 +259,7 @@ class C_terima_pelanggan_print extends MY_Controller
 
         $pdf->Cell(45, 5, '', 0, 0, 'C');
         $pdf->Cell(65, 5, '', 0, 0, 'C');
-        $pdf->Cell(35, 5, 'Total Diskon', 1, 0, 'R');
+        $pdf->Cell(35, 5, 'Total Pemotongan', 1, 0, 'R');
         $pdf->Cell(35, 5, number_format((floatval(intval($total_diskon*100)))/100), 1, 1, 'R');
 
 
@@ -301,15 +299,13 @@ class C_terima_pelanggan_print extends MY_Controller
 
     
 
-    $pdf->Cell(45, 5, "Dibuat", 0, 0, 'C');
-    $pdf->Cell(45, 5, "Diperiksa", 0, 0, 'C');
-    $pdf->Cell(45, 5, "Disetujui", 0, 0, 'C');
-    $pdf->Cell(45, 5, "Diketahui Oleh", 0, 1, 'C');
+    $pdf->Cell(60, 5, "Dibuat", 0, 0, 'C');
+    $pdf->Cell(60, 5, "Diperiksa", 0, 0, 'C');
+    $pdf->Cell(60, 5, "Disetujui", 0, 1, 'C');
 
-    $pdf->Cell(45, 7, "", 0, 0, 'C');
-    $pdf->Cell(45, 7, "", 0, 0, 'C');
-    $pdf->Cell(45, 7, "", 0, 0, 'C');
-    $pdf->Cell(45, 7, "", 0, 1, 'C');
+    $pdf->Cell(60, 7, "", 0, 0, 'C');
+    $pdf->Cell(60, 7, "", 0, 0, 'C');
+    $pdf->Cell(60, 7, "", 0, 1, 'C');
 
 
 
@@ -320,34 +316,33 @@ class C_terima_pelanggan_print extends MY_Controller
     {
       $setting_value=$value->SETTING_VALUE;
     }
-    $pdf->Cell(45, 5, $setting_value, 0, 0, 'C');
+    $pdf->Cell(60, 5, $setting_value, 0, 0, 'C');
 
     $read_select = $this->m_t_ak_terima_pelanggan_print_setting->select_id(2);
     foreach ($read_select as $key => $value) 
     {
       $setting_value=$value->SETTING_VALUE;
     }
-    $pdf->Cell(45, 5, $setting_value, 0, 0, 'C');
+    $pdf->Cell(60, 5, $setting_value, 0, 0, 'C');
 
     $read_select = $this->m_t_ak_terima_pelanggan_print_setting->select_id(3);
     foreach ($read_select as $key => $value) 
     {
       $setting_value=$value->SETTING_VALUE;
     }
-    $pdf->Cell(45, 5, $setting_value, 0, 0, 'C');
+    $pdf->Cell(60, 5, $setting_value, 0, 1, 'C');
 
-    $read_select = $this->m_t_ak_terima_pelanggan_print_setting->select_id(4);
-    foreach ($read_select as $key => $value) 
-    {
-      $setting_value=$value->SETTING_VALUE;
-    }
-    $pdf->Cell(45, 5, $setting_value, 0, 1, 'C');
+    // $read_select = $this->m_t_ak_terima_pelanggan_print_setting->select_id(4);
+    // foreach ($read_select as $key => $value) 
+    // {
+    //   $setting_value=$value->SETTING_VALUE;
+    // }
+    // $pdf->Cell(45, 5, $setting_value, 0, 1, 'C');
 
 
-    $pdf->Cell(45, 5, "Tgl:", 0, 0, 'L');
-    $pdf->Cell(45, 5, "Tgl:", 0, 0, 'L');
-    $pdf->Cell(45, 5, "Tgl:", 0, 0, 'L');
-    $pdf->Cell(45, 5, "Tgl:", 0, 1, 'L');
+    $pdf->Cell(60, 5, "Tgl:", 0, 0, 'L');
+    $pdf->Cell(60, 5, "Tgl:", 0, 0, 'L');
+    $pdf->Cell(60, 5, "Tgl:", 0, 1, 'L');
 
 
 
