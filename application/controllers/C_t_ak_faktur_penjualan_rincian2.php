@@ -82,7 +82,51 @@ class C_t_ak_faktur_penjualan_rincian2 extends MY_Controller
 
 
 
+  public function call_all($faktur_penjualan_rincian_id, $faktur_penjualan_id,$penjualan_jasa_id,$pelanggan_id)
+  {
+    $data_logic = 0;
+      $read_select = $this->m_t_t_t_penjualan_jasa_rincian_3->select_fp($penjualan_jasa_id);
+      foreach ($read_select as $key => $value) {
+        $id_rincian_penjualan_jasa[$key] = $value->ID;
+        $data_logic = 1;
+      }
+      $total_array = $key;
 
+      if($data_logic==1)
+      {
+        for($i=0;$i<=$total_array;$i++)
+        {
+          $data = array(
+            'DATE' => date('Y-m-d'),
+            'TIME' => date('H:i:s'),
+            'FAKTUR_PENJUALAN_RINCIAN_ID' => $faktur_penjualan_rincian_id,
+            'PENJUALAN_RINCIAN_ID' => $id_rincian_penjualan_jasa[$i],
+            'CREATED_BY' => $this->session->userdata('username'),
+            'UPDATED_BY' => '',
+            'KETERANGAN' => 'PENDAPATAN SPB'
+          );
+
+          $this->m_t_ak_faktur_penjualan_rincian2->tambah($data);
+
+          $data = array(
+            'ENABLE_EDIT' => 0
+          );
+          $this->m_t_t_t_penjualan_jasa_rincian_3->update($data, $id_rincian_penjualan_jasa[$i]);
+        }
+
+
+        $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
+      }
+      if($data_logic==0)
+      {
+        $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Gagal!</strong> Tidak Ada Data!</p></div>');
+      }
+      
+
+
+
+     redirect('c_t_ak_faktur_penjualan_rincian2/index/' . $faktur_penjualan_rincian_id . '/' . $faktur_penjualan_id. '/' . $penjualan_jasa_id. '/' . $pelanggan_id);
+  }
 
 
 

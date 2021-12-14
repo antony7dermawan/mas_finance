@@ -43,6 +43,10 @@
   <div class="card-block">
     <!-- Menampilkan notif !-->
     <?= $this->session->flashdata('notif') ?>
+
+
+
+   
     <!-- Tombol untuk menambah data akun !-->
 
     <div class="table-responsive dt-responsive">

@@ -31,6 +31,16 @@
     <button data-toggle="modal" data-target="#addModal" class="btn btn-success waves-effect waves-light">New Data</button>
 
 
+    <?php
+    echo "<a class='btn btn-warning waves-effect waves-light' href='" . site_url('c_t_ak_faktur_penjualan_rincian2/call_all/'.$faktur_penjualan_rincian_id.'/'.$faktur_penjualan_id.'/'.$penjualan_jasa_id.'/'.$pelanggan_id) . "' ";
+    echo "onclick=\"return confirm('Apakah kamu yakin ingin memanggil semua nomor SPB ini?')\"";
+    echo "> Semua SPB</a>";
+
+
+
+    ?>
+
+
     <div class="table-responsive dt-responsive">
       <table id="dom-jqry" class="table table-striped table-bordered nowrap">
         <thead>
