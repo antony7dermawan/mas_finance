@@ -330,43 +330,47 @@ class C_t_ak_terima_pelanggan extends MY_Controller
         $db_k_id = $value->DB_K_ID;
       }
       $total_adm_bank = floatval($sum_adm_bank);
-      if ($db_k_id == 1) #kode 1 debit / 2 kredit
+      if($total_adm_bank>0)
       {
-        $data = array(
-          'DATE' => $date_move,
-          'TIME' => $time_move,
-          'CREATED_BY' => $this->session->userdata('username'),
-          'UPDATED_BY' => $this->session->userdata('username'),
-          'COA_ID' => $coa_id_beban_adm_bank,
-          'DEBIT' => round($total_adm_bank),
-          'KREDIT' => 0,
-          'CATATAN' => 'Pembayaran Inv : ' . $no_form,
-          'DEPARTEMEN' => '0',
-          'NO_VOUCER' => $no_form,
-          'CREATED_ID' => $created_id,
-          'CHECKED_ID' => 1,
-          'SPECIAL_ID' => 0
-        );
+        if ($db_k_id == 1) #kode 1 debit / 2 kredit
+        {
+          $data = array(
+            'DATE' => $date_move,
+            'TIME' => $time_move,
+            'CREATED_BY' => $this->session->userdata('username'),
+            'UPDATED_BY' => $this->session->userdata('username'),
+            'COA_ID' => $coa_id_beban_adm_bank,
+            'DEBIT' => round($total_adm_bank),
+            'KREDIT' => 0,
+            'CATATAN' => 'Pembayaran Inv : ' . $no_form,
+            'DEPARTEMEN' => '0',
+            'NO_VOUCER' => $no_form,
+            'CREATED_ID' => $created_id,
+            'CHECKED_ID' => 1,
+            'SPECIAL_ID' => 0
+          );
+        }
+        if ($db_k_id == 2) #kode 1 debit / 2 kredit
+        {
+          $data = array(
+            'DATE' => $date_move,
+            'TIME' => $time_move,
+            'CREATED_BY' => $this->session->userdata('username'),
+            'UPDATED_BY' => $this->session->userdata('username'),
+            'COA_ID' => $coa_id_beban_adm_bank,
+            'DEBIT' => 0,
+            'KREDIT' => round($total_adm_bank),
+            'CATATAN' => 'Pembayaran Inv : ' . $no_form,
+            'DEPARTEMEN' => '0',
+            'NO_VOUCER' => $no_form,
+            'CREATED_ID' => $created_id,
+            'CHECKED_ID' => 1,
+            'SPECIAL_ID' => 0
+          );
+        }
+        $this->m_t_ak_jurnal->tambah($data);
       }
-      if ($db_k_id == 2) #kode 1 debit / 2 kredit
-      {
-        $data = array(
-          'DATE' => $date_move,
-          'TIME' => $time_move,
-          'CREATED_BY' => $this->session->userdata('username'),
-          'UPDATED_BY' => $this->session->userdata('username'),
-          'COA_ID' => $coa_id_beban_adm_bank,
-          'DEBIT' => 0,
-          'KREDIT' => round($total_adm_bank),
-          'CATATAN' => 'Pembayaran Inv : ' . $no_form,
-          'DEPARTEMEN' => '0',
-          'NO_VOUCER' => $no_form,
-          'CREATED_ID' => $created_id,
-          'CHECKED_ID' => 1,
-          'SPECIAL_ID' => 0
-        );
-      }
-      $this->m_t_ak_jurnal->tambah($data);
+      
       #.....................................................................................done 
 
 
@@ -392,43 +396,47 @@ class C_t_ak_terima_pelanggan extends MY_Controller
 
 
       $total_beban_selisih_pembulatan = floatval($up_total_transaksi) - floatval($total_transaksi);
-      if ($db_k_id == 1) #kode 1 debit / 2 kredit
+      if($total_beban_selisih_pembulatan>0)
       {
-        $data = array(
-          'DATE' => $date_move,
-          'TIME' => $time_move,
-          'CREATED_BY' => $this->session->userdata('username'),
-          'UPDATED_BY' => $this->session->userdata('username'),
-          'COA_ID' => $coa_id_beban_selisih_pembulatan,
-          'DEBIT' => round($total_beban_selisih_pembulatan),
-          'KREDIT' => 0,
-          'CATATAN' => 'Pembayaran Inv : ' . $no_form,
-          'DEPARTEMEN' => '0',
-          'NO_VOUCER' => $no_form,
-          'CREATED_ID' => $created_id,
-          'CHECKED_ID' => 1,
-          'SPECIAL_ID' => 0
-        );
+        if ($db_k_id == 1) #kode 1 debit / 2 kredit
+        {
+          $data = array(
+            'DATE' => $date_move,
+            'TIME' => $time_move,
+            'CREATED_BY' => $this->session->userdata('username'),
+            'UPDATED_BY' => $this->session->userdata('username'),
+            'COA_ID' => $coa_id_beban_selisih_pembulatan,
+            'DEBIT' => round($total_beban_selisih_pembulatan),
+            'KREDIT' => 0,
+            'CATATAN' => 'Pembayaran Inv : ' . $no_form,
+            'DEPARTEMEN' => '0',
+            'NO_VOUCER' => $no_form,
+            'CREATED_ID' => $created_id,
+            'CHECKED_ID' => 1,
+            'SPECIAL_ID' => 0
+          );
+        }
+        if ($db_k_id == 2) #kode 1 debit / 2 kredit
+        {
+          $data = array(
+            'DATE' => $date_move,
+            'TIME' => $time_move,
+            'CREATED_BY' => $this->session->userdata('username'),
+            'UPDATED_BY' => $this->session->userdata('username'),
+            'COA_ID' => $coa_id_beban_selisih_pembulatan,
+            'DEBIT' => 0,
+            'KREDIT' => round($total_beban_selisih_pembulatan),
+            'CATATAN' => 'Pembayaran Inv : ' . $no_form,
+            'DEPARTEMEN' => '0',
+            'NO_VOUCER' => $no_form,
+            'CREATED_ID' => $created_id,
+            'CHECKED_ID' => 1,
+            'SPECIAL_ID' => 0
+          );
+        }
+        $this->m_t_ak_jurnal->tambah($data);
       }
-      if ($db_k_id == 2) #kode 1 debit / 2 kredit
-      {
-        $data = array(
-          'DATE' => $date_move,
-          'TIME' => $time_move,
-          'CREATED_BY' => $this->session->userdata('username'),
-          'UPDATED_BY' => $this->session->userdata('username'),
-          'COA_ID' => $coa_id_beban_selisih_pembulatan,
-          'DEBIT' => 0,
-          'KREDIT' => round($total_beban_selisih_pembulatan),
-          'CATATAN' => 'Pembayaran Inv : ' . $no_form,
-          'DEPARTEMEN' => '0',
-          'NO_VOUCER' => $no_form,
-          'CREATED_ID' => $created_id,
-          'CHECKED_ID' => 1,
-          'SPECIAL_ID' => 0
-        );
-      }
-      $this->m_t_ak_jurnal->tambah($data);
+      
       #.....................................................................................done 
 
 

@@ -87,7 +87,7 @@ class C_terima_pelanggan_print extends MY_Controller
     $pdf->Cell(80, 5, "Bank:", 1, 0, 'C');
     $pdf->Cell(30, 5, "Nilai Tukar", 1, 0, 'C');
     $pdf->Cell(30, 5, "Mata Uang", 1, 0, 'C');
-    $pdf->Cell(40, 5, "Jumlah Cek", 1, 1, 'C');
+    $pdf->Cell(40, 5, "Jumlah", 1, 1, 'C');
 
 
     $total_pembayaran = 0;
