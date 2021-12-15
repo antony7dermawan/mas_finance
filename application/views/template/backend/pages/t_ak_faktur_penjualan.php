@@ -75,7 +75,7 @@
 
             if(intval($value->SUM_TOTAL_PENJUALAN)!=0)
             {
-              echo "<a href='" . site_url('c_t_ak_faktur_penjualan/update_enable_edit/' . $value->ID) . "/" . intval($value->SUM_TOTAL_PENJUALAN) . "/1/" . $value->ENABLE_EDIT . "'"; #/1 ini artinya kena pajak
+              echo "<a href='" . site_url('c_t_ak_faktur_penjualan/update_enable_edit/' . $value->ID) ; #/1 ini artinya kena pajak
 
               echo "onclick= 'p_1_" . $key . "()'";
               if ($value->ENABLE_EDIT == 1) {

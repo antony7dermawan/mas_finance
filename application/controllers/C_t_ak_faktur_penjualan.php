@@ -70,7 +70,8 @@ class C_t_ak_faktur_penjualan extends MY_Controller
   }
   
 
-  function update_enable_edit($id,$sum_total_penjualan,$ppn_logic,$enable_edit)
+
+  function update_enable_edit($id)
   {
     $read_select = $this->m_t_ak_faktur_penjualan->select_by_id($id);
     foreach ($read_select as $key => $value) 
@@ -78,6 +79,9 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       $no_faktur=$value->NO_FAKTUR;
       $date_move = $value->DATE;
       $time_move = $value->TIME;
+
+      $sum_total_tagihan = $value->SUM_TOTAL_TAGIHAN;
+      $sum_total_tagihan_ppn = $value->SUM_TOTAL_TAGIHAN_PPN
     }
 
 
@@ -86,7 +90,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
     {
       $created_id = strtotime(date('Y-m-d H:i:s'));
       $coa_id = 0;
-      $coa_id_dpp = 'taik';
+      $coa_id_dpp = '';
       $read_select = $this->m_t_ak_faktur_penjualan_print_setting->select_id(1);
       foreach ($read_select as $key => $value) 
       {
@@ -107,7 +111,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
         'CREATED_BY' => $this->session->userdata('username'),
         'UPDATED_BY' => $this->session->userdata('username'),
         'COA_ID' => $coa_id_dpp,
-        'DEBIT' => intval($sum_total_penjualan),
+        'DEBIT' => intval($sum_total_tagihan),
         'KREDIT' => 0,
         'CATATAN' => 'FAKTUR PENJUALAN : '.$no_faktur,
         'DEPARTEMEN' => '0',
@@ -127,7 +131,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
         'UPDATED_BY' => $this->session->userdata('username'),
         'COA_ID' => $coa_id_dpp,
         'DEBIT' => 0,
-        'KREDIT' => intval($sum_total_penjualan),
+        'KREDIT' => intval($sum_total_tagihan),
         'CATATAN' => 'FAKTUR PENJUALAN : '.$no_faktur,
         'DEPARTEMEN' => '0',
         'NO_VOUCER' => $no_faktur,
@@ -152,49 +156,51 @@ class C_t_ak_faktur_penjualan extends MY_Controller
         $db_k_id=$value->DB_K_ID;
       }
       $ppn=0;
-      if($ppn_logic==1)
+      
+
+      if($sum_total_tagihan_ppn>0)
       {
-        $ppn = (intval($sum_total_penjualan) * 10)/100;
+        if($db_k_id==1)#kode 1 debit / 2 kredit
+        {
+          $data = array(
+            'DATE' => $date_move,
+            'TIME' => $time_move,
+            'CREATED_BY' => $this->session->userdata('username'),
+            'UPDATED_BY' => $this->session->userdata('username'),
+            'COA_ID' => $coa_id_ppn,
+            'DEBIT' => intval($sum_total_tagihan_ppn),
+            'KREDIT' => 0,
+            'CATATAN' => 'FAKTUR PENJUALAN : '.$no_faktur,
+            'DEPARTEMEN' => '0',
+            'NO_VOUCER' => $no_faktur,
+            'CREATED_ID' => $created_id,
+            'CHECKED_ID' => 1,
+            'SPECIAL_ID' => 0,
+            'COMPANY_ID' => $this->session->userdata('company_id')
+            );
+          }
+          if($db_k_id==2)#kode 1 debit / 2 kredit
+          {
+            $data = array(
+            'DATE' => $date_move,
+            'TIME' => $time_move,
+            'CREATED_BY' => $this->session->userdata('username'),
+            'UPDATED_BY' => $this->session->userdata('username'),
+            'COA_ID' => $coa_id_ppn,
+            'DEBIT' => 0,
+            'KREDIT' => intval($sum_total_tagihan_ppn),
+            'CATATAN' => 'FAKTUR PENJUALAN : '.$no_faktur,
+            'DEPARTEMEN' => '0',
+            'NO_VOUCER' => $no_faktur,
+            'CREATED_ID' => $created_id,
+            'CHECKED_ID' => 1,
+            'SPECIAL_ID' => 0,
+            'COMPANY_ID' => $this->session->userdata('company_id')
+            );
+          }
+          $this->m_t_ak_jurnal->tambah($data);
       }
-      if($db_k_id==1)#kode 1 debit / 2 kredit
-      {
-        $data = array(
-        'DATE' => $date_move,
-        'TIME' => $time_move,
-        'CREATED_BY' => $this->session->userdata('username'),
-        'UPDATED_BY' => $this->session->userdata('username'),
-        'COA_ID' => $coa_id_ppn,
-        'DEBIT' => intval($ppn),
-        'KREDIT' => 0,
-        'CATATAN' => 'FAKTUR PENJUALAN : '.$no_faktur,
-        'DEPARTEMEN' => '0',
-        'NO_VOUCER' => $no_faktur,
-        'CREATED_ID' => $created_id,
-        'CHECKED_ID' => 1,
-        'SPECIAL_ID' => 0,
-        'COMPANY_ID' => $this->session->userdata('company_id')
-        );
-      }
-      if($db_k_id==2)#kode 1 debit / 2 kredit
-      {
-        $data = array(
-        'DATE' => $date_move,
-        'TIME' => $time_move,
-        'CREATED_BY' => $this->session->userdata('username'),
-        'UPDATED_BY' => $this->session->userdata('username'),
-        'COA_ID' => $coa_id_ppn,
-        'DEBIT' => 0,
-        'KREDIT' => intval($ppn),
-        'CATATAN' => 'FAKTUR PENJUALAN : '.$no_faktur,
-        'DEPARTEMEN' => '0',
-        'NO_VOUCER' => $no_faktur,
-        'CREATED_ID' => $created_id,
-        'CHECKED_ID' => 1,
-        'SPECIAL_ID' => 0,
-        'COMPANY_ID' => $this->session->userdata('company_id')
-        );
-      }
-      $this->m_t_ak_jurnal->tambah($data);
+      
       #.....................................................................................done jurnal dpp
 
       $coa_id_piutang_dagang = 0;
@@ -209,7 +215,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
         $coa_id_piutang_dagang=$value->ID;
         $db_k_id=$value->DB_K_ID;
       }
-      $piutang_dagang = intval($sum_total_penjualan) + intval($ppn);
+      $piutang_dagang = intval($sum_total_penjualan) + intval($sum_total_tagihan_ppn);
       if($db_k_id==1)#kode 1 debit / 2 kredit
       {
         $data = array(
