@@ -72,18 +72,7 @@
 
               if ($value->SUM_SUB_TOTAL != 0)
               {
-                echo "<a "; #/1 ini artinya kena pajak
-
-                echo "onclick= 'p_1_" . $key . "()'";
-                
-                echo "> <i class='text-c-black'>P1</i></a> ";
-
-                echo "<script>";
-                echo "function p_1_" . $key . "()";
-                echo "{";
-                echo "window.open('laporan_pdf/c_penjualan_jasa_3_print_1/index/" . $value->ID . "');";
-                echo "}";
-                echo "</script>";
+                //print
 
 
                 if($value->ENABLE_EDIT==0)

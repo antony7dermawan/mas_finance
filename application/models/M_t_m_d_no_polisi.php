@@ -31,6 +31,43 @@ public function select_id($id)
   } 
 
 
+
+
+  public function select_neraca_bulanan()
+  {
+    $this->db->select('T_M_D_NO_POLISI.ID');
+    $this->db->select('T_M_D_NO_POLISI.NO_POLISI');
+    $this->db->select('T_M_D_NO_POLISI.NO_UNIT');
+    $this->db->select('T_M_D_NO_POLISI.CREATED_BY');
+    $this->db->select('T_M_D_NO_POLISI.UPDATED_BY');
+    $this->db->select('T_M_D_NO_POLISI.MARK_FOR_DELETE');
+    $this->db->select('T_M_D_JENIS_KENDARAAN.JENIS_KENDARAAN');
+
+    $this->db->from('T_M_D_NO_POLISI');
+
+
+    $this->db->join('T_M_D_JENIS_KENDARAAN', 'T_M_D_JENIS_KENDARAAN.ID = T_M_D_NO_POLISI.JENIS_KENDARAAN_ID', 'left');
+
+    
+
+
+    $this->db->where('T_M_D_NO_POLISI.MARK_FOR_DELETE',FALSE);
+    
+
+
+    
+    $this->db->order_by("NO_POLISI", "asc");
+    $akun = $this->db->get ();
+    return $akun->result ();
+  }
+
+
+
+
+
+
+
+
   public function select()
   {
     $this->db->select('T_M_D_NO_POLISI.ID');

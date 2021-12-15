@@ -15,6 +15,7 @@
 
 
 
+
     </form>
   </div>
   <div class="card-block">
@@ -76,16 +77,16 @@
 
               if ($value->SUM_SUB_TOTAL != 0)
               {
-                echo "<a "; #/1 ini artinya kena pajak
+                echo "<a class='fa fa-file-excel-o text-c-green'"; #/1 ini artinya kena pajak
 
                 echo "onclick= 'p_1_" . $key . "()'";
                 
-                echo "> <i class='text-c-black'>P1</i></a> ";
+                echo "> </a> ";
 
                 echo "<script>";
                 echo "function p_1_" . $key . "()";
                 echo "{";
-                echo "window.open('laporan_pdf/c_penjualan_jasa_print_1/index/" . $value->ID . "');";
+                echo "window.open('laporan_excel/lap_rekapitulasi/index/" . $value->ID . "');";
                 echo "}";
                 echo "</script>";
 
