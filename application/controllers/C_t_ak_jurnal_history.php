@@ -52,14 +52,26 @@ class C_t_ak_jurnal_history extends MY_Controller
       $db_k_id = $value->DB_K_ID;
     }
 
-    if($db_k_id==1)#kode 1 debit / 2 kredit
-    {
-      $saldo_awal = $sum_debit - $sum_kredit;
-    }
+    // if($db_k_id==1)#kode 1 debit / 2 kredit
+    // {
+    //   $saldo_awal = $sum_debit - $sum_kredit;
+    // }
 
-    if($db_k_id==2)#kode 1 debit / 2 kredit
+    // if($db_k_id==2)#kode 1 debit / 2 kredit
+    // {
+    //   $saldo_awal = $sum_kredit - $sum_debit;
+    // }
+
+
+
+    $saldo_awal = 0;
+    if($sum_kredit>$sum_debit)
     {
       $saldo_awal = $sum_kredit - $sum_debit;
+    }
+    if($sum_kredit<$sum_debit)
+    {
+      $saldo_awal = $sum_debit - $sum_kredit;
     }
 
 

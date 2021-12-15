@@ -70,6 +70,7 @@
 
           $total_debit = 0;
           $total_kredit = 0;
+       
           foreach ($c_t_ak_jurnal_history as $key => $value) {
 
             if ($value->NO_AKUN_3 != '') {

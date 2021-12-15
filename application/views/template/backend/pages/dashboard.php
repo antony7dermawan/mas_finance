@@ -113,7 +113,6 @@ if($level_user_id==1 or $level_user_id==6)
                           echo "<td>Rp" . number_format(($value->SUM_TOTAL_TAGIHAN + $value->SUM_TOTAL_TAGIHAN_PPN),2,'.',',') . "</td>";
 
                           echo "<td>Rp" . number_format(($value->PAYMENT_T),2,'.',',') . "</td>";
-
                         }
                         
 
