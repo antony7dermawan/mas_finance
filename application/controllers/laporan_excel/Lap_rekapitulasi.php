@@ -223,6 +223,11 @@
 
 
                   $alpa++;
+                  $sheet->setCellValue($alpa.$row, 'Susut (Kg)');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
+
+
+                  $alpa++;
                   $sheet->setCellValue($alpa.$row, 'Keterangan');
                   $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
 
@@ -282,8 +287,11 @@
                         $r_bruto_pabrik[$key]=$value->BRUTO_PABRIK;
                         $r_tara_pabrik[$key]=$value->TARA_PABRIK;
                         $r_value_pabrik[$key]=$value->VALUE_PABRIK;
+                        $r_value_pabrik[$key]=$value->VALUE_PABRIK;
+                        $r_value_susut[$key]=$value->VALUE_SUSUT;
 
                         $r_ket[$key]=$value->KET;
+
 
 
 
@@ -359,6 +367,12 @@
 
                             $alpa++;
                             $sheet->setCellValue($alpa.$row, $r_value_pabrik[$i]);
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('right');
+
+
+
+                            $alpa++;
+                            $sheet->setCellValue($alpa.$row, $r_value_susut[$i]);
                             $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('right');
 
 
