@@ -71,7 +71,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
   
 
 
-  function update_enable_edit($id)
+  function update_enable_edit($id,$enable_edit)
   {
     $read_select = $this->m_t_ak_faktur_penjualan->select_by_id($id);
     foreach ($read_select as $key => $value) 
@@ -215,7 +215,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
         $coa_id_piutang_dagang=$value->ID;
         $db_k_id=$value->DB_K_ID;
       }
-      $piutang_dagang = intval($sum_total_penjualan) + intval($sum_total_tagihan_ppn);
+      $piutang_dagang = intval($sum_total_tagihan) + intval($sum_total_tagihan_ppn);
       if($db_k_id==1)#kode 1 debit / 2 kredit
       {
         $data = array(
