@@ -91,7 +91,8 @@ if($level_user_id==1 or $level_user_id==6)
                         <th>Pelanggan</th>
                         <th>Invoice</th>
                         <th>Tanggal</th>
-                        <th>Jumlah</th>
+                        <th>Total Tagihan</th>
+                        <th>Tagihan Real</th>
                         <th>Sudah Dibayarkan</th>
                       </tr>
                     </thead>
@@ -108,6 +109,9 @@ if($level_user_id==1 or $level_user_id==6)
                           echo "<td>" . $value->NO_FAKTUR . "</td>";
                           echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . "</td>";
                           echo "<td>Rp" . number_format(($value->SUM_TOTAL_PENJUALAN + $value->SUM_TOTAL_TAGIHAN_PPN - $value->SUM_VALUE_DISKON - $value->SUM_VALUE_PPH),2,'.',',') . "</td>";
+
+                          echo "<td>Rp" . number_format(($value->SUM_TOTAL_TAGIHAN + $value->SUM_TOTAL_TAGIHAN_PPN),2,'.',',') . "</td>";
+
                           echo "<td>Rp" . number_format(($value->PAYMENT_T),2,'.',',') . "</td>";
 
                         }
