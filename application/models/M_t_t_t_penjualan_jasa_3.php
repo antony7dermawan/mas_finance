@@ -175,6 +175,7 @@ public function select_by_date($date_from,$date_to,$type_id)
 
 
     $this->db->select("SUM_SUB_TOTAL");
+    $this->db->select("SUM_ID");
 
    
 
@@ -186,7 +187,7 @@ public function select_by_date($date_from,$date_to,$type_id)
     $this->db->join('T_M_D_PELANGGAN', 'T_M_D_PELANGGAN.ID = T_T_T_PENJUALAN_JASA.PELANGGAN_ID', 'left');
 
 
-
+    $this->db->join("(select \"PENJUALAN_JASA_ID\",sum(\"ID\")\"SUM_ID\" from \"T_T_T_PENJUALAN_JASA_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PENJUALAN_JASA_ID\") as t_sum_3", 'T_T_T_PENJUALAN_JASA.ID = t_sum_3.PENJUALAN_JASA_ID', 'left');
 
 
     $this->db->join("(select \"PENJUALAN_JASA_ID\",sum(\"SUB_TOTAL\")\"SUM_SUB_TOTAL\" from \"T_T_T_PENJUALAN_JASA_RINCIAN\" where \"MARK_FOR_DELETE\"=false group by \"PENJUALAN_JASA_ID\") as t_sum_1", 'T_T_T_PENJUALAN_JASA.ID = t_sum_1.PENJUALAN_JASA_ID', 'left');
