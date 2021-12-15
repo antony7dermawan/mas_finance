@@ -81,7 +81,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       $time_move = $value->TIME;
 
       $sum_total_tagihan = $value->SUM_TOTAL_TAGIHAN;
-      $sum_total_tagihan_ppn = $value->SUM_TOTAL_TAGIHAN_PPN
+      $sum_total_tagihan_ppn = $value->SUM_TOTAL_TAGIHAN_PPN;
     }
 
 
