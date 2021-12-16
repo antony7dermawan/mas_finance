@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class c_t_ak_jurnal_print extends MY_Controller
+class C_t_ak_jurnal_print2 extends MY_Controller
 {
 
   public function __construct()
@@ -81,7 +81,7 @@ class c_t_ak_jurnal_print extends MY_Controller
 
 
 
-    $pdf->Cell(25, 6, "No. Akun:", 1, 0, 'C');
+    $pdf->Cell(25, 6, "No.", 1, 0, 'C');
     $pdf->Cell(50, 6, "Nama Akun", 1, 0, 'C');
     $pdf->Cell(30, 6, "Debit", 1, 0, 'C');
     $pdf->Cell(30, 6, "Kredit", 1, 0, 'C');
@@ -159,7 +159,7 @@ class c_t_ak_jurnal_print extends MY_Controller
 
         $pdf->Cell(30, 1, "", 0, 1, 'C');
 
-        $pdf->Cell(25, 6, "No. Akun:", 1, 0, 'C');
+        $pdf->Cell(25, 6, "No.", 1, 0, 'C');
         $pdf->Cell(50, 6, "Nama Akun", 1, 0, 'C');
         $pdf->Cell(30, 6, "Debit", 1, 0, 'C');
         $pdf->Cell(30, 6, "Kredit", 1, 0, 'C');
@@ -168,7 +168,7 @@ class c_t_ak_jurnal_print extends MY_Controller
       }
       $pdf->SetFont('','',8);
 
-      $pdf->MultiCell(25, 8, $no_akun[$i], 'L', 'L',0,0);
+      $pdf->MultiCell(25, 8, ($i+1), 'L', 'C',0,0);
       $pdf->MultiCell(50, 8, substr($nama_akun[$i], 0, 60), 'L', 'L',0,0);
       $pdf->MultiCell(30, 8, number_format($debit[$i]), 'L', 'C',0,0);
       $pdf->MultiCell(30, 8, number_format($kredit[$i]), 'L', 'C',0,0);
@@ -220,7 +220,7 @@ class c_t_ak_jurnal_print extends MY_Controller
     $pdf->Cell(25, 6, "Keterangan", 0, 0, 'R');
     $pdf->MultiCell(160, 6,$catatan[$total_akun], 1, 'L',0,1);
 
-       $pdf->Cell(50, 6, "Dibuat:", 0, 0, 'C');
+        $pdf->Cell(50, 6, "Dibuat:", 0, 0, 'C');
         $pdf->Cell(5, 6, "", 0, 0, 'C');
         $pdf->Cell(50, 6, "Diperiksa:", 0, 0, 'C');
         $pdf->Cell(5, 6, "", 0, 0, 'C');

@@ -283,6 +283,20 @@
               echo "</script>";
 
 
+              echo "<a "; #/1 ini artinya kena pajak
+
+              echo "onclick= 'p_2_" . $key . "()'";
+
+              echo "> <i class='fa fa-print text-c-blue'></i></a> ";
+
+              echo "<script>";
+              echo "function p_2_" . $key . "()";
+              echo "{";
+              echo "window.open('laporan_pdf/c_t_ak_jurnal_print2/index/" . $value->CREATED_ID . "');";
+              echo "}";
+              echo "</script>";
+
+
               if($value->CHECKED_ID == 1)
               {
                 echo "<a href='" . site_url('c_t_ak_jurnal/delete/' . $value->CREATED_ID) . "' ";

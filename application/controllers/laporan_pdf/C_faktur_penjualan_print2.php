@@ -62,7 +62,7 @@ class c_faktur_penjualan_print2 extends MY_Controller
 
 
       $sum_total_tagihan=$value->SUM_TOTAL_TAGIHAN;
-      $sum_total_tagihan_ppn=$value->SUM_TOTAL_TAGIHAN_PPN;
+      $sum_total_tagihan_ppn=round($value->SUM_TOTAL_TAGIHAN_PPN);
 
       $sum_value_diskon=$value->SUM_VALUE_DISKON;
       $sum_value_pph=$value->SUM_VALUE_PPH;
@@ -105,7 +105,7 @@ class c_faktur_penjualan_print2 extends MY_Controller
 
         $pdf->SetFont('','',10);
         $pdf->Cell( 10,5,'Kpd','0',0,'L');
-        $pdf->Cell( 60,5,':'.$pelanggan,'0',1,'L');
+        $pdf->MultiCell(70, 8,':  '.substr($pelanggan, 0, 50), '0', 'L',0,1);
 
 
         $pdf->Cell( 10,5,'Di','0',0,'L');
