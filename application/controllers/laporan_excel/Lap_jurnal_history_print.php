@@ -108,15 +108,9 @@
                 }
 
                  $saldo_awal = 0;
-                  if($sum_kredit>$sum_debit)
-                  {
-                    $saldo_awal = $sum_kredit - $sum_debit;
-                  }
-                  if($sum_kredit<$sum_debit)
-                  {
+                 
                     $saldo_awal = $sum_debit - $sum_kredit;
-                  }
-
+                 
 
                 $read_select = $this->m_t_ak_jurnal_history->select($this->session->userdata('date_from_select_jurnal'),$this->session->userdata('date_to_select_jurnal'),$this->session->userdata('coa_id_jurnal_history'));
                 foreach ($read_select as $key => $value) 

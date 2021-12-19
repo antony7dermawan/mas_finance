@@ -65,14 +65,9 @@ class C_t_ak_jurnal_history extends MY_Controller
 
 
     $saldo_awal = 0;
-    if($sum_kredit>$sum_debit)
-    {
-      $saldo_awal = $sum_kredit - $sum_debit;
-    }
-    if($sum_kredit<$sum_debit)
-    {
+
       $saldo_awal = $sum_debit - $sum_kredit;
-    }
+    
 
 
     
