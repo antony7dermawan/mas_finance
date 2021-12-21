@@ -136,6 +136,7 @@ public function select_no_faktur()
 
 
 
+
 public function select_by_date($date_from,$date_to)
   {
     $this->db->select("T_AK_FAKTUR_PENJUALAN.ID");
@@ -201,9 +202,9 @@ public function select_by_date($date_from,$date_to)
 
 
 
-    //$this->db->join('T_AK_TERIMA_PELANGGAN_NO_FAKTUR', 'T_AK_FAKTUR_PENJUALAN.ID = T_AK_TERIMA_PELANGGAN_NO_FAKTUR.FAKTUR_PENJUALAN_ID', 'left');
+    $this->db->join('T_AK_TERIMA_PELANGGAN_NO_FAKTUR', 'T_AK_FAKTUR_PENJUALAN.ID = T_AK_TERIMA_PELANGGAN_NO_FAKTUR.FAKTUR_PENJUALAN_ID', 'left');
 
-    //$this->db->join('T_AK_TERIMA_PELANGGAN', 'T_AK_TERIMA_PELANGGAN.ID = T_AK_TERIMA_PELANGGAN_NO_FAKTUR.TERIMA_PELANGGAN_ID', 'left');
+    $this->db->join('T_AK_TERIMA_PELANGGAN', 'T_AK_TERIMA_PELANGGAN.ID = T_AK_TERIMA_PELANGGAN_NO_FAKTUR.TERIMA_PELANGGAN_ID', 'left');
 
 
 
