@@ -11,6 +11,7 @@ class C_dashboard extends MY_Controller
     $this->load->model('m_setting_db_supplier_coa');
     $this->load->model('m_setting_db_bank_coa');
     $this->load->model('m_t_ak_faktur_penjualan');
+    $this->load->model('m_t_m_d_pelanggan');
 
   }
 
@@ -22,8 +23,10 @@ class C_dashboard extends MY_Controller
     $data = [
       "c_setting_db_bank_coa" => $this->m_setting_db_bank_coa->select('2021-01-01','2100-01-01'),
       "c_setting_db_supplier_coa" => $this->m_setting_db_supplier_coa->select('2021-01-01','2100-01-01'),
-      "select_no_faktur" => $this->m_t_ak_faktur_penjualan->select_no_faktur(),
-      
+      //"select_no_faktur" => $this->m_t_ak_faktur_penjualan->select_no_faktur(),
+      "select_no_faktur" => $this->m_t_m_d_pelanggan->select_rekap_hutang_pelanggan(),
+
+
       "title" => $title,
       "description" => "Web Version:21-06-01 19:30"
     ];

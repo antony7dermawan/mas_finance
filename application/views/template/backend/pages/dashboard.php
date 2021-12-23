@@ -77,8 +77,8 @@ if($level_user_id==1 or $level_user_id==6)
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h5>Invoice</h5>
-                <span>List Tagihan Tagihan Pelanggan yang Belum Dibayarkan</span>
+                <h5>Rekap Hutang Pelanggan</h5>
+                <span>List Berdasarkan Nama Pelanggan</span>
 
               </div>
               <div class="card-block">
@@ -89,30 +89,30 @@ if($level_user_id==1 or $level_user_id==6)
                       <tr>
                         <th>No</th>
                         <th>Pelanggan</th>
-                        <th>Invoice</th>
-                        <th>Tanggal</th>
-                        <th>Total Tagihan</th>
+                      
                         <th>Tagihan Real</th>
                         <th>Sudah Dibayarkan</th>
                       </tr>
                     </thead>
                     <tbody>
                       <?php
-                      foreach ($select_no_faktur as $key => $value) {
-                        $nomor = $nomor +1;
 
-                        if(number_format(round($value->SUM_TOTAL_PENJUALAN*1.1))!=number_format(round($value->PAYMENT_T)))
+                      $nomor = 0;
+                      foreach ($select_no_faktur as $key => $value) {
+                        
+
+                        if(number_format(round($value->SUM_TOTAL_TAGIHAN + $value->SUM_TOTAL_TAGIHAN_PPN))!=number_format(round($value->SUM_PAYMENT_T)))
                         {
+
                           echo "<tr>";
                           echo "<td>" . ($nomor + 1) . "</td>";
                           echo "<td>" . $value->PELANGGAN . "</td>";
-                          echo "<td>" . $value->NO_FAKTUR . "</td>";
-                          echo "<td>" . date('d-m-Y', strtotime($value->DATE)) . "</td>";
-                          echo "<td>Rp" . number_format(($value->SUM_TOTAL_PENJUALAN + $value->SUM_TOTAL_TAGIHAN_PPN - $value->SUM_VALUE_DISKON - $value->SUM_VALUE_PPH),2,'.',',') . "</td>";
-
+                 
                           echo "<td>Rp" . number_format(($value->SUM_TOTAL_TAGIHAN + $value->SUM_TOTAL_TAGIHAN_PPN),2,'.',',') . "</td>";
 
-                          echo "<td>Rp" . number_format(($value->PAYMENT_T),2,'.',',') . "</td>";
+                          echo "<td>Rp" . number_format(($value->SUM_PAYMENT_T),2,'.',',') . "</td>";
+
+                          $nomor = $nomor +1;
                         }
                         
 
