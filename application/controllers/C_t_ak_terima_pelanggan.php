@@ -22,6 +22,9 @@ class C_t_ak_terima_pelanggan extends MY_Controller
     $this->load->model('m_t_ak_jurnal');
     $this->load->model('m_t_ak_terima_pelanggan_metode_bayar');
     $this->load->model('m_t_ak_terima_pelanggan_diskon');
+    $this->load->model('m_t_ak_terima_pelanggan_no_faktur');
+
+
 
 
     
@@ -90,6 +93,23 @@ class C_t_ak_terima_pelanggan extends MY_Controller
       $time_move = $value->TIME;
     }
 
+    $no_faktur = '';
+    $read_select = $this->m_t_ak_terima_pelanggan_no_faktur->select($id);
+    foreach ($read_select as $key => $value) 
+    {
+      if($key==0)
+      {
+        $no_faktur = $value->NO_FAKTUR;
+      }
+      else
+      {
+        $no_faktur = $no_faktur . ', '.$value->NO_FAKTUR;
+      }
+      
+    }
+
+    
+
     if ($enable_edit == 1) 
     {
       $created_id = strtotime(date('Y-m-d H:i:s'));
@@ -118,7 +138,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
               'COA_ID' => $coa_id,
               'DEBIT' => round($jumlah_per_bank),
               'KREDIT' => 0,
-              'CATATAN' => 'Pembayaran Inv : ' . $no_form,
+              'CATATAN' => 'Pembayaran Inv : ' . $no_faktur,
               'DEPARTEMEN' => '0',
               'NO_VOUCER' => $no_form,
               'CREATED_ID' => $created_id,
@@ -136,7 +156,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
               'COA_ID' => $coa_id,
               'DEBIT' => 0,
               'KREDIT' => round($jumlah_per_bank),
-              'CATATAN' => 'Pembayaran Inv : ' . $no_form,
+              'CATATAN' => 'Pembayaran Inv : ' . $no_faktur,
               'DEPARTEMEN' => '0',
               'NO_VOUCER' => $no_form,
               'CREATED_ID' => $created_id,
@@ -175,7 +195,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
               'COA_ID' => $coa_id,
               'DEBIT' => round($jumlah_per_diskon),
               'KREDIT' => 0,
-              'CATATAN' => 'Pembayaran Inv : ' . $no_form,
+              'CATATAN' => 'Pembayaran Inv : ' . $no_faktur,
               'DEPARTEMEN' => '0',
               'NO_VOUCER' => $no_form,
               'CREATED_ID' => $created_id,
@@ -193,7 +213,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
               'COA_ID' => $coa_id,
               'DEBIT' => 0,
               'KREDIT' => round($jumlah_per_diskon),
-              'CATATAN' => 'Pembayaran Inv : ' . $no_form,
+              'CATATAN' => 'Pembayaran Inv : ' . $no_faktur,
               'DEPARTEMEN' => '0',
               'NO_VOUCER' => $no_form,
               'CREATED_ID' => $created_id,
@@ -342,7 +362,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
             'COA_ID' => $coa_id_beban_adm_bank,
             'DEBIT' => round($total_adm_bank),
             'KREDIT' => 0,
-            'CATATAN' => 'Pembayaran Inv : ' . $no_form,
+            'CATATAN' => 'Pembayaran Inv : ' . $no_faktur,
             'DEPARTEMEN' => '0',
             'NO_VOUCER' => $no_form,
             'CREATED_ID' => $created_id,
@@ -360,7 +380,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
             'COA_ID' => $coa_id_beban_adm_bank,
             'DEBIT' => 0,
             'KREDIT' => round($total_adm_bank),
-            'CATATAN' => 'Pembayaran Inv : ' . $no_form,
+            'CATATAN' => 'Pembayaran Inv : ' . $no_faktur,
             'DEPARTEMEN' => '0',
             'NO_VOUCER' => $no_form,
             'CREATED_ID' => $created_id,
@@ -408,7 +428,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
             'COA_ID' => $coa_id_beban_selisih_pembulatan,
             'DEBIT' => round($total_beban_selisih_pembulatan),
             'KREDIT' => 0,
-            'CATATAN' => 'Pembayaran Inv : ' . $no_form,
+            'CATATAN' => 'Pembayaran Inv : ' . $no_faktur,
             'DEPARTEMEN' => '0',
             'NO_VOUCER' => $no_form,
             'CREATED_ID' => $created_id,
@@ -426,7 +446,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
             'COA_ID' => $coa_id_beban_selisih_pembulatan,
             'DEBIT' => 0,
             'KREDIT' => round($total_beban_selisih_pembulatan),
-            'CATATAN' => 'Pembayaran Inv : ' . $no_form,
+            'CATATAN' => 'Pembayaran Inv : ' . $no_faktur,
             'DEPARTEMEN' => '0',
             'NO_VOUCER' => $no_form,
             'CREATED_ID' => $created_id,
@@ -487,7 +507,7 @@ class C_t_ak_terima_pelanggan extends MY_Controller
           'COA_ID' => $coa_piutang_dagang,
           'DEBIT' => 0,
           'KREDIT' => round($total_piutang_dagang),
-          'CATATAN' => 'Pembayaran Inv : ' . $no_form,
+          'CATATAN' => 'Pembayaran Inv : ' . $no_faktur,
           'DEPARTEMEN' => '0',
           'NO_VOUCER' => $no_form,
           'CREATED_ID' => $created_id,

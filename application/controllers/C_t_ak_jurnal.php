@@ -61,9 +61,9 @@ class C_t_ak_jurnal extends MY_Controller
 
     $hourDiff=round(abs($date2 - $date1) / (60*60*24),0);
 
-    if($hourDiff>=31)
+    if($hourDiff>=10)
     {
-      $date_before = date('Y-m-d',(strtotime ( '-31 day' , strtotime ( $date_to_select_jurnal) ) ));
+      $date_before = date('Y-m-d',(strtotime ( '-10 day' , strtotime ( $date_to_select_jurnal) ) ));
       $this->session->set_userdata('date_from_select_jurnal', $date_before);
     }
 

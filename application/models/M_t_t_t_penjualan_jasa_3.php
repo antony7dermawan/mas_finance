@@ -376,6 +376,8 @@ public function select_date($pelanggan_id,$from_date,$to_date)
     
     $this->db->where('T_T_T_PENJUALAN_JASA.ENABLE_EDIT',1);
 
+    $this->db->where('T_T_T_PENJUALAN_JASA.SUB_TOTAL>0');
+
 
  
 
