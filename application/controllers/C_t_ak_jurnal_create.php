@@ -230,6 +230,8 @@ class C_t_ak_jurnal_create extends MY_Controller
     redirect('c_t_ak_jurnal_create');
   }
 
+
+
   function move()
   {
     $this->session->set_userdata('now_no_voucer', '');

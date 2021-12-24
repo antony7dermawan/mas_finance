@@ -121,6 +121,13 @@ public function select_created_id()
     return $akun->result ();
   }
 
+
+  public function delete_by_username()
+  {
+    $this->db->where("CREATED_BY='{$this->session->userdata('username')}'");
+    $this->db->delete('T_AK_JURNAL_EDIT');
+  }
+
   public function delete($id)
   {
     $this->db->where('ID',$id);

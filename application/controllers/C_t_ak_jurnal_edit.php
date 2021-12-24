@@ -57,12 +57,16 @@ class C_t_ak_jurnal_edit extends MY_Controller
   }
 
 
+
+
+
   public function delete($id)
   {
     $this->m_t_ak_jurnal_edit->delete($id);
     $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>Success!</strong> Data Berhasil DIhapus!</p></div>');
     redirect('/c_t_ak_jurnal_edit');
   }
+
 
 
 
@@ -182,6 +186,12 @@ class C_t_ak_jurnal_edit extends MY_Controller
     
     redirect('c_t_ak_jurnal_edit');
   }
+
+
+
+
+
+
 
   function move()
   {

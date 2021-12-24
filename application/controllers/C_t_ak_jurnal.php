@@ -111,6 +111,8 @@ class C_t_ak_jurnal extends MY_Controller
 
   function move($created_id)
   {
+    $this->m_t_ak_jurnal_edit->delete_by_username();
+
 
     $read_select = $this->m_t_ak_jurnal->select_created_id($created_id);
     foreach ($read_select as $key => $value) {
