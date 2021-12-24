@@ -69,6 +69,7 @@ class C_t_ak_faktur_penjualan_rincian extends MY_Controller
 
 
 
+
     $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
     redirect('c_t_ak_faktur_penjualan_rincian/index/' . $id . '/' . $pelanggan_id);
   }
