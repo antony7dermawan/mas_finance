@@ -259,7 +259,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
     }
 
     $data = array(
-      'ENABLE_EDIT' => 0
+      'ENABLE_EDIT' => 1
     );
 
     $this->m_t_ak_faktur_penjualan->update($data, $id);
