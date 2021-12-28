@@ -80,9 +80,19 @@ class C_t_ak_faktur_penjualan extends MY_Controller
       $date_move = $value->DATE;
       $time_move = $value->TIME;
 
-      $sum_total_tagihan = $value->SUM_TOTAL_TAGIHAN;
-      $sum_total_tagihan_ppn = $value->SUM_TOTAL_TAGIHAN_PPN;
+
+
+      $sum_value_diskon = $value->SUM_VALUE_DISKON;
+      $sum_total_tagihan = $value->SUM_TOTAL_TAGIHAN - $sum_value_diskon;
+      $sum_total_tagihan_ppn =0;
+      if($value->SUM_TOTAL_TAGIHAN_PPN>0)
+      {
+        $sum_total_tagihan_ppn = round(0.1 * $sum_total_tagihan);
+      }
+      
+      
     }
+
 
 
     
@@ -259,7 +269,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
     }
 
     $data = array(
-      'ENABLE_EDIT' => 1
+      'ENABLE_EDIT' => 0
     );
 
     $this->m_t_ak_faktur_penjualan->update($data, $id);

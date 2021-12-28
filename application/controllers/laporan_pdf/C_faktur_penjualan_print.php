@@ -61,8 +61,15 @@ class c_faktur_penjualan_print extends MY_Controller
 
 
 
-      $sum_total_tagihan=$value->SUM_TOTAL_TAGIHAN;
-      $sum_total_tagihan_ppn=round($value->SUM_TOTAL_TAGIHAN_PPN);
+      $sum_total_tagihan=$value->SUM_TOTAL_TAGIHAN - $value->SUM_VALUE_DISKON;
+
+
+
+      $sum_total_tagihan_ppn =0;
+      if($value->SUM_TOTAL_TAGIHAN_PPN>0)
+      {
+        $sum_total_tagihan_ppn = round(0.1 * $sum_total_tagihan);
+      }
 
       $sum_value_diskon=$value->SUM_VALUE_DISKON;
       $sum_value_pph=$value->SUM_VALUE_PPH;
@@ -284,7 +291,7 @@ class c_faktur_penjualan_print extends MY_Controller
     $pdf->Cell( $size[0]+$size[1],8,'','LT',0,'R');
     $pdf->Cell( $size[2]+$size[3],8,'Sub Total','LT',0,'L');
 
-    $pdf->Cell( $size[4],8,number_format(($sum_total_tagihan-$sum_value_diskon),2,'.',','),'LTR',1,'R');
+    $pdf->Cell( $size[4],8,number_format(($sum_total_tagihan),2,'.',','),'LTR',1,'R');
 
 
 
@@ -312,7 +319,7 @@ class c_faktur_penjualan_print extends MY_Controller
     }
 
 
-    $total_pembayaran = $sum_total_tagihan + $sum_total_tagihan_ppn - $sum_value_pph - $sum_value_diskon;
+    $total_pembayaran = $sum_total_tagihan + $sum_total_tagihan_ppn - $sum_value_pph ;
     $pdf->SetFont('','B',9);
     $pdf->Cell( $size[0]+$size[1],8,'','L',0,'R');
     $pdf->Cell( $size[2]+$size[3],8,'Total Pembayaran','L',0,'L');
