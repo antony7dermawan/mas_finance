@@ -170,10 +170,8 @@ public function update($data, $id)
     $this->db->where(" AK_M_COA.FAMILY_ID=3");
 
 
-    $this->db->where("SUM_DEBIT_AWAL>0");
-    $this->db->where("SUM_KREDIT_AWAL>0");
-    $this->db->where("SUM_DEBIT>0");
-    $this->db->where("SUM_KREDIT>0");
+    $this->db->where("SUM_DEBIT_AWAL>0 or SUM_KREDIT_AWAL>0 or SUM_DEBIT>0 or SUM_KREDIT>0");
+
 
     
 
