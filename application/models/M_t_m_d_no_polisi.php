@@ -91,6 +91,7 @@ public function select_id($id)
 
     $this->db->select('SUM_DEBIT_6110106');
     $this->db->select('SUM_KREDIT_6110106');
+    
 
     $this->db->select('SUM_DEBIT_6110105');
     $this->db->select('SUM_KREDIT_6110105');

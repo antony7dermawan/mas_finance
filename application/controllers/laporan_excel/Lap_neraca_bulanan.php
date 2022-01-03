@@ -333,6 +333,8 @@
 
 
                         $r_SUM_1310002[$key]=intval($value->SUM_DEBIT_1310002 - $value->SUM_KREDIT_1310002);
+
+                        
                         $r_SUM_6210104[$key]=intval($value->SUM_DEBIT_6210104 - $value->SUM_KREDIT_6210104);
                         $r_SUM_6110103[$key]=intval($value->SUM_DEBIT_6110103 - $value->SUM_KREDIT_6110103);
                         $r_SUM_6310104[$key]=intval($value->SUM_DEBIT_6310104 - $value->SUM_KREDIT_6310104);

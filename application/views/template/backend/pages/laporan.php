@@ -11,6 +11,9 @@
         if($level_user_id<8)
         {
 
+
+          echo "<option value='laporan_excel/lap_tagihan_per_payment_method/index/' >Laporan Tagihan per Metode Bayar</option>";
+
           echo "<option value='laporan_excel/lap_neraca_bulanan/index/' >Neraca Bulanan</option>";
 
 
@@ -65,6 +68,20 @@
       </div>
 
 
+      <div class='payment_method' id='payment_method'>
+        <label>Pilih Metode Bayar</label>
+            <select name="payment_method_id" class='' id='payment_method_id' placeholder='Pick a state...'>
+            
+            <?php
+            foreach ($c_t_m_d_payment_method as $key => $value) 
+            {
+              echo "<option value='".$value->ID."'>".$value->PAYMENT_METHOD."</option>";
+            }
+            ?>
+          </select>
+      </div>
+
+
       <table>
         <tr>
           <th>Periode:</th>
@@ -113,6 +130,7 @@ $(document).ready(function()
     {
       document.getElementById('sub').style.display = 'block';
       document.getElementById('pelanggan').style.display = 'none';
+      document.getElementById('payment_method').style.display = 'none';
 
     }
 
@@ -120,12 +138,21 @@ $(document).ready(function()
     {
       document.getElementById('sub').style.display = 'none';
       document.getElementById('pelanggan').style.display = 'block';
+      document.getElementById('payment_method').style.display = 'none';
+    }
+
+    else if(pilih_laporan=="laporan_excel/lap_tagihan_per_payment_method/index/")
+    {
+      document.getElementById('sub').style.display = 'none';
+      document.getElementById('pelanggan').style.display = 'none';
+      document.getElementById('payment_method').style.display = 'block';
     }
 
     else
     {
       document.getElementById('sub').style.display = 'none';
       document.getElementById('pelanggan').style.display = 'none';
+      document.getElementById('payment_method').style.display = 'none';
     }
     
   });
@@ -145,9 +172,10 @@ $(document).ready(function()
     var link_3 = document.getElementById("date_to_laporan").value;
     var link_4 = parseInt(document.getElementById("sub_id").value);
     var link_5 = parseInt(document.getElementById("pelanggan_id").value);
+    var link_6 = parseInt(document.getElementById("payment_method_id").value);
     var slash = "/";
 
-    var link = link_1.concat(link_2, slash, link_3, slash, link_4 ,slash ,link_5);
+    var link = link_1.concat(link_2, slash, link_3, slash, link_4 ,slash ,link_5,slash ,link_6);
     window.open(link);
   }
 </script>
@@ -171,6 +199,10 @@ $(document).ready(function()
   }
 
   .pelanggan
+  {
+    display: none;
+  }
+   .payment_method
   {
     display: none;
   }
