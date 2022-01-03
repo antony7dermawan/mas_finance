@@ -141,14 +141,9 @@
                         $r_sum_debit[$key]=floatval($value->SUM_DEBIT);
                         $r_sum_kredit[$key]=floatval($value->SUM_KREDIT);
 
-                    if($value->DB_K_ID==1)
-                    {
-                      $saldo_akhir[$key] = ($value->SUM_DEBIT - $value->SUM_KREDIT)+($value->SUM_DEBIT_AWAL - $value->SUM_KREDIT_AWAL);
-                    }
-                    if($value->DB_K_ID==2)
-                    {
-                      $saldo_akhir[$key] = ($value->SUM_KREDIT - $value->SUM_DEBIT)+($value->SUM_KREDIT_AWAL - $value->SUM_DEBIT_AWAL);
-                    }
+              
+                      $saldo_akhir[$key] = ($value->SUM_DEBIT_AWAL - $value->SUM_KREDIT_AWAL)+($value->SUM_DEBIT - $value->SUM_KREDIT);
+                    
                   }
                   $total_data = $key;
 
