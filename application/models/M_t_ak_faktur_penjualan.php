@@ -257,6 +257,10 @@ public function select_by_date_payment_method($date_from,$date_to,$payment_metho
 
 
 
+    $this->db->where("SUM_TOTAL_TAGIHAN>0");
+
+    
+
 
     $this->db->order_by("ID", "desc");
 
