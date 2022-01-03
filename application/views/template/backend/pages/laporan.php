@@ -18,6 +18,8 @@
 
           echo "<option value='laporan_excel/lap_do_global/index/' >Laporan DO Global</option>";
 
+          echo "<option value='laporan_excel/lap_do_global_per_pelanggan/index/' >Laporan DO Global per Pelanggan</option>";
+
           echo "<option value='laporan_excel/lap_trial_balance/index/' >Laporan Trial Balance</option>";
           echo "<option value='laporan_excel/lap_laba_rugi/index/' >Laporan Laba Rugi</option>";
           echo "<option value='laporan_excel/lap_neraca/index/' >Laporan Neraca</option>";
@@ -45,6 +47,21 @@
               }
               ?>
             </select>
+      </div>
+
+
+
+      <div class='pelanggan' id='pelanggan'>
+        <label>Pilih Pelanggan</label>
+            <select name="pelanggan_id" class='' id='pelanggan_id' placeholder='Pick a state...'>
+            
+            <?php
+            foreach ($c_t_m_d_pelanggan as $key => $value) 
+            {
+              echo "<option value='".$value->ID."'>".$value->PELANGGAN."</option>";
+            }
+            ?>
+          </select>
       </div>
 
 
@@ -95,15 +112,20 @@ $(document).ready(function()
     if(pilih_laporan=="laporan_excel/lap_jurnal_per_sub_akun/index/" || pilih_laporan=="laporan_excel/lap_saldo_akun_parent_1_per_sub_akun/index/")
     {
       document.getElementById('sub').style.display = 'block';
+      document.getElementById('pelanggan').style.display = 'none';
 
     }
 
-
-
+    else if(pilih_laporan=="laporan_excel/lap_do_global_per_pelanggan/index/")
+    {
+      document.getElementById('sub').style.display = 'none';
+      document.getElementById('pelanggan').style.display = 'block';
+    }
 
     else
     {
       document.getElementById('sub').style.display = 'none';
+      document.getElementById('pelanggan').style.display = 'none';
     }
     
   });
@@ -122,9 +144,10 @@ $(document).ready(function()
     var link_2 = document.getElementById("date_from_laporan").value;
     var link_3 = document.getElementById("date_to_laporan").value;
     var link_4 = parseInt(document.getElementById("sub_id").value);
+    var link_5 = parseInt(document.getElementById("pelanggan_id").value);
     var slash = "/";
 
-    var link = link_1.concat(link_2, slash, link_3, slash, link_4);
+    var link = link_1.concat(link_2, slash, link_3, slash, link_4 ,slash ,link_5);
     window.open(link);
   }
 </script>
@@ -147,7 +170,10 @@ $(document).ready(function()
     display: none;
   }
 
-
+  .pelanggan
+  {
+    display: none;
+  }
 
 
   div.searchable {
