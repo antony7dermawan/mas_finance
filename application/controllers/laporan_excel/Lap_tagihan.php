@@ -26,6 +26,7 @@
 
                 $this->load->model('m_t_t_t_penjualan_jasa_3');
                 $this->load->model('m_t_ak_faktur_penjualan');
+                $this->load->model('m_t_ak_faktur_penjualan_rincian');
                 
 
             }
@@ -48,7 +49,7 @@
 
 
                   $alp='A';
-                  $total_colom=27;
+                  $total_colom=28;
                   for($x=0;$x<=$total_colom;$x++)
                   {
                     $spreadsheet->getActiveSheet()
@@ -128,6 +129,10 @@
                   $sheet->setCellValue($alpa.$row, 'Keterangan Bawah');
                   $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
 
+
+                  $alpa++;
+                  $sheet->setCellValue($alpa.$row, 'Keterangan Semua DO');
+                  $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('center');
 
 
                   $alpa++;
@@ -212,7 +217,7 @@
 
 
                         $alp='A';
-                        $total_alp=22;
+                        $total_alp=23;
                         for($n=0;$n<=$total_alp;$n++)
                         {
                               $area = $alp.$row;
@@ -304,8 +309,28 @@
                             $sheet->setCellValue($alpa.$row, $r_no_faktur_pajak[$i]);
                             $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
 
+
+                            $no_do_lap_ini = '';
+                            $ket_do_lap_ini = '';
+                            $read_select_in = $this->m_t_ak_faktur_penjualan_rincian->select($r_id[$i]);
+                            foreach ($read_select_in as $key_in => $value_in) 
+                            {
+                              if($key_in==0)
+                              {
+                                $no_do_lap_ini = $value_in->NO_DO;
+                                $ket_do_lap_ini = $value_in->KET;
+                              }
+                              if($key_in>0)
+                              {
+                                $no_do_lap_ini = $no_do_lap_ini .' | '.$value_in->NO_DO;
+                                $ket_do_lap_ini = $ket_do_lap_ini .' | '.$value_in->KET;
+                              }
+                              
+                            }
+
+                            //tambahan  
                             $alpa++;
-                            $sheet->setCellValue($alpa.$row, $r_no_do[$i]);
+                            $sheet->setCellValue($alpa.$row, $no_do_lap_ini);
                             $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
 
                             $alpa++;
@@ -320,6 +345,10 @@
 
                             $alpa++;
                             $sheet->setCellValue($alpa.$row, $r_ket_bawah[$i]);
+                            $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
+
+                            $alpa++;
+                            $sheet->setCellValue($alpa.$row, $ket_do_lap_ini);
                             $sheet->getStyle($alpa.$row)->getAlignment()->setHorizontal('left');
 
 
