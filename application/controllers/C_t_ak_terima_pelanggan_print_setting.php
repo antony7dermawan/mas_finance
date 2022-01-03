@@ -41,7 +41,9 @@ class C_t_ak_terima_pelanggan_print_setting extends MY_Controller
     $data = array(
       'SETTING_ID' => $setting_id,
       'SETTING_NAME' => $setting_name,
-      'SETTING_VALUE' => $setting_value
+      'SETTING_VALUE' => $setting_value,
+      'COMPANY_ID' => $this->session->userdata('company_id')
+
     );
 
     $this->m_t_ak_terima_pelanggan_print_setting->tambah($data);

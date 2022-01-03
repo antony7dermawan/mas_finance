@@ -96,6 +96,7 @@ class C_t_ak_faktur_penjualan extends MY_Controller
 
 
     
+    
     if($enable_edit==1)
     {
       $created_id = strtotime(date('Y-m-d H:i:s'));

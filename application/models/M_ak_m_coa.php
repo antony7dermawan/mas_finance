@@ -41,6 +41,8 @@ public function update($data, $id)
     $this->db->from('AK_M_COA');
     $this->db->where("FAMILY_ID=3 and (NO_AKUN_3='{$no_akun}' or NO_AKUN_2='{$no_akun}' or NO_AKUN_1='{$no_akun}')");
 
+    
+
     $akun = $this->db->get ();
     return $akun->result ();
   }

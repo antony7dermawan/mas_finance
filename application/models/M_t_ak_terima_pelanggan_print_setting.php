@@ -17,6 +17,9 @@ public function select_id($id)
   $this->db->select('SETTING_VALUE');
   $this->db->from('T_AK_TERIMA_PELANGGAN_PRINT_SETTING');
   $this->db->where('SETTING_ID', $id);
+
+  $this->db->where("COMPANY_ID='{$this->session->userdata('company_id')}'");
+  
   $akun = $this->db->get ();
   return $akun->result ();
 }
