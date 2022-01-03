@@ -262,7 +262,7 @@ public function select_by_date_payment_method($date_from,$date_to,$payment_metho
     
 
 
-    $this->db->order_by("ID", "desc");
+    $this->db->order_by("NO_FAKTUR", "desc");
 
     $akun = $this->db->get ();
     return $akun->result ();
