@@ -101,6 +101,7 @@
                 }
 
 
+
                 $read_select = $this->m_ak_m_coa->select_coa_id($this->session->userdata('coa_id_jurnal_history'));
                 foreach ($read_select as $key => $value) 
                 {
