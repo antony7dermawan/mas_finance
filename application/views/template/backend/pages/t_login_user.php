@@ -10,6 +10,8 @@
     if($this->session->userdata('level_user_id')==1)
     {
       //echo "<button data-toggle='modal' data-target='#addModal' class='btn btn-success waves-effect waves-light'>New Data</button>";
+
+      
     }
     ?>
 
