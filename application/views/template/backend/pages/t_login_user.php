@@ -9,7 +9,7 @@
     <?php
     if($this->session->userdata('level_user_id')==1)
     {
-      echo "<button data-toggle='modal' data-target='#addModal' class='btn btn-success waves-effect waves-light'>New Data</button>";
+      //echo "<button data-toggle='modal' data-target='#addModal' class='btn btn-success waves-effect waves-light'>New Data</button>";
     }
     ?>
 
@@ -40,9 +40,11 @@
             
               echo "<td>";
                
-              echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='".$value->ID."'>";
-                echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
-              echo "</a>";
+              //echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#Modal_Edit' class='btn-edit' data-id='".$value->ID."'>";
+                //echo "<i class='icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green'></i>";
+              //echo "</a>";
+
+
               echo "<a href='".site_url('c_t_login_user/delete/' . $value->ID)."' ";
               ?>
               onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')"
